@@ -4,172 +4,472 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Image Resizer Online - Resize Image in KB, Width & Height | RG Digital</title>
+<title>Image Resizer Online - Resize Photo Free | RG Digital</title>
 
-<meta name="description" content="Free online image resizer to resize JPG, PNG and WebP images by width, height and approximate KB size. Easy image resizing tool for mobile, forms and documents.">
-
-<meta name="keywords" content="image resizer online, resize image online, resize image in kb, image size reducer, jpg image resizer, png image resizer, free image resizer">
+<meta name="description" content="Resize images online for free. Upload JPG, JPEG, PNG or WebP images, set width and height, preview and download resized photos using RG Digital.">
 
 <link rel="canonical" href="https://merameshwarg-debug.github.io/rg-digital-image-resizer/image-resizer.html">
 
 <style>
-*{box-sizing:border-box}
-
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f7fb;
-color:#202124;
-line-height:1.7;
+*{
+    box-sizing:border-box;
 }
 
-.wrap{
-max-width:900px;
-margin:30px auto;
-padding:20px;
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7fb;
+    color:#1f2937;
+}
+
+header{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:25px 15px;
+}
+
+header h1{
+    margin:0;
+    font-size:30px;
+}
+
+header p{
+    margin:7px 0 0;
+}
+
+.container{
+    max-width:850px;
+    margin:25px auto;
+    padding:0 15px;
 }
 
 .card{
-background:#fff;
-border-radius:18px;
-padding:28px;
-box-shadow:0 5px 24px rgba(0,0,0,.08);
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
-h1{
-font-size:32px;
-margin-top:0;
-color:#111827;
+.upload{
+    border:2px dashed #9ca3af;
+    border-radius:14px;
+    padding:30px 15px;
+    text-align:center;
+    margin-bottom:20px;
 }
 
-h2{
-margin-top:28px;
-color:#1f2937;
+input[type="file"]{
+    max-width:100%;
 }
 
-.btn{
-display:inline-block;
-padding:13px 20px;
-background:#111827;
-color:#fff;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold;
-margin:8px 5px 8px 0;
+.controls{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-top:20px;
 }
 
-.box{
-background:#f3f4f6;
-border-radius:12px;
-padding:18px;
-margin:18px 0;
+label{
+    font-weight:bold;
 }
 
-li{
-margin:7px 0;
+input[type="number"]{
+    width:100%;
+    padding:12px;
+    margin-top:7px;
+    border:1px solid #d1d5db;
+    border-radius:9px;
+    font-size:16px;
 }
 
-.nav{
-margin-bottom:20px;
-font-size:14px;
+.checkbox{
+    margin-top:15px;
 }
 
-.nav a{
-margin-right:12px;
-color:#2563eb;
-text-decoration:none;
+button{
+    border:0;
+    padding:13px 20px;
+    border-radius:9px;
+    background:#111827;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    margin:10px 5px 0 0;
 }
 
-.footer{
-margin-top:35px;
-padding-top:18px;
-border-top:1px solid #ddd;
-color:#666;
-font-size:14px;
+button:hover{
+    opacity:.9;
+}
+
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.preview{
+    text-align:center;
+    margin-top:25px;
+}
+
+.preview img{
+    max-width:100%;
+    max-height:500px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+.info{
+    background:#f3f4f6;
+    padding:15px;
+    border-radius:10px;
+    margin-top:15px;
+}
+
+.error{
+    color:#b91c1c;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.success{
+    color:#166534;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+nav{
+    text-align:center;
+    padding:15px;
+    background:white;
+}
+
+nav a{
+    color:#2563eb;
+    text-decoration:none;
+    margin:0 7px;
+    font-size:14px;
+}
+
+footer{
+    margin-top:30px;
+    padding:25px;
+    background:#111827;
+    color:white;
+    text-align:center;
+    font-size:14px;
+}
+
+footer a{
+    color:white;
+    margin:0 7px;
+    text-decoration:none;
+}
+
+@media(max-width:600px){
+    .controls{
+        grid-template-columns:1fr;
+    }
+
+    header h1{
+        font-size:25px;
+    }
+
+    .card{
+        padding:18px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrap">
+<header>
+    <h1>Image Resizer Online</h1>
+    <p>Resize JPG, JPEG, PNG & WebP Images Free</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="image-compressor.html">Compressor</a>
+    <a href="image-size-reducer.html">Size Reducer</a>
+    <a href="resize-image-to-20kb.html">20KB</a>
+    <a href="resize-image-to-50kb.html">50KB</a>
+    <a href="resize-image-to-100kb.html">100KB</a>
+</nav>
+
+<div class="container">
+
 <div class="card">
 
-<div class="nav">
-<a href="index.html">Home</a>
+<div class="upload">
+    <h2>Select Your Image</h2>
+    <p>Choose JPG, JPEG, PNG or WebP image</p>
+    <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp">
+</div>
+
+<div id="originalInfo" class="info" style="display:none;"></div>
+
+<div id="controls" style="display:none;">
+
+    <div class="controls">
+
+        <div>
+            <label for="width">Width (px)</label>
+            <input type="number" id="width" min="1">
+        </div>
+
+        <div>
+            <label for="height">Height (px)</label>
+            <input type="number" id="height" min="1">
+        </div>
+
+    </div>
+
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="lockRatio" checked>
+            Maintain aspect ratio
+        </label>
+    </div>
+
+    <div>
+        <button id="resizeBtn">Resize Image</button>
+        <button id="downloadBtn" disabled>Download Image</button>
+    </div>
+
+</div>
+
+<div id="message"></div>
+
+<div class="preview" id="preview" style="display:none;">
+    <h2>Preview</h2>
+    <img id="previewImage" alt="Resized image preview">
+    <div id="resultInfo" class="info"></div>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+<p>© 2026 RG Digital Image Tools</p>
+<p>
 <a href="about.html">About</a>
 <a href="contact.html">Contact</a>
-<a href="privacy-policy.html">Privacy</a>
-</div>
-
-<h1>Image Resizer Online</h1>
-
-<p>
-<strong>RG Digital Image Resizer</strong> is a free online image resizing tool that helps you resize JPG, PNG and WebP images quickly from a mobile phone or computer.
+<a href="privacy-policy.html">Privacy Policy</a>
 </p>
+</footer>
 
-<a class="btn" href="index.html">Use Image Resizer</a>
+<script>
 
-<h2>Resize Images by Width and Height</h2>
+const imageInput = document.getElementById("imageInput");
+const widthInput = document.getElementById("width");
+const heightInput = document.getElementById("height");
+const lockRatio = document.getElementById("lockRatio");
+const resizeBtn = document.getElementById("resizeBtn");
+const downloadBtn = document.getElementById("downloadBtn");
 
-<p>
-Set the required image width and height and create a resized copy suitable for websites, online forms, documents, social media and everyday digital use.
-</p>
+const controls = document.getElementById("controls");
+const originalInfo = document.getElementById("originalInfo");
+const preview = document.getElementById("preview");
+const previewImage = document.getElementById("previewImage");
+const resultInfo = document.getElementById("resultInfo");
+const message = document.getElementById("message");
 
-<h2>Resize Image to Approximate KB Size</h2>
+let originalImage = new Image();
+let aspectRatio = 1;
+let resizedBlob = null;
 
-<p>
-Need a smaller file for an online form? Our main tool can help you reduce an image toward a target file size such as 20 KB, 50 KB, 100 KB or another approximate size.
-</p>
+imageInput.addEventListener("change", function(){
 
-<h2>Supported Image Formats</h2>
+    const file = this.files[0];
 
-<div class="box">
-<ul>
-<li>JPG / JPEG</li>
-<li>PNG</li>
-<li>WebP</li>
-</ul>
-</div>
+    if(!file){
+        return;
+    }
 
-<h2>Why Use RG Digital Image Resizer?</h2>
+    message.innerHTML = "";
+    preview.style.display = "none";
+    downloadBtn.disabled = true;
 
-<ul>
-<li>Free and easy to use</li>
-<li>Works on mobile and desktop browsers</li>
-<li>Resize by width and height</li>
-<li>Reduce image file size</li>
-<li>Useful for online forms and document uploads</li>
-<li>No complicated image editing software required</li>
-</ul>
+    if(!file.type.match(/^image\/(jpeg|png|webp)$/)){
+        message.innerHTML = '<div class="error">Please select a JPG, JPEG, PNG or WebP image.</div>';
+        return;
+    }
 
-<h2>How to Resize an Image</h2>
+    const reader = new FileReader();
 
-<ol>
-<li>Open the main Image Resizer tool.</li>
-<li>Select your image.</li>
-<li>Choose the required width, height or approximate KB size.</li>
-<li>Choose the output format if required.</li>
-<li>Process the image and download the result.</li>
-</ol>
+    reader.onload = function(e){
 
-<h2>Related Tools</h2>
+        originalImage.onload = function(){
 
-<p>
-You can also explore our
-<a href="index.html">main image tools</a>,
-learn more
-<a href="about.html">About RG Digital Image Resizer</a>,
-or visit
-<a href="contact.html">Contact Us</a>.
-</p>
+            widthInput.value = originalImage.naturalWidth;
+            heightInput.value = originalImage.naturalHeight;
 
-<div class="footer">
-© 2026 RG Digital Image Resizer. All rights reserved.
-</div>
+            aspectRatio =
+                originalImage.naturalWidth /
+                originalImage.naturalHeight;
 
-</div>
-</div>
+            originalInfo.style.display = "block";
+
+            originalInfo.innerHTML =
+                "<strong>Original Image</strong><br>" +
+                "Dimensions: " +
+                originalImage.naturalWidth +
+                " × " +
+                originalImage.naturalHeight +
+                " px<br>" +
+                "File size: " +
+                formatBytes(file.size);
+
+            controls.style.display = "block";
+        };
+
+        originalImage.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+});
+
+
+widthInput.addEventListener("input", function(){
+
+    if(lockRatio.checked && aspectRatio){
+        heightInput.value =
+            Math.round(widthInput.value / aspectRatio);
+    }
+
+});
+
+
+heightInput.addEventListener("input", function(){
+
+    if(lockRatio.checked && aspectRatio){
+        widthInput.value =
+            Math.round(heightInput.value * aspectRatio);
+    }
+
+});
+
+
+resizeBtn.addEventListener("click", function(){
+
+    const newWidth = parseInt(widthInput.value);
+    const newHeight = parseInt(heightInput.value);
+
+    if(!newWidth || !newHeight || newWidth < 1 || newHeight < 1){
+        message.innerHTML =
+            '<div class="error">Please enter valid width and height.</div>';
+        return;
+    }
+
+    if(!originalImage.src){
+        message.innerHTML =
+            '<div class="error">Please select an image first.</div>';
+        return;
+    }
+
+    const canvas = document.createElement("canvas");
+
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+        originalImage,
+        0,
+        0,
+        newWidth,
+        newHeight
+    );
+
+    canvas.toBlob(function(blob){
+
+        resizedBlob = blob;
+
+        const url = URL.createObjectURL(blob);
+
+        previewImage.src = url;
+
+        preview.style.display = "block";
+
+        resultInfo.innerHTML =
+            "<strong>Resized Image</strong><br>" +
+            "Dimensions: " +
+            newWidth +
+            " × " +
+            newHeight +
+            " px<br>" +
+            "File size: " +
+            formatBytes(blob.size);
+
+        downloadBtn.disabled = false;
+
+        message.innerHTML =
+            '<div class="success">Image resized successfully! ✅</div>';
+
+    }, "image/jpeg", 0.90);
+
+});
+
+
+downloadBtn.addEventListener("click", function(){
+
+    if(!resizedBlob){
+        return;
+    }
+
+    const url = URL.createObjectURL(resizedBlob);
+
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = "rg-digital-resized-image.jpg";
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+
+});
+
+
+function formatBytes(bytes){
+
+    if(bytes === 0){
+        return "0 Bytes";
+    }
+
+    const sizes = [
+        "Bytes",
+        "KB",
+        "MB",
+        "GB"
+    ];
+
+    const i =
+        Math.floor(
+            Math.log(bytes) /
+            Math.log(1024)
+        );
+
+    return (
+        parseFloat(
+            (bytes / Math.pow(1024,i))
+            .toFixed(2)
+        ) +
+        " " +
+        sizes[i]
+    );
+}
+
+</script>
 
 </body>
 </html>
