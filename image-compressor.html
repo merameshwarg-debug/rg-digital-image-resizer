@@ -4,143 +4,567 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Image Compressor Online - Compress Image to KB | RG Digital</title>
+<title>Image Compressor Online - Compress JPG PNG Free | RG Digital</title>
 
-<meta name="description" content="Free online image compressor to reduce JPG, PNG and WebP image size. Compress images to smaller KB for online forms, websites, documents and social media.">
-
-<meta name="keywords" content="image compressor online, compress image online, reduce image size, compress image to kb, jpg compressor, png compressor, image size reducer, free image compressor">
+<meta name="description" content="Compress JPG, JPEG, PNG and WebP images online for free. Reduce image file size and download compressed images using RG Digital.">
 
 <link rel="canonical" href="https://merameshwarg-debug.github.io/rg-digital-image-resizer/image-compressor.html">
 
 <style>
 *{
-box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f7fb;
-color:#202124;
-line-height:1.7;
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7fb;
+    color:#1f2937;
 }
 
-.wrap{
-max-width:900px;
-margin:30px auto;
-padding:20px;
+header{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:28px 15px;
+}
+
+header h1{
+    margin:0;
+    font-size:30px;
+}
+
+header p{
+    margin:8px 0 0;
+}
+
+nav{
+    background:white;
+    text-align:center;
+    padding:14px 8px;
+    border-bottom:1px solid #ddd;
+}
+
+nav a{
+    color:#2563eb;
+    text-decoration:none;
+    margin:0 6px;
+    font-size:14px;
+}
+
+.container{
+    max-width:850px;
+    margin:25px auto;
+    padding:0 15px;
 }
 
 .card{
-background:#fff;
-border-radius:18px;
-padding:28px;
-box-shadow:0 5px 24px rgba(0,0,0,.08);
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
-h1{
-font-size:32px;
-margin-top:0;
-color:#111827;
+.upload{
+    border:2px dashed #9ca3af;
+    border-radius:14px;
+    padding:30px 15px;
+    text-align:center;
 }
 
-h2{
-margin-top:28px;
-color:#1f2937;
+input[type="file"]{
+    max-width:100%;
 }
 
-.nav{
-margin-bottom:20px;
-font-size:14px;
+.quality-box{
+    margin-top:25px;
+    display:none;
 }
 
-.nav a{
-margin-right:12px;
-color:#2563eb;
-text-decoration:none;
+input[type="range"]{
+    width:100%;
 }
 
-.btn{
-display:inline-block;
-padding:13px 20px;
-background:#111827;
-color:#fff;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold;
-margin:8px 5px 8px 0;
+.quality-value{
+    font-weight:bold;
+    font-size:18px;
 }
 
-.box{
-background:#f3f4f6;
-border-radius:12px;
-padding:18px;
-margin:18px 0;
+button{
+    border:0;
+    padding:13px 20px;
+    border-radius:9px;
+    background:#111827;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    margin:10px 5px 0 0;
 }
 
-li{
-margin:7px 0;
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
 }
 
-.footer{
-margin-top:35px;
-padding-top:18px;
-border-top:1px solid #ddd;
-color:#666;
-font-size:14px;
+.info{
+    background:#f3f4f6;
+    padding:15px;
+    border-radius:10px;
+    margin-top:18px;
+}
+
+.preview{
+    text-align:center;
+    margin-top:25px;
+    display:none;
+}
+
+.preview img{
+    max-width:100%;
+    max-height:500px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+.success{
+    color:#166534;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.error{
+    color:#b91c1c;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+footer{
+    margin-top:30px;
+    padding:25px;
+    background:#111827;
+    color:white;
+    text-align:center;
+    font-size:14px;
+}
+
+footer a{
+    color:white;
+    text-decoration:none;
+    margin:0 7px;
+}
+
+@media(max-width:600px){
+    header h1{
+        font-size:25px;
+    }
+
+    .card{
+        padding:18px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrap">
+<header>
+<h1>Image Compressor Online</h1>
+<p>Compress JPG, JPEG, PNG & WebP Images Free</p>
+</header>
+
+<nav>
+<a href="./index.html">Home</a>
+<a href="./image-resizer.html">Image Resizer</a>
+<a href="./image-size-reducer.html">Size Reducer</a>
+<a href="./resize-image-to-20kb.html">20KB</a>
+<a href="./resize-image-to-50kb.html">50KB</a>
+<a href="./resize-image-to-100kb.html">100KB</a>
+</nav>
+
+<div class="container">
+
 <div class="card">
 
-<div class="nav">
-<a href="index.html">Home</a>
-<a href="image-resizer.html">Image Resizer</a>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-<a href="privacy-policy.html">Privacy</a>
+<div class="upload">
+
+<h2>Select Image</h2>
+
+<p>
+Choose a JPG, JPEG, PNG or WebP image
+</p>
+
+<input
+type="file"
+id="imageInput"
+accept="image/jpeg,image/png,image/webp">
+
 </div>
 
-<h1>Image Compressor Online</h1>
+<div id="originalInfo" class="info" style="display:none;"></div>
+
+<div id="qualityBox" class="quality-box">
+
+<label for="quality">
+<strong>Compression Quality:</strong>
+</label>
 
 <p>
-<strong>RG Digital Image Compressor</strong> is a free online tool designed to reduce image file size quickly and easily. Compress JPG, PNG and WebP images for online forms, websites, documents and social media.
+<span id="qualityValue" class="quality-value">80</span>%
 </p>
 
-<a class="btn" href="index.html">Open Image Compressor</a>
-
-<h2>Compress Image Online</h2>
+<input
+type="range"
+id="quality"
+min="10"
+max="100"
+value="80">
 
 <p>
-Large image files can be difficult to upload or share. Compressing an image can reduce its file size and make it easier to upload, store and send.
+Lower quality = smaller file size.<br>
+Higher quality = better image quality.
 </p>
 
-<h2>Reduce Image Size in KB</h2>
+<button id="compressBtn">
+Compress Image
+</button>
 
-<p>
-If an online form requires a smaller image, you can use the main RG Digital image tool to reduce an image toward an approximate target size such as 20 KB, 50 KB, 100 KB or another required size.
-</p>
+<button id="downloadBtn" disabled>
+Download Image
+</button>
 
-<h2>Supported Formats</h2>
-
-<div class="box">
-<ul>
-<li>JPG / JPEG</li>
-<li>PNG</li>
-<li>WebP</li>
-</ul>
 </div>
 
-<h2>Why Compress Images?</h2>
+<div id="message"></div>
 
-<ul>
-<li>Reduce image file size</li>
-<li>Make uploads easier</li>
-<li>Save storage space</li>
-<li>Share images more easily</li>
-<li>Prepare images for websites</li>
-<li>Prepare images for online applications and forms</li>
+<div id="preview" class="preview">
+
+<h2>Compressed Image</h2>
+
+<img id="previewImage" alt="Compressed image preview">
+
+<div id="resultInfo" class="info"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>© 2026 RG Digital Image Tools</p>
+
+<p>
+<a href="./about.html">About</a>
+<a href="./contact.html">Contact</a>
+<a href="./privacy-policy.html">Privacy Policy</a>
+</p>
+
+</footer>
+
+<script>
+
+const imageInput =
+document.getElementById("imageInput");
+
+const quality =
+document.getElementById("quality");
+
+const qualityValue =
+document.getElementById("qualityValue");
+
+const qualityBox =
+document.getElementById("qualityBox");
+
+const compressBtn =
+document.getElementById("compressBtn");
+
+const downloadBtn =
+document.getElementById("downloadBtn");
+
+const originalInfo =
+document.getElementById("originalInfo");
+
+const preview =
+document.getElementById("preview");
+
+const previewImage =
+document.getElementById("previewImage");
+
+const resultInfo =
+document.getElementById("resultInfo");
+
+const message =
+document.getElementById("message");
+
+let selectedFile = null;
+let image = new Image();
+let compressedBlob = null;
+
+
+/* Quality slider */
+
+quality.addEventListener("input", function(){
+
+    qualityValue.textContent = this.value;
+
+});
+
+
+/* Select image */
+
+imageInput.addEventListener("change", function(){
+
+    selectedFile = this.files[0];
+
+    if(!selectedFile){
+        return;
+    }
+
+    message.innerHTML = "";
+
+    preview.style.display = "none";
+
+    downloadBtn.disabled = true;
+
+    if(!selectedFile.type.match(/^image\/(jpeg|png|webp)$/)){
+
+        message.innerHTML =
+        '<div class="error">Please select JPG, JPEG, PNG or WebP image.</div>';
+
+        qualityBox.style.display = "none";
+
+        return;
+    }
+
+
+    const reader = new FileReader();
+
+
+    reader.onload = function(e){
+
+        image.onload = function(){
+
+            originalInfo.style.display = "block";
+
+            originalInfo.innerHTML =
+            "<strong>Original Image</strong><br>" +
+
+            "Dimensions: " +
+            image.naturalWidth +
+            " × " +
+            image.naturalHeight +
+            " px<br>" +
+
+            "File size: " +
+            formatBytes(selectedFile.size);
+
+            qualityBox.style.display = "block";
+
+        };
+
+        image.src = e.target.result;
+
+    };
+
+
+    reader.readAsDataURL(selectedFile);
+
+});
+
+
+/* Compress */
+
+compressBtn.addEventListener("click", function(){
+
+    if(!selectedFile || !image.src){
+
+        message.innerHTML =
+        '<div class="error">Please select an image first.</div>';
+
+        return;
+    }
+
+
+    const canvas =
+    document.createElement("canvas");
+
+    canvas.width =
+    image.naturalWidth;
+
+    canvas.height =
+    image.naturalHeight;
+
+
+    const ctx =
+    canvas.getContext("2d");
+
+
+    ctx.drawImage(
+        image,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    const q =
+    parseInt(quality.value) / 100;
+
+
+    canvas.toBlob(function(blob){
+
+        if(!blob){
+
+            message.innerHTML =
+            '<div class="error">Compression failed. Please try again.</div>';
+
+            return;
+        }
+
+
+        compressedBlob = blob;
+
+
+        const url =
+        URL.createObjectURL(blob);
+
+
+        previewImage.src = url;
+
+        preview.style.display = "block";
+
+        downloadBtn.disabled = false;
+
+
+        const originalSize =
+        selectedFile.size;
+
+        const newSize =
+        blob.size;
+
+
+        let savedText = "";
+
+
+        if(newSize < originalSize){
+
+            const saved =
+            ((originalSize - newSize) /
+            originalSize * 100).toFixed(1);
+
+            savedText =
+            "<br>Size reduced by: " +
+            saved +
+            "%";
+
+        }else{
+
+            savedText =
+            "<br>Note: This image could not be reduced further at this quality.";
+
+        }
+
+
+        resultInfo.innerHTML =
+
+        "<strong>Compression Result</strong><br>" +
+
+        "Original size: " +
+        formatBytes(originalSize) +
+
+        "<br>Compressed size: " +
+        formatBytes(newSize) +
+
+        savedText;
+
+
+        message.innerHTML =
+        '<div class="success">Image compressed successfully! ✅</div>';
+
+
+    }, "image/jpeg", q);
+
+});
+
+
+/* Download */
+
+downloadBtn.addEventListener("click", function(){
+
+    if(!compressedBlob){
+        return;
+    }
+
+
+    const url =
+    URL.createObjectURL(compressedBlob);
+
+
+    const a =
+    document.createElement("a");
+
+
+    a.href = url;
+
+    a.download =
+    "rg-digital-compressed-image.jpg";
+
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    document.body.removeChild(a);
+
+
+    URL.revokeObjectURL(url);
+
+});
+
+
+/* File size */
+
+function formatBytes(bytes){
+
+    if(bytes === 0){
+        return "0 Bytes";
+    }
+
+
+    const sizes = [
+        "Bytes",
+        "KB",
+        "MB",
+        "GB"
+    ];
+
+
+    const i =
+    Math.floor(
+        Math.log(bytes) /
+        Math.log(1024)
+    );
+
+
+    return (
+        parseFloat(
+            (
+                bytes /
+                Math.pow(1024,i)
+            ).toFixed(2)
+        )
+        +
+        " "
+        +
+        sizes[i]
+    );
+
+}
+
+</script>
+
+</body>
+</html>
