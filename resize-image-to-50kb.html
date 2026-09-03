@@ -2,129 +2,115 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Image to 50KB Online - RG Digital</title>
-
-<meta name="description" content="Compress any image to 50KB or less online for free.">
+<title>Image to 50KB - RG Digital</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f4f7fb;
-    color:#222;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+color:#222
 }
 
 header{
-    background:#111827;
-    color:white;
-    text-align:center;
-    padding:28px 15px;
+background:#111827;
+color:#fff;
+text-align:center;
+padding:25px 15px
 }
 
 header h1{
-    margin:0;
-    font-size:30px;
+margin:0;
+font-size:30px
 }
 
 header p{
-    margin:8px 0 0;
+margin:8px 0 0
 }
 
 .container{
-    max-width:850px;
-    margin:25px auto;
-    padding:0 15px;
+max-width:800px;
+margin:25px auto;
+padding:0 15px
 }
 
 .card{
-    background:white;
-    padding:25px;
-    border-radius:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+background:#fff;
+padding:25px;
+border-radius:16px;
+box-shadow:0 5px 20px rgba(0,0,0,.08)
 }
 
 .upload{
-    border:2px dashed #9ca3af;
-    border-radius:14px;
-    padding:35px 15px;
-    text-align:center;
+border:2px dashed #999;
+padding:30px;
+border-radius:12px;
+text-align:center
 }
 
-input[type=file]{
-    max-width:100%;
+input{
+max-width:100%
 }
 
 .info{
-    background:#f3f4f6;
-    padding:15px;
-    border-radius:10px;
-    margin-top:18px;
+background:#f3f4f6;
+padding:14px;
+border-radius:10px;
+margin-top:15px
 }
 
 button{
-    border:0;
-    background:#111827;
-    color:white;
-    padding:13px 20px;
-    border-radius:9px;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:15px;
+background:#111827;
+color:white;
+border:0;
+padding:13px 20px;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+margin-top:15px
 }
 
 button:disabled{
-    opacity:.5;
-    cursor:not-allowed;
+background:#aaa;
+cursor:not-allowed
 }
 
 #result{
-    display:none;
-    text-align:center;
-    margin-top:25px;
+display:none;
+text-align:center;
+margin-top:25px
 }
 
-#previewImage{
-    max-width:100%;
-    max-height:500px;
-    border-radius:10px;
-    border:1px solid #ddd;
+#preview{
+max-width:100%;
+max-height:450px;
+border:1px solid #ddd;
+border-radius:10px
 }
 
 .success{
-    color:#166534;
-    font-weight:bold;
-    margin-top:15px;
+color:#166534;
+font-weight:bold;
+margin-top:15px
 }
 
 .error{
-    color:#b91c1c;
-    font-weight:bold;
-    margin-top:15px;
+color:#b91c1c;
+font-weight:bold;
+margin-top:15px
 }
 
 footer{
-    margin-top:30px;
-    background:#111827;
-    color:white;
-    text-align:center;
-    padding:25px;
-}
-
-@media(max-width:600px){
-    header h1{
-        font-size:25px;
-    }
-
-    .card{
-        padding:18px;
-    }
+margin-top:30px;
+background:#111827;
+color:white;
+text-align:center;
+padding:20px
 }
 </style>
 </head>
@@ -132,8 +118,8 @@ footer{
 <body>
 
 <header>
-    <h1>Image to 50KB</h1>
-    <p>Automatically Compress Any Image to 50KB or Less</p>
+<h1>Image to 50KB</h1>
+<p>Compress Any Image to 50KB or Less</p>
 </header>
 
 <div class="container">
@@ -142,63 +128,38 @@ footer{
 
 <div class="upload">
 
-<h2>Select Your Image</h2>
+<h2>Select Image</h2>
 
 <p>JPG, JPEG, PNG or WebP</p>
 
 <input
-    type="file"
-    id="imageInput"
-    accept="image/jpeg,image/png,image/webp"
->
+type="file"
+id="file"
+accept="image/jpeg,image/png,image/webp">
 
 </div>
 
 <div
-    id="originalInfo"
-    class="info"
-    style="display:none">
+id="original"
+class="info"
+style="display:none">
 </div>
 
-<div id="message"></div>
+<div id="status"></div>
 
 <div id="result">
 
-<h2>Final Image</h2>
+<h2>Compressed Image</h2>
 
-<img
-    id="previewImage"
-    alt="Compressed image 50KB or less"
->
+<img id="preview" alt="50KB compressed image">
 
-<div
-    id="resultInfo"
-    class="info">
-</div>
+<div id="resultInfo" class="info"></div>
 
-<button
-    id="downloadBtn"
-    disabled>
-    Download Image
+<button id="download">
+Download Image
 </button>
 
 </div>
-
-</div>
-
-<div class="card" style="margin-top:20px">
-
-<h2>50KB Image Compressor</h2>
-
-<p>
-Upload any supported image. The tool automatically reduces
-the image dimensions and JPEG quality until the final file
-is <strong>50KB or less</strong>.
-</p>
-
-<p>
-Image processing is done directly in your browser.
-</p>
 
 </div>
 
@@ -208,445 +169,371 @@ Image processing is done directly in your browser.
 © 2026 RG Digital Image Tools
 </footer>
 
+
 <script>
 
 const LIMIT = 50 * 1024;
 
-const input =
-document.getElementById("imageInput");
+const fileInput =
+document.getElementById("file");
 
-const originalInfo =
-document.getElementById("originalInfo");
+const original =
+document.getElementById("original");
 
-const message =
-document.getElementById("message");
+const status =
+document.getElementById("status");
 
 const result =
 document.getElementById("result");
 
-const previewImage =
-document.getElementById("previewImage");
+const preview =
+document.getElementById("preview");
 
 const resultInfo =
 document.getElementById("resultInfo");
 
-const downloadBtn =
-document.getElementById("downloadBtn");
+const download =
+document.getElementById("download");
 
 let finalBlob = null;
 
 
-/* SELECT IMAGE */
+/* IMAGE SELECT */
 
-input.addEventListener("change", function(){
+fileInput.addEventListener("change",function(){
 
-    const file = this.files[0];
+const file=this.files[0];
 
-    if(!file) return;
+if(!file)return;
 
-    result.style.display = "none";
+result.style.display="none";
+download.disabled=true;
+finalBlob=null;
 
-    downloadBtn.disabled = true;
+original.style.display="block";
 
-    finalBlob = null;
+original.innerHTML=
+"<b>Original:</b> "+
+formatSize(file.size);
 
-    message.innerHTML =
-        "Processing image... Please wait.";
+status.innerHTML=
+"⏳ Processing... Please wait.";
 
-    originalInfo.style.display = "block";
+const reader=new FileReader();
 
-    originalInfo.innerHTML =
-        "<strong>Original Image</strong><br>" +
-        "File size: " +
-        formatSize(file.size);
+reader.onload=function(e){
 
-    const reader = new FileReader();
+const img=new Image();
 
-    reader.onload = function(e){
+img.onload=async function(){
 
-        const img = new Image();
+original.innerHTML=
+"<b>Original:</b> "+
+formatSize(file.size)+
+"<br>"+
+"<b>Dimensions:</b> "+
+img.naturalWidth+
+" × "+
+img.naturalHeight+
+" px";
 
-        img.onload = async function(){
+finalBlob=
+await compressFast(img);
 
-            originalInfo.innerHTML =
-                "<strong>Original Image</strong><br>" +
-                "Dimensions: " +
-                img.naturalWidth +
-                " × " +
-                img.naturalHeight +
-                " px<br>" +
-                "File size: " +
-                formatSize(file.size);
+if(!finalBlob){
 
-            finalBlob =
-                await compressTo50KB(img);
+status.innerHTML=
+'<div class="error">'+
+"Could not create image under 50KB."+
+"</div>";
 
-            if(!finalBlob){
+return;
+}
 
-                message.innerHTML =
-                    '<div class="error">' +
-                    'Unable to create image under 50KB.' +
-                    '</div>';
 
-                return;
-            }
+/* FINAL SAFETY */
 
-            /* FINAL SAFETY CHECK */
+if(finalBlob.size>LIMIT){
 
-            if(finalBlob.size > LIMIT){
+status.innerHTML=
+'<div class="error">'+
+"Download blocked: file is above 50KB."+
+"</div>";
 
-                message.innerHTML =
-                    '<div class="error">' +
-                    'File is larger than 50KB. Download blocked.' +
-                    '</div>';
+download.disabled=true;
 
-                downloadBtn.disabled = true;
+return;
+}
 
-                return;
-            }
 
-            showResult();
+/* RESULT */
 
-        };
+preview.src=
+URL.createObjectURL(finalBlob);
 
-        img.onerror = function(){
+result.style.display="block";
 
-            message.innerHTML =
-                '<div class="error">' +
-                'Unable to read this image.' +
-                '</div>';
+resultInfo.innerHTML=
+"<b>Final Size:</b> "+
+formatSize(finalBlob.size)+
+"<br>"+
+"<b>Maximum:</b> 50KB";
 
-        };
+status.innerHTML=
+'<div class="success">'+
+"Success! Image is 50KB or less. ✅"+
+"</div>";
 
-        img.src = e.target.result;
+download.disabled=false;
 
-    };
+};
 
-    reader.readAsDataURL(file);
+img.onerror=function(){
+
+status.innerHTML=
+'<div class="error">Invalid image.</div>';
+
+};
+
+img.src=e.target.result;
+
+};
+
+reader.readAsDataURL(file);
 
 });
 
 
 /*
-==================================================
-COMPRESS TO 50KB
-==================================================
+==========================================
+FAST COMPRESSION
+==========================================
 */
 
-async function compressTo50KB(img){
+async function compressFast(img){
 
-    /*
-    Start with original dimensions.
-    Gradually reduce dimensions if necessary.
-    */
+/*
+For very large images, first reduce
+to a reasonable working size.
+*/
 
-    let width = img.naturalWidth;
-    let height = img.naturalHeight;
+let maxSide=1600;
 
-    for(
-        let scale = 1;
-        scale >= 0.03;
-        scale -= 0.04
-    ){
+let scale=Math.min(
+1,
+maxSide/img.naturalWidth,
+maxSide/img.naturalHeight
+);
 
-        const ratio =
-            Math.min(
-                1,
-                scale
-            );
+let width=Math.max(
+20,
+Math.round(img.naturalWidth*scale)
+);
 
-        const w =
-            Math.max(
-                20,
-                Math.round(width * ratio)
-            );
-
-        const h =
-            Math.max(
-                20,
-                Math.round(height * ratio)
-            );
-
-        const canvas =
-            document.createElement("canvas");
-
-        canvas.width = w;
-        canvas.height = h;
-
-        const ctx =
-            canvas.getContext("2d");
-
-        /*
-        White background for transparent images.
-        */
-
-        ctx.fillStyle = "#ffffff";
-
-        ctx.fillRect(
-            0,
-            0,
-            w,
-            h
-        );
-
-        ctx.drawImage(
-            img,
-            0,
-            0,
-            w,
-            h
-        );
-
-
-        /*
-        Binary search for best quality
-        within 50KB.
-        */
-
-        let low = 0.01;
-        let high = 0.95;
-        let best = null;
-
-        for(let i = 0; i < 12; i++){
-
-            const quality =
-                (low + high) / 2;
-
-            const blob =
-                await makeBlob(
-                    canvas,
-                    quality
-                );
-
-            if(
-                blob &&
-                blob.size <= LIMIT
-            ){
-
-                best = blob;
-
-                /*
-                Try higher quality.
-                */
-
-                low = quality;
-
-            }else{
-
-                /*
-                Need lower quality.
-                */
-
-                high = quality;
-            }
-
-        }
-
-        if(
-            best &&
-            best.size <= LIMIT
-        ){
-
-            return best;
-        }
-
-    }
-
-
-    /*
-    Last-resort very small image.
-    */
-
-    for(
-        let size = 150;
-        size >= 10;
-        size -= 5
-    ){
-
-        const ratio =
-            img.naturalWidth /
-            img.naturalHeight;
-
-        const w = size;
-
-        const h =
-            Math.max(
-                1,
-                Math.round(size / ratio)
-            );
-
-        const canvas =
-            document.createElement("canvas");
-
-        canvas.width = w;
-        canvas.height = h;
-
-        const ctx =
-            canvas.getContext("2d");
-
-        ctx.drawImage(
-            img,
-            0,
-            0,
-            w,
-            h
-        );
-
-        const blob =
-            await makeBlob(
-                canvas,
-                0.01
-            );
-
-        if(
-            blob &&
-            blob.size <= LIMIT
-        ){
-
-            return blob;
-        }
-
-    }
-
-    return null;
-}
+let height=Math.max(
+20,
+Math.round(img.naturalHeight*scale)
+);
 
 
 /*
-==================================================
-CREATE JPEG
-==================================================
+Try several dimension levels.
 */
 
-function makeBlob(canvas, quality){
+for(let attempt=0;attempt<12;attempt++){
 
-    return new Promise(function(resolve){
+const canvas=
+document.createElement("canvas");
 
-        canvas.toBlob(
-            function(blob){
-                resolve(blob);
-            },
-            "image/jpeg",
-            quality
-        );
+canvas.width=width;
+canvas.height=height;
 
-    });
+const ctx=
+canvas.getContext("2d");
+
+ctx.fillStyle="#fff";
+
+ctx.fillRect(
+0,
+0,
+width,
+height
+);
+
+ctx.drawImage(
+img,
+0,
+0,
+width,
+height
+);
+
+
+/*
+Try quality levels.
+Only a few attempts = FAST.
+*/
+
+const qualities=[
+0.75,
+0.55,
+0.40,
+0.28,
+0.18,
+0.10,
+0.05,
+0.02
+];
+
+for(const q of qualities){
+
+const blob=
+await toJpeg(canvas,q);
+
+if(blob && blob.size<=LIMIT){
+
+return blob;
+
+}
 
 }
 
 
 /*
-==================================================
-SHOW RESULT
-==================================================
+Still above 50KB:
+reduce dimensions by 20%.
 */
 
-function showResult(){
+width=Math.floor(width*0.80);
+height=Math.floor(height*0.80);
 
-    if(!finalBlob) return;
+if(width<30 || height<30){
+break;
+}
 
-    /*
-    Absolute safety check.
-    */
-
-    if(finalBlob.size > LIMIT){
-
-        message.innerHTML =
-            '<div class="error">' +
-            'Download blocked because file is larger than 50KB.' +
-            '</div>';
-
-        downloadBtn.disabled = true;
-
-        return;
-    }
-
-    const url =
-        URL.createObjectURL(finalBlob);
-
-    previewImage.src = url;
-
-    result.style.display = "block";
-
-    resultInfo.innerHTML =
-        "<strong>Success ✅</strong><br>" +
-        "Final file size: <strong>" +
-        formatSize(finalBlob.size) +
-        "</strong><br>" +
-        "Maximum allowed: <strong>50KB</strong>";
-
-    message.innerHTML =
-        '<div class="success">' +
-        'Image successfully created at 50KB or less! ✅' +
-        '</div>';
-
-    downloadBtn.disabled = false;
 }
 
 
 /*
-==================================================
+Final emergency compression.
+*/
+
+const canvas=
+document.createElement("canvas");
+
+canvas.width=30;
+canvas.height=30;
+
+const ctx=
+canvas.getContext("2d");
+
+ctx.drawImage(
+img,
+0,
+0,
+30,
+30
+);
+
+const blob=
+await toJpeg(canvas,0.01);
+
+if(blob && blob.size<=LIMIT){
+
+return blob;
+
+}
+
+return null;
+
+}
+
+
+/*
+==========================================
+JPEG
+==========================================
+*/
+
+function toJpeg(canvas,quality){
+
+return new Promise(resolve=>{
+
+canvas.toBlob(
+blob=>resolve(blob),
+"image/jpeg",
+quality
+);
+
+});
+
+}
+
+
+/*
+==========================================
 DOWNLOAD
-==================================================
+==========================================
 */
 
-downloadBtn.addEventListener("click", function(){
+download.addEventListener("click",function(){
 
-    if(!finalBlob) return;
+if(!finalBlob)return;
 
-    /*
-    FINAL SAFETY CHECK
-    */
 
-    if(finalBlob.size > LIMIT){
+/*
+ABSOLUTE 50KB CHECK
+*/
 
-        alert(
-            "Download blocked. File is larger than 50KB."
-        );
+if(finalBlob.size>LIMIT){
 
-        downloadBtn.disabled = true;
+alert(
+"Download blocked. File is larger than 50KB."
+);
 
-        return;
-    }
+download.disabled=true;
 
-    const url =
-        URL.createObjectURL(finalBlob);
+return;
+}
 
-    const link =
-        document.createElement("a");
+const url=
+URL.createObjectURL(finalBlob);
 
-    link.href = url;
+const a=
+document.createElement("a");
 
-    link.download =
-        "rg-digital-50kb.jpg";
+a.href=url;
 
-    document.body.appendChild(link);
+a.download=
+"rg-digital-50kb.jpg";
 
-    link.click();
+document.body.appendChild(a);
 
-    document.body.removeChild(link);
+a.click();
 
-    setTimeout(function(){
+document.body.removeChild(a);
 
-        URL.revokeObjectURL(url);
+setTimeout(function(){
 
-    },1000);
+URL.revokeObjectURL(url);
+
+},1000);
 
 });
 
 
 /*
-==================================================
-FORMAT FILE SIZE
-==================================================
+==========================================
+SIZE
+==========================================
 */
 
 function formatSize(bytes){
 
-    return (
-        (bytes / 1024).toFixed(2) +
-        " KB"
-    );
+return(
+(bytes/1024).toFixed(2)+
+" KB"
+);
 
 }
 
