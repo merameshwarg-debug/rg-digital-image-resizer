@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Custom Image Resizer - RG Digital</title>
+
+<meta name="description" content="Resize image to custom dimensions and compress to your required KB size online for free.">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+color:#222
+}
+
+header{
+background:#111827;
+color:#fff;
+text-align:center;
+padding:25px 15px
+}
+
+header h1{
+margin:0;
+font-size:30px
+}
+
+header p{
+margin:8px 0 0
+}
+
+.container{
+max-width:850px;
+margin:25px auto;
+padding:0 15px
+}
+
+.card{
+background:#fff;
+padding:25px;
+border-radius:16px;
+box-shadow:0 5px 20px rgba(0,0,0,.08)
+}
+
+.upload{
+border:2px dashed #999;
+padding:30px 15px;
+border-radius:12px;
+text-align:center
+}
+
+input[type=file]{
+max-width:100%
+}
+
+.settings{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:15px;
+margin-top:20px
+}
+
+.field label{
+display:block;
+font-weight:bold;
+margin-bottom:7px
+}
+
+.field input{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px
+}
+
+.aspect{
+margin-top:15px;
+font-weight:bold
+}
+
+.aspect input{
+width:auto
+}
+
+button{
+background:#111827;
+color:#fff;
+border:0;
+padding:13px 20px;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+margin-top:18px
+}
+
+button:disabled{
+background:#aaa;
+cursor:not-allowed
+}
+
+.info{
+background:#f3f4f6;
+padding:15px;
+border-radius:10px;
+margin-top:18px
+}
+
+#result{
+display:none;
+text-align:center;
+margin-top:25px
+}
+
+#preview{
+max-width:100%;
+max-height:500px;
+border:1px solid #ddd;
+border-radius:10px
+}
+
+.success{
+color:#166534;
+font-weight:bold;
+margin-top:15px
+}
+
+.error{
+color:#b91c1c;
+font-weight:bold;
+margin-top:15px
+}
+
+footer{
+margin-top:30px;
+background:#111827;
+color:#fff;
+text-align:center;
+padding:22px
+}
+
+@media(max-width:650px){
+.settings{
+grid-template-columns:1fr
+}
+
+.card{
+padding:18px
+}
+
+header h1{
+font-size:25px
+}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Custom Image Resizer</h1>
+<p>Resize Image & Compress to Your Required KB</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<div class="upload">
+
+<h2>Select Image</h2>
+
+<p>JPG, JPEG, PNG or WebP</p>
+
+<input
+type="file"
+id="file"
+accept="image/jpeg,image/png,image/webp">
+
+</div>
+
+<div class="settings">
+
+<div class="field">
+
+<label>Width (px)</label>
+
+<input
+type="number"
+id="width"
+value="160"
+min="1">
+
+</div>
+
+<div class="field">
+
+<label>Height (px)</label>
+
+<input
+type="number"
+id="height"
+value="212"
+min="1">
+
+</div>
+
+<div class="field">
+
+<label>Maximum Size (KB)</label>
+
+<input
+type="number"
+id="maxKB"
+value="20"
+min="1">
+
+</div>
+
+</div>
+
+<div class="aspect">
+
+<label>
+<input
+type="checkbox"
+id="aspect">
+ Maintain Aspect Ratio
+</label>
+
+</div>
+
+<button id="resizeBtn" disabled>
+Resize & Compress Image
+</button>
+
+<div id="originalInfo"
+class="info"
+style="display:none">
+</div>
+
+<div id="status"></div>
+
+<div id="result">
+
+<h2>Final Image</h2>
+
+<img
+id="preview"
+alt="Resized image">
+
+<div
+id="resultInfo"
+class="info">
+</div>
+
+<button id="downloadBtn">
+Download Image
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+© 2026 RG Digital Image Tools
+</footer>
+
+
+<script>
+
+const fileInput =
+document.getElementById("file");
+
+const widthInput =
+document.getElementById("width");
+
+const heightInput =
+document.getElementById("height");
+
+const maxKBInput =
+document.getElementById("maxKB");
+
+const aspectInput =
+document.getElementById("aspect");
+
+const resizeBtn =
+document.getElementById("resizeBtn");
+
+const originalInfo =
+document.getElementById("originalInfo");
+
+const status =
+document.getElementById("status");
+
+const result =
+document.getElementById("result");
+
+const preview =
+document.getElementById("preview");
+
+const resultInfo =
+document.getElementById("resultInfo");
+
+const downloadBtn =
+document.getElementById("downloadBtn");
+
+let selectedFile = null;
+let finalBlob = null;
+
+
+/* SELECT IMAGE */
+
+fileInput.addEventListener("change",function(){
+
+selectedFile = this.files[0];
+
+if(!selectedFile){
+resizeBtn.disabled=true;
+return;
+}
+
+resizeBtn.disabled=false;
+
+result.style.display="none";
+status.innerHTML="";
+finalBlob=null;
+
+originalInfo.style.display="block";
+
+originalInfo.innerHTML=
+"<b>Original File:</b> "+
+formatSize(selectedFile.size);
+
+});
+
+
+/* RESIZE BUTTON */
+
+resizeBtn.addEventListener("click",function(){
+
+if(!selectedFile)return;
+
+const targetWidth =
+parseInt(widthInput.value);
+
+const targetHeight =
+parseInt(heightInput.value);
+
+const maxKB =
+parseFloat(maxKBInput.value);
+
+if(
+!targetWidth ||
+!targetHeight ||
+!maxKB ||
+targetWidth<1 ||
+targetHeight<1 ||
+maxKB<1
+){
+
+status.innerHTML=
+'<div class="error">'+
+"Please enter valid Width, Height and KB."+
+"</div>";
+
+return;
+}
+
+resizeBtn.disabled=true;
+
+status.innerHTML=
+"⏳ Processing... Please wait.";
+
+const reader =
+new FileReader();
+
+reader.onload=function(e){
+
+const img =
+new Image();
+
+img.onload=async function(){
+
+let w=targetWidth;
+let h=targetHeight;
+
+
+/*
+Maintain aspect ratio
+*/
+
+if(aspectInput.checked){
+
+const originalRatio =
+img.naturalWidth /
+img.naturalHeight;
+
+const targetRatio =
+targetWidth /
+targetHeight;
+
+if(originalRatio > targetRatio){
+
+h =
+Math.round(
+targetWidth /
+originalRatio
+);
+
+}else{
+
+w =
+Math.round(
+targetHeight *
+originalRatio
+);
+
+}
+
+}
+
+
+finalBlob =
+await createImage(
+img,
+w,
+h,
+maxKB
+);
+
+
+if(!finalBlob){
+
+status.innerHTML=
+'<div class="error">'+
+"Unable to create image within the selected KB limit."+
+"</div>";
+
+resizeBtn.disabled=false;
+
+return;
+}
+
+
+/*
+FINAL SAFETY CHECK
+*/
+
+const limit =
+maxKB * 1024;
+
+if(finalBlob.size > limit){
+
+status.innerHTML=
+'<div class="error">'+
+"File is above your KB limit. Download blocked."+
+"</div>";
+
+downloadBtn.disabled=true;
+
+resizeBtn.disabled=false;
+
+return;
+}
+
+
+/* SHOW RESULT */
+
+const url =
+URL.createObjectURL(finalBlob);
+
+preview.src=url;
+
+result.style.display="block";
+
+resultInfo.innerHTML=
+"<b>Final Dimensions:</b> "+
+w+" × "+h+" px<br>"+
+"<b>Final Size:</b> "+
+formatSize(finalBlob.size)+"<br>"+
+"<b>Maximum Allowed:</b> "+
+maxKB+" KB";
+
+status.innerHTML=
+'<div class="success">'+
+"Success! Your image is ready. ✅"+
+"</div>";
+
+downloadBtn.disabled=false;
+
+resizeBtn.disabled=false;
+
+};
+
+img.onerror=function(){
+
+status.innerHTML=
+'<div class="error">'+
+"Unable to read image."+
+"</div>";
+
+resizeBtn.disabled=false;
+
+};
+
+img.src=e.target.result;
+
+};
+
+reader.readAsDataURL(selectedFile);
+
+});
+
+
+/*
+================================================
+CREATE IMAGE
+================================================
+*/
+
+async function createImage(
+img,
+width,
+height,
+maxKB
+){
+
+const limit =
+maxKB * 1024;
+
+const canvas =
+document.createElement("canvas");
+
+canvas.width=width;
+canvas.height=height;
+
+const ctx =
+canvas.getContext("2d");
+
+ctx.fillStyle="#ffffff";
+
+ctx.fillRect(
+0,
+0,
+width,
+height
+);
+
+ctx.drawImage(
+img,
+0,
+0,
+width,
+height
+);
+
+
+/*
+Try quality levels quickly.
+*/
+
+const qualities=[
+0.90,
+0.75,
+0.60,
+0.45,
+0.30,
+0.20,
+0.12,
+0.07,
+0.03,
+0.01
+];
+
+for(const quality of qualities){
+
+const blob =
+await canvasToBlob(
+canvas,
+quality
+);
+
+if(
+blob &&
+blob.size<=limit
+){
+
+return blob;
+
+}
+
+}
+
+
+/*
+If still too large,
+reduce dimensions automatically.
+*/
+
+let w=width;
+let h=height;
+
+for(let i=0;i<15;i++){
+
+w=Math.max(
+10,
+Math.floor(w*0.80)
+);
+
+h=Math.max(
+10,
+Math.floor(h*0.80)
+);
+
+canvas.width=w;
+canvas.height=h;
+
+ctx.fillStyle="#ffffff";
+
+ctx.fillRect(
+0,
+0,
+w,
+h
+);
+
+ctx.drawImage(
+img,
+0,
+0,
+w,
+h
+);
+
+const blob =
+await canvasToBlob(
+canvas,
+0.08
+);
+
+if(
+blob &&
+blob.size<=limit
+){
+
+return blob;
+
+}
+
+}
+
+return null;
+
+}
+
+
+/*
+================================================
+JPEG
+================================================
+*/
+
+function canvasToBlob(
+canvas,
+quality
+){
+
+return new Promise(resolve=>{
+
+canvas.toBlob(
+blob=>resolve(blob),
+"image/jpeg",
+quality
+);
+
+});
+
+}
+
+
+/*
+================================================
+DOWNLOAD
+================================================
+*/
+
+downloadBtn.addEventListener(
+"click",
+function(){
+
+if(!finalBlob)return;
+
+const maxKB =
+parseFloat(maxKBInput.value);
+
+const limit =
+maxKB*1024;
+
+
+/*
+ABSOLUTE SAFETY CHECK
+*/
+
+if(finalBlob.size>limit){
+
+alert(
+"Download blocked. File is larger than your selected KB limit."
+);
+
+downloadBtn.disabled=true;
+
+return;
+}
+
+const url =
+URL.createObjectURL(finalBlob);
+
+const a =
+document.createElement("a");
+
+a.href=url;
+
+a.download=
+"rg-digital-resized.jpg";
+
+document.body.appendChild(a);
+
+a.click();
+
+document.body.removeChild(a);
+
+setTimeout(function(){
+
+URL.revokeObjectURL(url);
+
+},1000);
+
+});
+
+
+/*
+================================================
+FILE SIZE
+================================================
+*/
+
+function formatSize(bytes){
+
+return(
+(bytes/1024).toFixed(2)+
+" KB"
+);
+
+}
+
+</script>
+
+</body>
+</html>
