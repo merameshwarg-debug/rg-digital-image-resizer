@@ -2,27 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>PDF to JPG Online - RG Digital</title>
-
-<meta name="description" content="Convert PDF pages to JPG images online for free.">
+<title>PDF to JPG - RG Digital</title>
 
 <style>
 *{box-sizing:border-box}
 
 body{
 margin:0;
-font-family:Arial,sans-serif;
-background:#f4f7fb;
-color:#222
+font-family:Arial,Helvetica,sans-serif;
+background:linear-gradient(135deg,#eef2ff,#f8fafc,#e0f2fe);
+color:#172033
 }
 
 header{
-background:#111827;
+background:linear-gradient(135deg,#111827,#1e3a8a,#312e81);
 color:white;
 text-align:center;
-padding:28px 15px
+padding:28px 15px;
+box-shadow:0 5px 20px #0003
 }
 
 header h1{
@@ -31,65 +30,61 @@ font-size:30px
 }
 
 header p{
-margin:8px 0 0
+margin:8px 0 0;
+opacity:.9
 }
 
 .container{
-max-width:850px;
+max-width:900px;
 margin:25px auto;
-padding:0 15px
+padding:15px
 }
 
 .card{
 background:white;
-padding:25px;
-border-radius:16px;
-box-shadow:0 5px 20px rgba(0,0,0,.08);
-margin-bottom:20px
+padding:24px;
+border-radius:18px;
+box-shadow:0 8px 30px #0002
 }
 
 .upload{
-border:2px dashed #999;
-padding:30px 15px;
+border:2px dashed #888;
 border-radius:12px;
+padding:28px;
 text-align:center
 }
 
 input[type=file]{
-max-width:100%
+max-width:100%;
+margin:15px
 }
 
-.settings{
-margin-top:20px;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px
+.password{
+display:none;
+margin-top:18px;
+padding:18px;
+background:#f8fafc;
+border-radius:12px
 }
 
-.field label{
-display:block;
-font-weight:bold;
-margin-bottom:7px
-}
-
-.field select{
+.password input{
 width:100%;
-padding:12px;
+padding:13px;
 border:1px solid #ccc;
 border-radius:8px;
 font-size:16px
 }
 
 button{
+border:0;
 background:#111827;
 color:white;
-border:0;
 padding:13px 20px;
-border-radius:8px;
+border-radius:9px;
 font-size:16px;
 font-weight:bold;
 cursor:pointer;
-margin-top:18px
+margin:8px
 }
 
 button:disabled{
@@ -97,64 +92,63 @@ background:#aaa;
 cursor:not-allowed
 }
 
-.info{
-background:#f3f4f6;
-padding:15px;
-border-radius:10px;
-margin-top:18px
+.center{
+text-align:center
+}
+
+.status{
+text-align:center;
+font-weight:bold;
+margin:18px
+}
+
+.success{
+color:#16803c
+}
+
+.error{
+color:#c62828
+}
+
+.pages{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+margin-top:25px
 }
 
 .page{
 border:1px solid #ddd;
 border-radius:12px;
-padding:15px;
-margin-top:20px;
+padding:12px;
+background:#fafafa;
 text-align:center
 }
 
 .page img{
 max-width:100%;
-border-radius:8px
+height:auto;
+border-radius:7px;
+box-shadow:0 3px 10px #0002
 }
 
 .page button{
-margin:8px 5px 0
+font-size:14px;
+padding:10px 15px
 }
 
-.success{
-color:#166534;
-font-weight:bold;
-margin-top:15px
-}
-
-.error{
-color:#b91c1c;
-font-weight:bold;
-margin-top:15px
-}
-
-footer{
-margin-top:30px;
-background:#111827;
-color:white;
-text-align:center;
-padding:25px
-}
-
-@media(max-width:600px){
-
-.settings{
+@media(max-width:650px){
+.pages{
 grid-template-columns:1fr
 }
 
 .card{
-padding:18px
+padding:16px
 }
 
 header h1{
 font-size:25px
 }
-
 }
 </style>
 </head>
@@ -163,9 +157,9 @@ font-size:25px
 
 <header>
 
-<h1>PDF to JPG Converter</h1>
+<h1>📄 PDF to JPG</h1>
 
-<p>Convert PDF Pages to JPG Online</p>
+<p>Convert PDF Pages into High Quality JPG Images</p>
 
 </header>
 
@@ -174,158 +168,298 @@ font-size:25px
 
 <div class="card">
 
+
 <div class="upload">
 
-<h2>📄 Select PDF</h2>
-
-<p>Choose your PDF file</p>
+<h2>📁 Select PDF</h2>
 
 <input
 type="file"
-id="pdfInput"
+id="pdfFile"
 accept="application/pdf">
 
-</div>
-
-
-<div class="settings">
-
-<div class="field">
-
-<label>JPG Quality</label>
-
-<select id="quality">
-
-<option value="0.95">High</option>
-<option value="0.85" selected>Good</option>
-<option value="0.70">Medium</option>
-<option value="0.55">Low</option>
-
-</select>
+<p>PDF files only</p>
 
 </div>
 
 
-<div class="field">
+<div
+id="passwordBox"
+class="password">
 
-<label>Resolution</label>
+<b>🔐 This PDF is Password Protected</b>
 
-<select id="scale">
+<p>
+Enter the PDF password to continue.
+</p>
 
-<option value="1">Normal</option>
-<option value="1.5" selected>High</option>
-<option value="2">Very High</option>
+<input
+type="password"
+id="password"
+placeholder="Enter PDF Password">
 
-</select>
+<div class="center">
+
+<button id="openBtn">
+🔓 Open PDF
+</button>
 
 </div>
 
 </div>
 
+
+<div class="center">
 
 <button
 id="convertBtn"
 disabled>
 
-Convert PDF to JPG
+🖼️ Convert PDF to JPG
 
 </button>
 
+<button
+id="downloadAll"
+disabled>
 
-<div id="status"></div>
+⬇️ Download All JPG
 
-<div id="pages"></div>
-
-</div>
-
-
-<div class="card">
-
-<h2>📄 PDF to JPG</h2>
-
-<p>
-Upload a PDF and convert its pages into JPG images
-directly in your browser.
-</p>
-
-<p>
-No server upload is required.
-</p>
-
-</div>
+</button>
 
 </div>
 
 
-<footer>
+<div
+id="status"
+class="status">
+</div>
 
-© 2026 RG Digital Image Tools
 
-</footer>
+<div
+id="pages"
+class="pages">
+</div>
 
 
-<!-- PDF.JS -->
+</div>
+</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
-type="module"></script>
+
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
+type="module">
+</script>
 
 
 <script type="module">
 
-import * as pdfjsLib
-from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
+import * as pdfjsLib from
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
 
-pdfjsLib.GlobalWorkerOptions.workerSrc =
+
+pdfjsLib.GlobalWorkerOptions.workerSrc=
 "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
 
 
-const pdfInput =
-document.getElementById("pdfInput");
+const pdfFile=
+document.getElementById("pdfFile");
 
-const convertBtn =
+const passwordBox=
+document.getElementById("passwordBox");
+
+const password=
+document.getElementById("password");
+
+const openBtn=
+document.getElementById("openBtn");
+
+const convertBtn=
 document.getElementById("convertBtn");
 
-const quality =
-document.getElementById("quality");
+const downloadAll=
+document.getElementById("downloadAll");
 
-const scale =
-document.getElementById("scale");
-
-const status =
+const status=
 document.getElementById("status");
 
-const pages =
+const pages=
 document.getElementById("pages");
 
 
-let selectedPDF=null;
+let selectedFile=null;
+let pdfData=null;
+let pdfDocument=null;
+let jpgFiles=[];
 
 
-/* PDF SELECT */
+/* SELECT PDF */
 
-pdfInput.addEventListener(
+pdfFile.addEventListener(
 "change",
-function(){
+async function(){
 
-selectedPDF=this.files[0];
+selectedFile=this.files[0];
+
+if(!selectedFile)return;
 
 pages.innerHTML="";
-status.innerHTML="";
-
-if(!selectedPDF){
+jpgFiles=[];
 
 convertBtn.disabled=true;
+downloadAll.disabled=true;
 
-return;
-}
+status.textContent=
+"⏳ Checking PDF...";
+
+const buffer=
+await selectedFile.arrayBuffer();
+
+pdfData=buffer;
+
+try{
+
+pdfDocument=
+await loadPDF(buffer,null);
+
+passwordBox.style.display="none";
 
 convertBtn.disabled=false;
 
 status.innerHTML=
-"Selected PDF: "+
-selectedPDF.name;
+'<span class="success">'+
+"✅ PDF opened successfully"+
+"</span>";
+
+}
+catch(error){
+
+if(
+error &&
+error.name==="PasswordException"
+){
+
+passwordBox.style.display="block";
+
+status.innerHTML=
+'<span class="error">'+
+"🔐 Password required"+
+"</span>";
+
+password.focus();
+
+}
+else{
+
+status.innerHTML=
+'<span class="error">'+
+"❌ Could not open PDF"+
+"</span>";
+
+console.error(error);
+
+}
+
+}
 
 });
+
+
+/* OPEN WITH PASSWORD */
+
+openBtn.addEventListener(
+"click",
+async function(){
+
+const pass=password.value;
+
+if(!pass){
+
+status.innerHTML=
+'<span class="error">'+
+"Please enter password"+
+"</span>";
+
+return;
+
+}
+
+openBtn.disabled=true;
+
+status.textContent=
+"⏳ Checking password...";
+
+try{
+
+pdfDocument=
+await loadPDF(
+pdfData,
+pass
+);
+
+passwordBox.style.display="none";
+
+convertBtn.disabled=false;
+
+status.innerHTML=
+'<span class="success">'+
+"✅ Correct password. PDF opened."+
+"</span>";
+
+}
+catch(error){
+
+console.error(error);
+
+status.innerHTML=
+'<span class="error">'+
+"❌ Wrong password. PDF cannot be opened."+
+"</span>";
+
+openBtn.disabled=false;
+
+}
+
+});
+
+
+/* LOAD PDF */
+
+function loadPDF(data,pass){
+
+return new Promise(
+(resolve,reject)=>{
+
+let loadingTask=
+pdfjsLib.getDocument({
+data:data,
+password:
+function(callback,reason){
+
+if(pass){
+
+callback(pass);
+
+}
+else{
+
+reject({
+name:"PasswordException"
+});
+
+}
+
+}
+});
+
+loadingTask.promise.then(
+resolve,
+reject
+);
+
+});
+
+}
 
 
 /* CONVERT */
@@ -334,58 +468,61 @@ convertBtn.addEventListener(
 "click",
 async function(){
 
-if(!selectedPDF)return;
+if(!pdfDocument)return;
 
 convertBtn.disabled=true;
 
+downloadAll.disabled=true;
+
 pages.innerHTML="";
 
-status.innerHTML=
-"⏳ Converting PDF... Please wait.";
+jpgFiles=[];
+
+status.textContent=
+"⏳ Converting PDF pages...";
+
 
 try{
 
-const data =
-await selectedPDF.arrayBuffer();
-
-const pdf =
-await pdfjsLib.getDocument({
-data:data
-}).promise;
-
-
-status.innerHTML=
-"PDF has "+
-pdf.numPages+
-" page(s). Converting...";
-
-
 for(
-let pageNumber=1;
-pageNumber<=pdf.numPages;
-pageNumber++
+let i=1;
+i<=pdfDocument.numPages;
+i++
 ){
 
-const page =
-await pdf.getPage(pageNumber);
+status.textContent=
+"⏳ Converting page "+
+i+" of "+
+pdfDocument.numPages;
 
-const viewport =
+
+const page=
+await pdfDocument.getPage(i);
+
+
+/*
+High quality rendering
+*/
+
+const scale=2;
+
+const viewport=
 page.getViewport({
-scale:parseFloat(scale.value)
+scale:scale
 });
 
 
-const canvas =
+const canvas=
 document.createElement("canvas");
 
-const context =
+const context=
 canvas.getContext("2d");
 
 canvas.width=
-Math.round(viewport.width);
+viewport.width;
 
 canvas.height=
-Math.round(viewport.height);
+viewport.height;
 
 
 await page.render({
@@ -394,25 +531,76 @@ viewport:viewport
 }).promise;
 
 
-const blob =
-await canvasToJpg(
+/*
+Convert to JPG
+*/
+
+const blob=
+await canvasToBlob(
 canvas,
-parseFloat(quality.value)
+"image/jpeg",
+0.95
 );
 
 
-showPage(
-pageNumber,
-blob
+jpgFiles.push(blob);
+
+
+/*
+Preview
+*/
+
+const url=
+URL.createObjectURL(blob);
+
+const box=
+document.createElement("div");
+
+box.className="page";
+
+const img=
+document.createElement("img");
+
+img.src=url;
+
+const title=
+document.createElement("p");
+
+title.innerHTML=
+"<b>Page "+i+"</b>";
+
+
+const btn=
+document.createElement("button");
+
+btn.textContent=
+"⬇️ Download JPG";
+
+btn.onclick=()=>{
+downloadBlob(
+blob,
+"page-"+i+".jpg"
 );
+};
+
+
+box.appendChild(title);
+
+box.appendChild(img);
+
+box.appendChild(btn);
+
+pages.appendChild(box);
 
 }
 
 
 status.innerHTML=
-'<div class="success">'+
-"PDF successfully converted! ✅"+
-"</div>";
+'<span class="success">'+
+"✅ All pages converted successfully"+
+"</span>";
+
+downloadAll.disabled=false;
 
 }
 catch(error){
@@ -420,9 +608,9 @@ catch(error){
 console.error(error);
 
 status.innerHTML=
-'<div class="error">'+
-"Unable to convert this PDF."+
-"</div>";
+'<span class="error">'+
+"❌ Conversion failed"+
+"</span>";
 
 }
 
@@ -431,18 +619,58 @@ convertBtn.disabled=false;
 });
 
 
-/* CREATE JPG */
+/* DOWNLOAD ALL */
 
-function canvasToJpg(
+downloadAll.addEventListener(
+"click",
+async function(){
+
+if(!jpgFiles.length)return;
+
+downloadAll.disabled=true;
+
+status.textContent=
+"⏳ Preparing downloads...";
+
+for(
+let i=0;
+i<jpgFiles.length;
+i++
+){
+
+downloadBlob(
+jpgFiles[i],
+"page-"+(i+1)+".jpg"
+);
+
+await wait(400);
+
+}
+
+status.innerHTML=
+'<span class="success">'+
+"✅ Downloads started"+
+"</span>";
+
+downloadAll.disabled=false;
+
+});
+
+
+/* CANVAS TO BLOB */
+
+function canvasToBlob(
 canvas,
+type,
 quality
 ){
 
-return new Promise(resolve=>{
+return new Promise(
+resolve=>{
 
 canvas.toBlob(
 blob=>resolve(blob),
-"image/jpeg",
+type,
 quality
 );
 
@@ -451,67 +679,47 @@ quality
 }
 
 
-/* SHOW PAGE */
+/* DOWNLOAD */
 
-function showPage(
-pageNumber,
-blob
+function downloadBlob(
+blob,
+filename
 ){
 
-const url =
+const url=
 URL.createObjectURL(blob);
 
-const box =
-document.createElement("div");
-
-box.className="page";
-
-const title =
-document.createElement("h3");
-
-title.textContent=
-"Page "+pageNumber;
-
-const image =
-document.createElement("img");
-
-image.src=url;
-
-image.alt=
-"PDF page "+pageNumber;
-
-const button =
-document.createElement("button");
-
-button.textContent=
-"Download JPG";
-
-button.onclick=function(){
-
-const link =
+const a=
 document.createElement("a");
 
-link.href=url;
+a.href=url;
 
-link.download=
-"rg-digital-page-"+pageNumber+".jpg";
+a.download=filename;
 
-document.body.appendChild(link);
+document.body.appendChild(a);
 
-link.click();
+a.click();
 
-document.body.removeChild(link);
+a.remove();
 
-};
+setTimeout(
+()=>{
+URL.revokeObjectURL(url);
+},
+1000
+);
+
+}
 
 
-box.appendChild(title);
+/* WAIT */
 
-box.appendChild(image);
+function wait(ms){
 
-box.appendChild(button);
-
-pages.appendChild(box);
+return new Promise(
+resolve=>
+setTimeout(resolve,ms)
+);
 
 }
 
