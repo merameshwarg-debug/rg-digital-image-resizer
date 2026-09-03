@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>PDF to JPG Online - RG Digital</title>
+
+<meta name="description" content="Convert PDF pages to JPG images online for free.">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+color:#222
+}
+
+header{
+background:#111827;
+color:white;
+text-align:center;
+padding:28px 15px
+}
+
+header h1{
+margin:0;
+font-size:30px
+}
+
+header p{
+margin:8px 0 0
+}
+
+.container{
+max-width:850px;
+margin:25px auto;
+padding:0 15px
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:16px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+margin-bottom:20px
+}
+
+.upload{
+border:2px dashed #999;
+padding:30px 15px;
+border-radius:12px;
+text-align:center
+}
+
+input[type=file]{
+max-width:100%
+}
+
+.settings{
+margin-top:20px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px
+}
+
+.field label{
+display:block;
+font-weight:bold;
+margin-bottom:7px
+}
+
+.field select{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px
+}
+
+button{
+background:#111827;
+color:white;
+border:0;
+padding:13px 20px;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+margin-top:18px
+}
+
+button:disabled{
+background:#aaa;
+cursor:not-allowed
+}
+
+.info{
+background:#f3f4f6;
+padding:15px;
+border-radius:10px;
+margin-top:18px
+}
+
+.page{
+border:1px solid #ddd;
+border-radius:12px;
+padding:15px;
+margin-top:20px;
+text-align:center
+}
+
+.page img{
+max-width:100%;
+border-radius:8px
+}
+
+.page button{
+margin:8px 5px 0
+}
+
+.success{
+color:#166534;
+font-weight:bold;
+margin-top:15px
+}
+
+.error{
+color:#b91c1c;
+font-weight:bold;
+margin-top:15px
+}
+
+footer{
+margin-top:30px;
+background:#111827;
+color:white;
+text-align:center;
+padding:25px
+}
+
+@media(max-width:600px){
+
+.settings{
+grid-template-columns:1fr
+}
+
+.card{
+padding:18px
+}
+
+header h1{
+font-size:25px
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>PDF to JPG Converter</h1>
+
+<p>Convert PDF Pages to JPG Online</p>
+
+</header>
+
+
+<div class="container">
+
+<div class="card">
+
+<div class="upload">
+
+<h2>📄 Select PDF</h2>
+
+<p>Choose your PDF file</p>
+
+<input
+type="file"
+id="pdfInput"
+accept="application/pdf">
+
+</div>
+
+
+<div class="settings">
+
+<div class="field">
+
+<label>JPG Quality</label>
+
+<select id="quality">
+
+<option value="0.95">High</option>
+<option value="0.85" selected>Good</option>
+<option value="0.70">Medium</option>
+<option value="0.55">Low</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>Resolution</label>
+
+<select id="scale">
+
+<option value="1">Normal</option>
+<option value="1.5" selected>High</option>
+<option value="2">Very High</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<button
+id="convertBtn"
+disabled>
+
+Convert PDF to JPG
+
+</button>
+
+
+<div id="status"></div>
+
+<div id="pages"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📄 PDF to JPG</h2>
+
+<p>
+Upload a PDF and convert its pages into JPG images
+directly in your browser.
+</p>
+
+<p>
+No server upload is required.
+</p>
+
+</div>
+
+</div>
+
+
+<footer>
+
+© 2026 RG Digital Image Tools
+
+</footer>
+
+
+<!-- PDF.JS -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
+type="module"></script>
+
+
+<script type="module">
+
+import * as pdfjsLib
+from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
+
+
+const pdfInput =
+document.getElementById("pdfInput");
+
+const convertBtn =
+document.getElementById("convertBtn");
+
+const quality =
+document.getElementById("quality");
+
+const scale =
+document.getElementById("scale");
+
+const status =
+document.getElementById("status");
+
+const pages =
+document.getElementById("pages");
+
+
+let selectedPDF=null;
+
+
+/* PDF SELECT */
+
+pdfInput.addEventListener(
+"change",
+function(){
+
+selectedPDF=this.files[0];
+
+pages.innerHTML="";
+status.innerHTML="";
+
+if(!selectedPDF){
+
+convertBtn.disabled=true;
+
+return;
+}
+
+convertBtn.disabled=false;
+
+status.innerHTML=
+"Selected PDF: "+
+selectedPDF.name;
+
+});
+
+
+/* CONVERT */
+
+convertBtn.addEventListener(
+"click",
+async function(){
+
+if(!selectedPDF)return;
+
+convertBtn.disabled=true;
+
+pages.innerHTML="";
+
+status.innerHTML=
+"⏳ Converting PDF... Please wait.";
+
+try{
+
+const data =
+await selectedPDF.arrayBuffer();
+
+const pdf =
+await pdfjsLib.getDocument({
+data:data
+}).promise;
+
+
+status.innerHTML=
+"PDF has "+
+pdf.numPages+
+" page(s). Converting...";
+
+
+for(
+let pageNumber=1;
+pageNumber<=pdf.numPages;
+pageNumber++
+){
+
+const page =
+await pdf.getPage(pageNumber);
+
+const viewport =
+page.getViewport({
+scale:parseFloat(scale.value)
+});
+
+
+const canvas =
+document.createElement("canvas");
+
+const context =
+canvas.getContext("2d");
+
+canvas.width=
+Math.round(viewport.width);
+
+canvas.height=
+Math.round(viewport.height);
+
+
+await page.render({
+canvasContext:context,
+viewport:viewport
+}).promise;
+
+
+const blob =
+await canvasToJpg(
+canvas,
+parseFloat(quality.value)
+);
+
+
+showPage(
+pageNumber,
+blob
+);
+
+}
+
+
+status.innerHTML=
+'<div class="success">'+
+"PDF successfully converted! ✅"+
+"</div>";
+
+}
+catch(error){
+
+console.error(error);
+
+status.innerHTML=
+'<div class="error">'+
+"Unable to convert this PDF."+
+"</div>";
+
+}
+
+convertBtn.disabled=false;
+
+});
+
+
+/* CREATE JPG */
+
+function canvasToJpg(
+canvas,
+quality
+){
+
+return new Promise(resolve=>{
+
+canvas.toBlob(
+blob=>resolve(blob),
+"image/jpeg",
+quality
+);
+
+});
+
+}
+
+
+/* SHOW PAGE */
+
+function showPage(
+pageNumber,
+blob
+){
+
+const url =
+URL.createObjectURL(blob);
+
+const box =
+document.createElement("div");
+
+box.className="page";
+
+const title =
+document.createElement("h3");
+
+title.textContent=
+"Page "+pageNumber;
+
+const image =
+document.createElement("img");
+
+image.src=url;
+
+image.alt=
+"PDF page "+pageNumber;
+
+const button =
+document.createElement("button");
+
+button.textContent=
+"Download JPG";
+
+button.onclick=function(){
+
+const link =
+document.createElement("a");
+
+link.href=url;
+
+link.download=
+"rg-digital-page-"+pageNumber+".jpg";
+
+document.body.appendChild(link);
+
+link.click();
+
+document.body.removeChild(link);
+
+};
+
+
+box.appendChild(title);
+
+box.appendChild(image);
+
+box.appendChild(button);
+
+pages.appendChild(box);
+
+}
+
+</script>
+
+</body>
+</html>
