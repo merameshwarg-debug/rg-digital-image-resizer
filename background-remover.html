@@ -6,20 +6,24 @@
 <title>AI Background Remover - RG Digital</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#f4f7fb;color:#222}
-header{background:#111827;color:white;text-align:center;padding:25px}
-.container{max-width:900px;margin:25px auto;padding:15px}
-.card{background:white;padding:25px;border-radius:15px;box-shadow:0 5px 20px #0001}
-.upload{border:2px dashed #888;padding:30px;text-align:center;border-radius:12px}
-input{max-width:100%}
-button{background:#111827;color:white;border:0;padding:14px 20px;border-radius:8px;font-weight:bold;margin-top:15px;cursor:pointer}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f4f7fb;color:#172033}
+header{background:#111827;color:white;text-align:center;padding:25px 15px}
+header h1{margin:0;font-size:30px}
+header p{margin:8px 0}
+.container{max-width:950px;margin:25px auto;padding:15px}
+.card{background:white;border-radius:16px;padding:25px;box-shadow:0 5px 20px #0001}
+.upload{border:2px dashed #999;border-radius:12px;padding:30px;text-align:center}
+input[type=file]{max-width:100%;margin:15px 0}
+button{border:0;background:#111827;color:white;padding:14px 22px;border-radius:9px;font-weight:bold;font-size:16px;cursor:pointer;margin:8px}
 button:disabled{background:#aaa}
-.preview{text-align:center;margin-top:20px;padding:20px;min-height:250px;background:#eee;border-radius:12px}
-.preview img{max-width:100%;max-height:500px}
-.status{text-align:center;font-weight:bold;margin:15px}
-.success{color:green}
-.error{color:red}
-.download{text-align:center}
+.preview{margin-top:20px;min-height:300px;border-radius:12px;padding:20px;text-align:center;background:#eee}
+.preview img{max-width:100%;max-height:550px}
+.status{text-align:center;font-weight:bold;margin:18px}
+.success{color:#16803c}
+.error{color:#c62828}
+.actions{text-align:center}
+footer{margin-top:30px;background:#111827;color:white;text-align:center;padding:22px}
 </style>
 </head>
 
@@ -27,7 +31,7 @@ button:disabled{background:#aaa}
 
 <header>
 <h1>✂️ AI Background Remover</h1>
-<p>Remove Background Automatically</p>
+<p>Remove Image Background Automatically</p>
 </header>
 
 <div class="container">
@@ -36,40 +40,52 @@ button:disabled{background:#aaa}
 
 <div class="upload">
 
-<h2>📸 Select Photo</h2>
+<h2>📸 Select Your Image</h2>
 
 <input
 type="file"
 id="file"
 accept="image/jpeg,image/png,image/webp">
 
-<p>पहिले फोटो select करा</p>
-
 </div>
 
 <div class="preview">
 
-<img id="photoPreview" style="display:none">
+<img
+id="originalPreview"
+style="display:none"
+alt="Original Image">
 
 <p id="previewText">
-Selected image येथे दिसेल
+Your selected image will appear here
 </p>
 
 </div>
+
+<div style="text-align:center">
 
 <button id="removeBtn" disabled>
 ✨ Remove Background
 </button>
 
+</div>
+
 <div id="status" class="status"></div>
 
-<div class="download">
+<div class="preview">
 
 <img
-id="result"
-style="display:none;max-width:100%;max-height:500px">
+id="resultPreview"
+style="display:none"
+alt="Background Removed">
 
-<br>
+<p id="resultText">
+Background removed image will appear here
+</p>
+
+</div>
+
+<div class="actions">
 
 <button id="downloadBtn" disabled>
 ⬇️ Download PNG
@@ -78,7 +94,12 @@ style="display:none;max-width:100%;max-height:500px">
 </div>
 
 </div>
+
 </div>
+
+<footer>
+© 2026 RG Digital Image Tools
+</footer>
 
 
 <script type="module">
@@ -86,8 +107,8 @@ style="display:none;max-width:100%;max-height:500px">
 const fileInput =
 document.getElementById("file");
 
-const photoPreview =
-document.getElementById("photoPreview");
+const originalPreview =
+document.getElementById("originalPreview");
 
 const previewText =
 document.getElementById("previewText");
@@ -98,80 +119,114 @@ document.getElementById("removeBtn");
 const status =
 document.getElementById("status");
 
-const result =
-document.getElementById("result");
+const resultPreview =
+document.getElementById("resultPreview");
+
+const resultText =
+document.getElementById("resultText");
 
 const downloadBtn =
 document.getElementById("downloadBtn");
 
+
 let selectedFile = null;
-let outputBlob = null;
+let resultBlob = null;
 
 
-/* PHOTO SELECT */
+/* SELECT IMAGE */
 
 fileInput.addEventListener("change",function(){
 
-selectedFile=this.files[0];
+selectedFile = this.files[0];
 
 if(!selectedFile){
 
-removeBtn.disabled=true;
+removeBtn.disabled = true;
 return;
 
 }
 
-const imageURL=
+
+/* SHOW ORIGINAL IMAGE */
+
+const url =
 URL.createObjectURL(selectedFile);
 
-photoPreview.src=imageURL;
+originalPreview.src = url;
 
-photoPreview.style.display="block";
+originalPreview.style.display = "block";
 
-previewText.style.display="none";
+previewText.style.display = "none";
 
-removeBtn.disabled=false;
+removeBtn.disabled = false;
 
-status.innerHTML=
-"✅ Photo selected successfully.";
+resultPreview.style.display = "none";
+
+resultText.style.display = "block";
+
+downloadBtn.disabled = true;
+
+status.innerHTML =
+'<span class="success">✅ Image selected successfully</span>';
 
 });
 
 
-/* AI REMOVE */
+/* REMOVE BACKGROUND */
 
 removeBtn.addEventListener("click",async function(){
 
 if(!selectedFile)return;
 
-removeBtn.disabled=true;
+removeBtn.disabled = true;
 
-downloadBtn.disabled=true;
+downloadBtn.disabled = true;
 
-status.innerHTML=
-"⏳ AI Background Remover loading...";
+status.textContent =
+"⏳ Loading AI Background Remover...";
 
 
 try{
 
-const module =
+
+/*
+IMPORTANT:
+Use named export.
+*/
+
+const library =
 await import(
 "https://esm.sh/@imgly/background-removal@1.7.0"
 );
 
 const removeBackground =
-module.default;
-
-status.innerHTML=
-"⏳ AI model download होत आहे... पहिल्यांदा थोडा वेळ लागू शकतो.";
+library.removeBackground;
 
 
-outputBlob =
+if(typeof removeBackground !== "function"){
+
+throw new Error(
+"AI library could not load correctly."
+);
+
+}
+
+
+status.textContent =
+"⏳ AI model loading... First time may take a while.";
+
+
+/* AI PROCESSING */
+
+resultBlob =
 await removeBackground(
 selectedFile,
 {
+
 model:"isnet",
+
 device:"cpu",
+
 proxyToWorker:false,
 
 output:{
@@ -187,14 +242,15 @@ total
 
 if(total){
 
-const percent=
+const percent =
 Math.round(
 (current/total)*100
 );
 
-status.innerHTML=
+status.textContent =
 "⏳ AI Processing: "+
-percent+"%";
+percent+
+"%";
 
 }
 
@@ -206,53 +262,62 @@ percent+"%";
 
 /* SHOW RESULT */
 
-const resultURL=
-URL.createObjectURL(outputBlob);
+const resultURL =
+URL.createObjectURL(resultBlob);
 
-result.src=resultURL;
+resultPreview.src =
+resultURL;
 
-result.style.display="block";
+resultPreview.style.display =
+"block";
 
-status.innerHTML=
+resultText.style.display =
+"none";
+
+downloadBtn.disabled =
+false;
+
+status.innerHTML =
 '<span class="success">'+
-"✅ Background Successfully Removed!"+
+"✅ Background Removed Successfully!"+
 "</span>";
 
-downloadBtn.disabled=false;
 
 }catch(error){
 
 console.error(error);
 
-status.innerHTML=
+status.innerHTML =
 '<span class="error">'+
-"❌ AI processing failed. Please try again."+
-"<br><small>"+
+"❌ AI processing failed."+
+"<br>"+
 error.message+
-"</small></span>";
+"</span>";
 
 }
 
-removeBtn.disabled=false;
+removeBtn.disabled = false;
 
 });
 
 
 /* DOWNLOAD */
 
-downloadBtn.addEventListener("click",function(){
+downloadBtn.addEventListener(
+"click",
+function(){
 
-if(!outputBlob)return;
+if(!resultBlob)return;
 
-const url=
-URL.createObjectURL(outputBlob);
+const url =
+URL.createObjectURL(resultBlob);
 
-const a=
+const a =
 document.createElement("a");
 
-a.href=url;
+a.href = url;
 
-a.download=
+a.download =
 "RG-Digital-Background-Removed.png";
 
 document.body.appendChild(a);
@@ -261,13 +326,17 @@ a.click();
 
 a.remove();
 
-setTimeout(function(){
+setTimeout(
+function(){
 
 URL.revokeObjectURL(url);
 
-},1000);
+},
+1000
+);
 
 });
+
 
 </script>
 
