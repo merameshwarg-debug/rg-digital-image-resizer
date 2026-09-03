@@ -2,116 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>RG Digital Image Tools - Free Online Image Tools</title>
-
-<meta name="description" content="Free online image tools by RG Digital. Resize, compress and reduce image size easily.">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>RG Digital Image Tools</title>
+<meta name="description" content="Free online image resizer, compressor and background remover by RG Digital.">
 <style>
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f5f7fb;
-    color:#222;
-}
-
-header{
-    background:#111827;
-    color:white;
-    text-align:center;
-    padding:35px 15px;
-}
-
-header h1{
-    margin:0;
-    font-size:32px;
-}
-
-header p{
-    margin:10px 0 0;
-}
-
-.container{
-    max-width:1100px;
-    margin:auto;
-    padding:25px 15px;
-}
-
-.welcome{
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.tools{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    gap:18px;
-}
-
-.tool{
-    background:white;
-    padding:22px;
-    border-radius:15px;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
-
-.tool h2{
-    font-size:20px;
-    margin-top:0;
-}
-
-.tool p{
-    color:#666;
-    min-height:55px;
-}
-
-.tool a{
-    display:inline-block;
-    background:#111827;
-    color:white;
-    text-decoration:none;
-    padding:11px 18px;
-    border-radius:8px;
-}
-
-.tool a:hover{
-    opacity:.85;
-}
-
-.info{
-    background:white;
-    padding:25px;
-    margin-top:25px;
-    border-radius:15px;
-}
-
-footer{
-    margin-top:30px;
-    background:#111827;
-    color:white;
-    text-align:center;
-    padding:25px 15px;
-}
-
-footer a{
-    color:white;
-    margin:0 8px;
-    text-decoration:none;
-}
-
-@media(max-width:600px){
-    header h1{
-        font-size:26px;
-    }
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#222}
+header{background:#111827;color:#fff;text-align:center;padding:35px 15px}
+header h1{margin:0;font-size:32px}
+header p{font-size:17px;margin:10px 0 0}
+.container{max-width:900px;margin:25px auto;padding:0 15px}
+.card{background:#fff;padding:25px;border-radius:16px;box-shadow:0 5px 20px #00000012;margin-bottom:20px}
+.tools{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.tool{display:block;text-decoration:none;color:#222;background:#f3f4f6;padding:22px;border-radius:12px;border:1px solid #ddd}
+.tool h2{margin:0 0 8px;font-size:20px}
+.tool p{margin:0;color:#555}
+.tool:hover{background:#e5e7eb}
+nav{text-align:center;margin-top:20px}
+nav a{color:#111827;text-decoration:none;margin:0 10px;font-weight:bold}
+footer{background:#111827;color:#fff;text-align:center;padding:25px;margin-top:30px}
+@media(max-width:600px){.tools{grid-template-columns:1fr}header h1{font-size:27px}}
 </style>
 </head>
 
@@ -119,121 +29,59 @@ footer a{
 
 <header>
 <h1>RG Digital Image Tools</h1>
-<p>Free Online Image Resizer & Image Compressor</p>
+<p>Free Online Image Tools</p>
 </header>
 
 <div class="container">
 
-<div class="welcome">
-<h2>Free Online Image Tools</h2>
-<p>
-Resize, compress and reduce your image size easily.
-Choose a tool below to get started.
-</p>
-</div>
+<div class="card">
+<h2>🛠️ Our Free Tools</h2>
 
 <div class="tools">
 
-<div class="tool">
-<h2>🖼️ Image Resizer</h2>
-<p>Resize your image by width and height.</p>
-<a href="./image-resizer.html">Open Image Resizer</a>
-</div>
+<a class="tool" href="custom-image-resizer.html">
+<h2>📐 Custom Image Resizer</h2>
+<p>Set your own Width, Height and KB limit.</p>
+</a>
 
-<div class="tool">
-<h2>📉 Image Compressor</h2>
-<p>Compress your image and reduce file size.</p>
-<a href="./image-compressor.html">Open Compressor</a>
-</div>
+<a class="tool" href="compressor.html">
+<h2>🗜️ Image Compressor</h2>
+<p>Reduce image file size quickly.</p>
+</a>
 
-<div class="tool">
-<h2>📦 Image Size Reducer</h2>
-<p>Reduce the file size of your image.</p>
-<a href="./image-size-reducer.html">Open Size Reducer</a>
-</div>
-
-<div class="tool">
-<h2>🔹 Resize Image to 20KB</h2>
-<p>Prepare an image for applications requiring a small file size.</p>
-<a href="./resize-image-to-20kb.html">Open 20KB Tool</a>
-</div>
-
-<div class="tool">
-<h2>🔹 Resize Image to 50KB</h2>
-<p>Prepare an image around 50KB.</p>
-<a href="./resize-image-to-50kb.html">Open 50KB Tool</a>
-</div>
-
-<div class="tool">
-<h2>🔹 Resize Image to 100KB</h2>
-<p>Prepare an image around 100KB.</p>
-<a href="./resize-image-to-100kb.html">Open 100KB Tool</a>
-</div>
-
-<div class="tool">
-<h2>🔄 JPG to PNG</h2>
-<p>Convert JPG images to PNG format.</p>
-<a href="./jpg-to-png.html">Open Converter</a>
-</div>
-
-<div class="tool">
-<h2>🔄 PNG to JPG</h2>
-<p>Convert PNG images to JPG format.</p>
-<a href="./png-to-jpg.html">Open Converter</a>
-</div>
-
-<div class="tool">
-<h2>📐 DPI Changer</h2>
-<p>Change image DPI according to your requirement.</p>
-<a href="./image-dpi-changer.html">Open DPI Tool</a>
-</div>
-
-<div class="tool">
-<h2>🪪 Passport Photo</h2>
-<p>Prepare passport-size photographs.</p>
-<a href="./passport-photo-resizer.html">Open Tool</a>
-</div>
-
-<div class="tool">
-<h2>✍️ Signature Resizer</h2>
-<p>Resize signature images for online applications.</p>
-<a href="./signature-resizer.html">Open Tool</a>
-</div>
-
-<div class="tool">
+<a class="tool" href="background-remover.html">
 <h2>✂️ Background Remover</h2>
-<p>Prepare images with background removal options.</p>
-<a href="./background-remover.html">Open Tool</a>
-</div>
+<p>Remove image background online.</p>
+</a>
 
 </div>
+</div>
 
-<div class="info">
-<h2>About RG Digital Image Tools</h2>
+<div class="card">
+<h2>📸 Custom Resizing Made Easy</h2>
 
 <p>
-RG Digital Image Tools provides simple online tools for resizing,
-compressing and preparing images for online applications and forms.
+Choose your required image dimensions and maximum file size.
+For example, you can create a photo of
+<strong>160 × 212 pixels and 20KB or less</strong>
+for online forms.
 </p>
 
 <p>
-Always check the exact image size, dimensions and format required by
-the official website where you are submitting your image.
+You can also choose your own Width, Height and KB limit.
 </p>
 </div>
+
+<nav>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+</nav>
 
 </div>
 
 <footer>
-
-<p>© 2026 RG Digital Image Tools</p>
-
-<p>
-<a href="./about.html">About</a>
-<a href="./contact.html">Contact</a>
-<a href="./privacy-policy.html">Privacy Policy</a>
-</p>
-
+© 2026 RG Digital Image Tools
 </footer>
 
 </body>
