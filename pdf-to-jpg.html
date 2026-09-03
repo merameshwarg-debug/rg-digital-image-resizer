@@ -2,147 +2,111 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PDF to JPG - RG Digital</title>
 
 <style>
 *{box-sizing:border-box}
-
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#eef2ff,#f8fafc);
-color:#172033;
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:linear-gradient(135deg,#eef2ff,#f8fafc);
+ color:#172033;
 }
-
 header{
-background:linear-gradient(135deg,#111827,#1e3a8a,#312e81);
-color:#fff;
-text-align:center;
-padding:28px 15px;
+ background:linear-gradient(135deg,#111827,#1e3a8a,#312e81);
+ color:#fff;
+ text-align:center;
+ padding:28px 15px;
 }
-
-header h1{
-margin:0;
-font-size:30px;
-}
-
-header p{
-margin:8px 0 0;
-}
-
-.container{
-max-width:900px;
-margin:25px auto;
-padding:15px;
-}
-
+header h1{margin:0;font-size:30px}
+header p{margin:8px 0 0}
+.container{max-width:900px;margin:25px auto;padding:15px}
 .card{
-background:#fff;
-padding:25px;
-border-radius:20px;
-box-shadow:0 8px 30px #0002;
+ background:#fff;
+ padding:25px;
+ border-radius:20px;
+ box-shadow:0 8px 30px #0002;
 }
-
 .upload{
-border:2px dashed #64748b;
-border-radius:15px;
-padding:30px;
-text-align:center;
-background:#f8fafc;
+ border:2px dashed #64748b;
+ border-radius:15px;
+ padding:30px;
+ text-align:center;
+ background:#f8fafc;
 }
-
-input[type=file]{
-max-width:100%;
-margin:15px;
+input[type=file]{max-width:100%;margin:15px}
+.passwordBox{
+ display:none;
+ margin-top:20px;
+ padding:20px;
+ background:#f8fafc;
+ border:1px solid #cbd5e1;
+ border-radius:14px;
 }
-
-.password-box{
-display:none;
-margin-top:20px;
-padding:20px;
-background:#f8fafc;
-border:1px solid #dbeafe;
-border-radius:14px;
+.passwordBox input{
+ width:100%;
+ padding:14px;
+ border:1px solid #94a3b8;
+ border-radius:10px;
+ font-size:17px;
 }
-
-.password-box input{
-width:100%;
-padding:13px;
-font-size:16px;
-border:1px solid #cbd5e1;
-border-radius:9px;
-}
-
 button{
-border:0;
-border-radius:10px;
-padding:13px 20px;
-margin:8px 5px;
-background:#1e3a8a;
-color:white;
-font-weight:bold;
-font-size:15px;
-cursor:pointer;
+ border:0;
+ border-radius:10px;
+ padding:13px 20px;
+ margin:8px 5px;
+ background:#1e3a8a;
+ color:white;
+ font-weight:bold;
+ font-size:15px;
+ cursor:pointer;
 }
-
 button:disabled{
-background:#94a3b8;
-cursor:not-allowed;
+ background:#94a3b8;
+ cursor:not-allowed;
 }
-
-.center{
-text-align:center;
-}
-
+.center{text-align:center}
 .status{
-text-align:center;
-font-weight:bold;
-margin:20px 0;
-min-height:22px;
+ text-align:center;
+ font-weight:bold;
+ margin:20px 0;
+ min-height:24px;
 }
-
 .success{color:#15803d}
 .error{color:#dc2626}
 .info{color:#475569}
 
 .pages{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:20px;
-margin-top:25px;
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:20px;
+ margin-top:25px;
 }
-
 .page{
-background:#f8fafc;
-border:1px solid #e2e8f0;
-border-radius:14px;
-padding:12px;
-text-align:center;
+ background:#f8fafc;
+ border:1px solid #e2e8f0;
+ border-radius:14px;
+ padding:12px;
+ text-align:center;
 }
-
 .page img{
-width:100%;
-height:auto;
-display:block;
-border-radius:8px;
+ width:100%;
+ display:block;
+ border-radius:8px;
 }
-
-.page-title{
-font-weight:bold;
-margin:5px 0 12px;
+.pageTitle{
+ font-weight:bold;
+ margin:5px 0 12px;
 }
-
 .download{
-background:#15803d;
-font-size:14px;
+ background:#15803d;
 }
-
 @media(max-width:650px){
-.pages{grid-template-columns:1fr}
-.card{padding:16px}
-header h1{font-size:25px}
-button{width:100%;margin:6px 0}
+ .pages{grid-template-columns:1fr}
+ .card{padding:16px}
+ header h1{font-size:25px}
+ button{width:100%;margin:6px 0}
 }
 </style>
 </head>
@@ -155,57 +119,48 @@ button{width:100%;margin:6px 0}
 </header>
 
 <div class="container">
-
 <div class="card">
 
 <div class="upload">
-
 <h2>📁 Select PDF</h2>
 
 <input
-id="pdfFile"
-type="file"
-accept=".pdf,application/pdf">
+ id="pdfFile"
+ type="file"
+ accept="application/pdf,.pdf">
 
-<p>Select normal or password protected PDF</p>
-
+<p>Normal आणि Password Protected PDF दोन्ही वापरा.</p>
 </div>
 
-<div
-id="passwordBox"
-class="password-box">
+<div id="passwordBox" class="passwordBox">
 
-<h3>🔐 PDF Password Required</h3>
+<h3>🔐 PDF Password</h3>
 
-<p>Enter the correct password to open this PDF.</p>
+<p id="passwordMessage">
+ही PDF password protected आहे.
+</p>
 
 <input
-id="passwordInput"
-type="password"
-placeholder="Enter PDF Password"
-autocomplete="off">
+ id="passwordInput"
+ type="password"
+ placeholder="PDF Password टाका"
+ autocomplete="off">
 
 <div class="center">
-
-<button id="unlockBtn">
+<button id="passwordBtn">
 🔓 Open PDF
 </button>
-
 </div>
 
 </div>
 
 <div class="center">
 
-<button
-id="convertBtn"
-disabled>
+<button id="convertBtn" disabled>
 🖼️ Convert PDF to JPG
 </button>
 
-<button
-id="downloadAllBtn"
-disabled>
+<button id="downloadAllBtn" disabled>
 ⬇️ Download All JPG
 </button>
 
@@ -236,8 +191,11 @@ document.getElementById("passwordBox");
 const passwordInput =
 document.getElementById("passwordInput");
 
-const unlockBtn =
-document.getElementById("unlockBtn");
+const passwordBtn =
+document.getElementById("passwordBtn");
+
+const passwordMessage =
+document.getElementById("passwordMessage");
 
 const convertBtn =
 document.getElementById("convertBtn");
@@ -245,571 +203,440 @@ document.getElementById("convertBtn");
 const downloadAllBtn =
 document.getElementById("downloadAllBtn");
 
-const status =
+const statusBox =
 document.getElementById("status");
 
-const pages =
+const pagesBox =
 document.getElementById("pages");
 
 
-let pdfData = null;
-let pdfDoc = null;
-let images = [];
+let pdfBytes = null;
+let pdfDocument = null;
+let loadingTask = null;
+let jpgFiles = [];
 
 
-/* STATUS */
 
-function setStatus(text,type="info"){
+function status(message,type="info"){
 
-status.className =
-"status " + type;
-
-status.textContent =
-text;
+ statusBox.className="status "+type;
+ statusBox.textContent=message;
 
 }
 
 
-/* RESET */
 
 function reset(){
 
-pdfDoc=null;
-images=[];
+ if(loadingTask){
 
-pages.innerHTML="";
+  try{
+   loadingTask.destroy();
+  }catch(e){}
 
-passwordBox.style.display="none";
+ }
 
-passwordInput.value="";
+ pdfDocument=null;
+ loadingTask=null;
+ jpgFiles=[];
 
-convertBtn.disabled=true;
+ pagesBox.innerHTML="";
 
-downloadAllBtn.disabled=true;
+ passwordBox.style.display="none";
 
-}
+ passwordInput.value="";
 
+ convertBtn.disabled=true;
 
-/* FILE SELECT */
-
-fileInput.addEventListener(
-"change",
-async function(){
-
-reset();
-
-const file =
-this.files[0];
-
-if(!file){
-return;
-}
-
-setStatus(
-"⏳ PDF तपासत आहे...",
-"info"
-);
-
-try{
-
-pdfData =
-new Uint8Array(
-await file.arrayBuffer()
-);
-
-
-/*
-Try opening without password.
-*/
-
-await openPDF(null);
-
-
-setStatus(
-"✅ PDF successfully opened.",
-"success"
-);
-
-}
-catch(error){
-
-console.log(error);
-
-
-/*
-PDF password required
-*/
-
-if(
-error &&
-error.name ===
-"PasswordException"
-){
-
-passwordBox.style.display =
-"block";
-
-setStatus(
-"🔐 PDF password मागत आहे.",
-"error"
-);
-
-passwordInput.focus();
-
-}
-else{
-
-setStatus(
-"❌ PDF open करता आली नाही.",
-"error"
-);
+ downloadAllBtn.disabled=true;
 
 }
 
-}
+
+
+fileInput.addEventListener("change",async function(){
+
+ reset();
+
+ const file=this.files[0];
+
+ if(!file)return;
+
+ status("⏳ PDF वाचत आहे...","info");
+
+ try{
+
+  pdfBytes=new Uint8Array(
+   await file.arrayBuffer()
+  );
+
+  await loadPDF();
+
+ }catch(error){
+
+  console.error(error);
+
+  status(
+   "❌ PDF उघडता आली नाही.",
+   "error"
+  );
+
+ }
 
 });
 
 
-/* PASSWORD OPEN */
 
-unlockBtn.addEventListener(
-"click",
-async function(){
+function loadPDF(){
 
-const password =
-passwordInput.value;
+ return new Promise((resolve,reject)=>{
 
-if(!password){
+  let finished=false;
 
-setStatus(
-"⚠️ Password टाका.",
-"error"
-);
-
-passwordInput.focus();
-
-return;
-}
-
-unlockBtn.disabled=true;
-
-setStatus(
-"⏳ Password तपासत आहे...",
-"info"
-);
+  loadingTask=pdfjsLib.getDocument({
+   data:pdfBytes
+  });
 
 
-try{
+  loadingTask.onPassword=function(
+   updatePassword,
+   reason
+  ){
 
-await openPDF(password);
+   passwordBox.style.display="block";
 
+   if(
+    reason ===
+    pdfjsLib.PasswordResponses.NEED_PASSWORD
+   ){
 
-passwordBox.style.display =
-"none";
+    passwordMessage.textContent =
+    "🔐 ही PDF password protected आहे. Password टाका.";
 
-setStatus(
-"✅ Password बरोबर आहे. PDF open झाली.",
-"success"
-);
+   }else{
 
-}
-catch(error){
+    passwordMessage.textContent =
+    "❌ Password चुकीचा आहे. पुन्हा password टाका.";
 
-console.log(error);
+   }
 
-setStatus(
-"❌ Password चुकीचा आहे किंवा PDF उघडता आली नाही.",
-"error"
-);
+   passwordBtn.disabled=false;
 
-passwordInput.select();
+   passwordInput.focus();
 
-unlockBtn.disabled=false;
+   passwordBtn.onclick=function(){
 
-}
+    const password =
+    passwordInput.value;
 
-});
+    if(!password){
 
+     passwordMessage.textContent =
+     "⚠️ Password टाका.";
 
-/* ENTER KEY */
+     return;
 
-passwordInput.addEventListener(
-"keydown",
-function(e){
+    }
 
-if(e.key==="Enter"){
-unlockBtn.click();
-}
+    passwordBtn.disabled=true;
 
-});
+    status(
+     "🔓 Password तपासत आहे...",
+     "info"
+    );
 
+    updatePassword(password);
 
-/*
------------------------------------------
-OPEN PDF
------------------------------------------
-*/
+   };
 
-function openPDF(password){
-
-return new Promise(
-function(resolve,reject){
-
-let task;
+  };
 
 
-try{
+  loadingTask.promise.then(
 
-task =
-pdfjsLib.getDocument({
-data:pdfData,
-password:password || undefined
-});
+   function(pdf){
 
+    if(finished)return;
 
-}
-catch(error){
+    finished=true;
 
-reject(error);
-return;
+    pdfDocument=pdf;
 
-}
+    passwordBox.style.display="none";
 
+    convertBtn.disabled=false;
 
-/*
-PDF.js handles password internally.
-*/
+    status(
+     "✅ PDF successfully open झाली. आता Convert करा.",
+     "success"
+    );
 
-task.promise.then(
+    resolve(pdf);
 
-function(pdf){
+   },
 
-pdfDoc=pdf;
+   function(error){
 
-convertBtn.disabled=false;
+    if(finished)return;
 
-resolve(pdf);
+    finished=true;
 
-},
+    console.error(error);
 
-function(error){
+    reject(error);
 
-reject(error);
+   }
 
-}
+  );
 
-);
-
-});
+ });
 
 }
 
 
-/*
------------------------------------------
-CONVERT PDF TO JPG
------------------------------------------
-*/
 
 convertBtn.addEventListener(
 "click",
 async function(){
 
-if(!pdfDoc){
-return;
-}
+ if(!pdfDocument)return;
 
-convertBtn.disabled=true;
+ convertBtn.disabled=true;
+ downloadAllBtn.disabled=true;
 
-downloadAllBtn.disabled=true;
+ pagesBox.innerHTML="";
+ jpgFiles=[];
 
-pages.innerHTML="";
+ try{
 
-images=[];
+  for(
+   let pageNumber=1;
+   pageNumber<=pdfDocument.numPages;
+   pageNumber++
+  ){
 
-
-try{
-
-for(
-let i=1;
-i<=pdfDoc.numPages;
-i++
-){
-
-setStatus(
-"⏳ Page "+
-i+
-" / "+
-pdfDoc.numPages+
-" convert होत आहे...",
-"info"
-);
+   status(
+    "⏳ Page "+
+    pageNumber+
+    " / "+
+    pdfDocument.numPages+
+    " JPG मध्ये convert होत आहे...",
+    "info"
+   );
 
 
-const page =
-await pdfDoc.getPage(i);
+   const page =
+   await pdfDocument.getPage(pageNumber);
 
 
-/*
-High quality
-*/
+   const scale=2.5;
 
-const scale=2;
-
-const viewport =
-page.getViewport({
-scale:scale
-});
+   const viewport =
+   page.getViewport({
+    scale:scale
+   });
 
 
-const canvas =
-document.createElement("canvas");
+   const canvas =
+   document.createElement("canvas");
 
-const context =
-canvas.getContext("2d");
-
-
-canvas.width =
-Math.ceil(viewport.width);
-
-canvas.height =
-Math.ceil(viewport.height);
+   const context =
+   canvas.getContext("2d",{
+    alpha:false
+   });
 
 
-await page.render({
+   canvas.width=
+   Math.ceil(viewport.width);
 
-canvasContext:context,
-
-viewport:viewport
-
-}).promise;
+   canvas.height=
+   Math.ceil(viewport.height);
 
 
-const blob =
-await new Promise(
-function(resolve){
+   await page.render({
 
-canvas.toBlob(
-function(result){
+    canvasContext:context,
+    viewport:viewport,
 
-resolve(result);
+    background:"white"
 
-},
-"image/jpeg",
-0.95
-);
-
-});
+   }).promise;
 
 
-if(!blob){
+   const blob =
+   await new Promise(resolve=>{
 
-throw new Error(
-"JPG conversion failed"
-);
+    canvas.toBlob(
+     resolve,
+     "image/jpeg",
+     0.95
+    );
 
-}
-
-
-images.push(blob);
-
-
-/*
-Preview
-*/
-
-createPreview(
-blob,
-i
-);
-
-}
+   });
 
 
-setStatus(
-"✅ PDF → JPG conversion पूर्ण झाले.",
-"success"
-);
+   if(!blob){
 
-downloadAllBtn.disabled=false;
+    throw new Error(
+     "JPG conversion failed"
+    );
 
-}
-catch(error){
+   }
 
-console.error(error);
 
-setStatus(
-"❌ JPG conversion failed.",
-"error"
-);
+   jpgFiles.push(blob);
 
-}
+   createPreview(
+    blob,
+    pageNumber
+   );
 
-convertBtn.disabled=false;
+  }
+
+
+  status(
+   "✅ PDF → JPG conversion पूर्ण झाले!",
+   "success"
+  );
+
+  downloadAllBtn.disabled=false;
+
+ }catch(error){
+
+  console.error(error);
+
+  status(
+   "❌ JPG conversion मध्ये समस्या आली.",
+   "error"
+  );
+
+ }
+
+ convertBtn.disabled=false;
 
 });
 
 
-/*
------------------------------------------
-PREVIEW
------------------------------------------
-*/
 
-function createPreview(
-blob,
-number
-){
+function createPreview(blob,pageNumber){
 
-const url =
-URL.createObjectURL(blob);
+ const url =
+ URL.createObjectURL(blob);
+
+ const box =
+ document.createElement("div");
+
+ box.className="page";
 
 
-const box =
-document.createElement("div");
+ const title =
+ document.createElement("div");
 
-box.className="page";
+ title.className="pageTitle";
 
-
-const title =
-document.createElement("div");
-
-title.className="page-title";
-
-title.textContent =
-"Page "+number;
+ title.textContent=
+ "Page "+pageNumber;
 
 
-const img =
-document.createElement("img");
+ const image =
+ document.createElement("img");
 
-img.src=url;
-
-
-const button =
-document.createElement("button");
-
-button.className="download";
-
-button.textContent =
-"⬇️ Download JPG";
+ image.src=url;
 
 
-button.onclick =
-function(){
+ const button =
+ document.createElement("button");
 
-download(
-blob,
-"page-"+number+".jpg"
-);
+ button.className="download";
 
-};
+ button.textContent=
+ "⬇️ Download JPG";
 
 
-box.appendChild(title);
+ button.onclick=function(){
 
-box.appendChild(img);
+  downloadBlob(
+   blob,
+   "page-"+pageNumber+".jpg"
+  );
 
-box.appendChild(button);
+ };
 
-pages.appendChild(box);
+
+ box.appendChild(title);
+ box.appendChild(image);
+ box.appendChild(button);
+
+ pagesBox.appendChild(box);
 
 }
 
 
-/*
------------------------------------------
-DOWNLOAD
------------------------------------------
-*/
 
-function download(
-blob,
-filename
-){
+function downloadBlob(blob,filename){
 
-const url =
-URL.createObjectURL(blob);
+ const url =
+ URL.createObjectURL(blob);
 
-const a =
-document.createElement("a");
+ const a =
+ document.createElement("a");
 
-a.href=url;
+ a.href=url;
+ a.download=filename;
 
-a.download=filename;
+ document.body.appendChild(a);
 
-document.body.appendChild(a);
+ a.click();
 
-a.click();
+ a.remove();
 
-a.remove();
-
-
-setTimeout(
-function(){
-
-URL.revokeObjectURL(url);
-
-},
-1000
-);
+ setTimeout(
+  ()=>URL.revokeObjectURL(url),
+ 1000
+ );
 
 }
 
 
-/*
------------------------------------------
-DOWNLOAD ALL
------------------------------------------
-*/
 
 downloadAllBtn.addEventListener(
 "click",
 async function(){
 
-if(!images.length){
-return;
-}
+ if(!jpgFiles.length)return;
 
-downloadAllBtn.disabled=true;
+ downloadAllBtn.disabled=true;
 
-setStatus(
-"⏳ JPG files download होत आहेत...",
-"info"
-);
+ status(
+  "⏳ JPG files download होत आहेत...",
+  "info"
+ );
 
 
-for(
-let i=0;
-i<images.length;
-i++
-){
+ for(
+  let i=0;
+  i<jpgFiles.length;
+  i++
+ ){
 
-download(
-images[i],
-"page-"+(i+1)+".jpg"
-);
+  downloadBlob(
+   jpgFiles[i],
+   "page-"+(i+1)+".jpg"
+  );
 
-await new Promise(
-function(resolve){
+  await new Promise(
+   resolve=>setTimeout(resolve,600)
+  );
 
-setTimeout(
-resolve,
-500
-);
-
-});
-
-}
+ }
 
 
-setStatus(
-"✅ सर्व JPG downloads सुरू झाले.",
-"success"
-);
+ status(
+  "✅ सर्व JPG files download सुरू झाले.",
+  "success"
+ );
 
-downloadAllBtn.disabled=false;
+ downloadAllBtn.disabled=false;
 
 });
 
