@@ -6,7 +6,7 @@
 
 <title>RG Digital Image Tools</title>
 
-<meta name="description" content="Free online image tools by RG Digital. Resize, compress, remove background and convert images and PDF files.">
+<meta name="description" content="RG Digital Image Tools - Free online image resizing, compression, background removal and PDF tools.">
 
 <style>
 
@@ -27,20 +27,41 @@ header{
 background:linear-gradient(135deg,#111827,#1e3a8a,#312e81);
 color:white;
 text-align:center;
-padding:38px 15px 32px;
-box-shadow:0 5px 20px #0003;
+padding:28px 15px 32px;
+box-shadow:0 5px 25px #0004;
+}
+
+.brand{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:13px;
+}
+
+.logo{
+width:58px;
+height:58px;
+border-radius:16px;
+background:linear-gradient(135deg,#22c55e,#06b6d4);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+font-weight:900;
+color:white;
+box-shadow:0 5px 18px #0004;
+border:3px solid white;
 }
 
 header h1{
 margin:0;
-font-size:36px;
+font-size:34px;
 font-weight:800;
-letter-spacing:.3px;
 }
 
 header p{
-margin:10px 0 0;
-font-size:17px;
+margin:9px 0 0;
+font-size:16px;
 opacity:.9;
 }
 
@@ -48,16 +69,38 @@ opacity:.9;
 margin-top:18px;
 display:flex;
 justify-content:center;
-gap:10px;
+gap:9px;
 flex-wrap:wrap;
 }
 
 .badges span{
 background:#ffffff18;
-border:1px solid #ffffff30;
+border:1px solid #ffffff35;
 padding:7px 13px;
 border-radius:30px;
 font-size:13px;
+}
+
+/* YOUTUBE BUTTON */
+
+.youtube{
+display:inline-flex;
+align-items:center;
+gap:9px;
+margin-top:20px;
+padding:13px 22px;
+border-radius:30px;
+background:#ff0033;
+color:white;
+text-decoration:none;
+font-weight:bold;
+box-shadow:0 6px 18px #0004;
+transition:.25s;
+}
+
+.youtube:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 25px #0005;
 }
 
 /* MAIN */
@@ -68,15 +111,13 @@ margin:30px auto;
 padding:0 16px;
 }
 
-/* SECTION */
-
 .section{
-background:#ffffffde;
+background:#ffffffeb;
 backdrop-filter:blur(10px);
 border-radius:22px;
 padding:25px;
 box-shadow:0 10px 35px #00000012;
-border:1px solid #ffffff;
+border:1px solid white;
 }
 
 .section-title{
@@ -85,15 +126,13 @@ font-weight:800;
 margin:0 0 22px;
 }
 
-/* TOOLS GRID */
+/* TOOLS */
 
 .tools{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:18px;
+gap:17px;
 }
-
-/* TOOL CARD */
 
 .tool{
 position:relative;
@@ -103,7 +142,7 @@ color:#172033;
 background:linear-gradient(145deg,#ffffff,#f8fafc);
 border:1px solid #e2e8f0;
 border-radius:17px;
-padding:23px;
+padding:22px;
 min-height:135px;
 transition:.25s ease;
 overflow:hidden;
@@ -122,12 +161,18 @@ background:linear-gradient(#2563eb,#7c3aed);
 
 .tool:hover{
 transform:translateY(-5px);
-box-shadow:0 14px 28px #0002;
+box-shadow:0 15px 30px #0002;
 border-color:#c7d2fe;
 }
 
+.icon{
+font-size:30px;
+display:block;
+margin-bottom:8px;
+}
+
 .tool h2{
-margin:0 0 8px;
+margin:0 0 7px;
 font-size:20px;
 }
 
@@ -136,12 +181,6 @@ margin:0;
 color:#64748b;
 font-size:15px;
 line-height:1.5;
-}
-
-.icon{
-font-size:30px;
-margin-bottom:8px;
-display:block;
 }
 
 /* FEATURE */
@@ -171,12 +210,48 @@ color:white;
 padding:9px 14px;
 border-radius:8px;
 font-weight:bold;
-margin-top:5px;
 }
 
-/* PRIVACY */
+/* ABOUT CONTACT */
 
-.privacy{
+.about{
+margin-top:20px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+}
+
+.about-card{
+background:white;
+border-radius:18px;
+padding:23px;
+border:1px solid #e2e8f0;
+box-shadow:0 5px 18px #0000000d;
+}
+
+.about-card h2{
+margin-top:0;
+}
+
+.about-card p{
+color:#64748b;
+line-height:1.6;
+}
+
+.call{
+display:inline-block;
+margin-top:8px;
+background:#16a34a;
+color:white;
+padding:11px 18px;
+border-radius:9px;
+text-decoration:none;
+font-weight:bold;
+}
+
+/* INFO */
+
+.info-section{
 margin-top:20px;
 display:grid;
 grid-template-columns:repeat(3,1fr);
@@ -185,7 +260,7 @@ gap:15px;
 
 .info{
 background:white;
-border-radius:14px;
+border-radius:15px;
 padding:18px;
 text-align:center;
 box-shadow:0 4px 15px #0000000b;
@@ -247,63 +322,34 @@ color:#94a3b8;
 
 @media(max-width:700px){
 
-header{
-padding:30px 15px;
-}
-
 header h1{
-font-size:28px;
+font-size:26px;
 }
 
-header p{
-font-size:15px;
-}
-
-.container{
-padding:0 12px;
-margin-top:20px;
-}
-
-.section{
-padding:18px;
-border-radius:18px;
+.logo{
+width:50px;
+height:50px;
+font-size:21px;
 }
 
 .tools{
 grid-template-columns:1fr;
-gap:14px;
 }
 
-.tool{
-min-height:auto;
-padding:20px;
-}
-
-.tool h2{
-font-size:19px;
-}
-
-.privacy{
+.about{
 grid-template-columns:1fr;
 }
 
-.footer-links a{
-display:inline-block;
-margin:6px 9px;
+.info-section{
+grid-template-columns:1fr;
 }
 
+.container{
+padding:0 12px;
 }
 
-/* SMALL SCREEN */
-
-@media(max-width:380px){
-
-header h1{
-font-size:24px;
-}
-
-.section-title{
-font-size:22px;
+.section{
+padding:18px;
 }
 
 }
@@ -316,9 +362,16 @@ font-size:22px;
 
 <header>
 
+<div class="brand">
+
+<div class="logo">RG</div>
+
 <h1>RG Digital Image Tools</h1>
 
+</div>
+
 <p>Free Online Image Tools</p>
+
 
 <div class="badges">
 
@@ -327,6 +380,16 @@ font-size:22px;
 <span>🔒 Secure</span>
 
 </div>
+
+
+<a class="youtube"
+href="https://youtube.com/@ramghungrad0071"
+target="_blank"
+rel="noopener">
+
+▶️ Site कशी वापरायची? YouTube वर पाहा
+
+</a>
 
 </header>
 
@@ -377,7 +440,7 @@ Reduce image file size quickly and easily.
 <h2>Background Remover</h2>
 
 <p>
-Remove image background and change background colour.
+Remove background and change background colour.
 </p>
 
 </a>
@@ -436,14 +499,55 @@ and other online document requirements.
 </section>
 
 
-<div class="privacy">
+<section class="about">
+
+
+<div class="about-card">
+
+<h2>👤 About RG Digital</h2>
+
+<p>
+RG Digital Image Tools हे image आणि document related
+online कामे सोपी करण्यासाठी तयार केलेले free tools platform आहे.
+</p>
+
+<p>
+<strong>Developed by Rameshwar Namdev Ghungrad</strong>
+</p>
+
+</div>
+
+
+<div class="about-card">
+
+<h2>📞 Contact</h2>
+
+<p>
+<strong>Rameshwar Namdev Ghungrad</strong>
+</p>
+
+<p>
+मोबाईल: <strong>9853874777</strong>
+</p>
+
+<a class="call" href="tel:9853874777">
+📞 Call Now
+</a>
+
+</div>
+
+
+</section>
+
+
+<div class="info-section">
 
 <div class="info">
 
 <strong>⚡ Fast Processing</strong>
 
 <span>
-Quick and simple image tools.
+Simple and easy-to-use tools.
 </span>
 
 </div>
@@ -454,7 +558,7 @@ Quick and simple image tools.
 <strong>🔒 Privacy Friendly</strong>
 
 <span>
-Your images are processed directly in your browser where supported.
+Images are processed in your browser where supported.
 </span>
 
 </div>
@@ -465,7 +569,7 @@ Your images are processed directly in your browser where supported.
 <strong>🆓 Completely Free</strong>
 
 <span>
-Use our basic image tools without payment.
+Free online image utilities.
 </span>
 
 </div>
@@ -477,7 +581,6 @@ Use our basic image tools without payment.
 
 
 <footer>
-
 
 <div class="footer-links">
 
@@ -503,7 +606,6 @@ Developed by
 © 2026 RG Digital Image Tools. All Rights Reserved.
 
 </div>
-
 
 </footer>
 
