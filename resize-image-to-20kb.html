@@ -6,7 +6,7 @@
 
 <title>Resize Image to 20KB Online Free | RG Digital</title>
 
-<meta name="description" content="Resize and compress JPG images to approximately 20KB online for free. Easy image size reducer for online applications.">
+<meta name="description" content="Compress and resize image to 20KB or less online for free.">
 
 <style>
 *{box-sizing:border-box}
@@ -26,21 +26,7 @@ padding:28px 15px
 }
 
 header h1{margin:0;font-size:30px}
-header p{margin:8px 0 0}
-
-nav{
-background:white;
-padding:14px;
-text-align:center;
-border-bottom:1px solid #ddd
-}
-
-nav a{
-text-decoration:none;
-color:#2563eb;
-margin:0 6px;
-font-size:14px
-}
+header p{margin:8px 0}
 
 .container{
 max-width:850px;
@@ -56,19 +42,19 @@ box-shadow:0 5px 20px rgba(0,0,0,.08)
 }
 
 .upload{
-border:2px dashed #9ca3af;
+border:2px dashed #999;
 padding:30px 15px;
 text-align:center;
 border-radius:14px
 }
 
-input[type=file]{
-max-width:100%
-}
+input[type=file]{max-width:100%}
 
-.controls{
-display:none;
-margin-top:20px
+.info{
+background:#f3f4f6;
+padding:15px;
+border-radius:10px;
+margin-top:18px
 }
 
 button{
@@ -80,19 +66,12 @@ border-radius:9px;
 font-size:16px;
 font-weight:bold;
 cursor:pointer;
-margin:8px 5px 0 0
+margin:10px 5px 0 0
 }
 
 button:disabled{
 opacity:.5;
 cursor:not-allowed
-}
-
-.info{
-background:#f3f4f6;
-padding:15px;
-border-radius:10px;
-margin-top:18px
 }
 
 .preview{
@@ -130,8 +109,8 @@ padding:25px
 
 footer a{
 color:white;
-text-decoration:none;
-margin:0 7px
+margin:0 7px;
+text-decoration:none
 }
 
 @media(max-width:600px){
@@ -145,16 +124,8 @@ header h1{font-size:25px}
 
 <header>
 <h1>Resize Image to 20KB</h1>
-<p>Compress JPG Image to Approximately 20KB</p>
+<p>Make Your Image 20KB or Less</p>
 </header>
-
-<nav>
-<a href="./index.html">Home</a>
-<a href="./image-resizer.html">Image Resizer</a>
-<a href="./image-compressor.html">Compressor</a>
-<a href="./resize-image-to-50kb.html">50KB</a>
-<a href="./resize-image-to-100kb.html">100KB</a>
-</nav>
 
 <div class="container">
 
@@ -162,136 +133,109 @@ header h1{font-size:25px}
 
 <div class="upload">
 <h2>Select Image</h2>
-<p>Choose JPG, JPEG, PNG or WebP</p>
+<p>JPG, JPEG, PNG or WebP</p>
 
-<input
-type="file"
+<input type="file"
 id="imageInput"
 accept="image/jpeg,image/png,image/webp">
 </div>
 
 <div id="originalInfo" class="info" style="display:none"></div>
 
-<div id="controls" class="controls">
+<div id="message"></div>
 
-<button id="compressBtn">
-Make Approximately 20KB
-</button>
+<div id="result" style="display:none">
 
-<button id="downloadBtn" disabled>
+<div class="preview" id="preview">
+<h2>Result</h2>
+
+<img id="previewImage" alt="20KB image preview">
+
+<div id="resultInfo" class="info"></div>
+
+<button id="downloadBtn">
 Download Image
 </button>
 
 </div>
 
-<div id="message"></div>
-
-<div id="preview" class="preview">
-
-<h2>Result</h2>
-
-<img id="previewImage" alt="20KB compressed image">
-
-<div id="resultInfo" class="info"></div>
-
 </div>
-
-</div>
-
-<div class="card" style="margin-top:20px">
-
-<h2>About 20KB Image</h2>
-
-<p>
-Some online application forms require a photograph or signature
-within a specific file-size limit. This tool attempts to create
-an image close to 20KB.
-</p>
-
-<p>
-The exact final size can vary depending on the original image,
-dimensions and image content. Always check the official
-application requirements before uploading.
-</p>
 
 </div>
 
 </div>
 
 <footer>
-
 <p>© 2026 RG Digital Image Tools</p>
-
-<p>
-<a href="./about.html">About</a>
-<a href="./contact.html">Contact</a>
-<a href="./privacy-policy.html">Privacy Policy</a>
-</p>
-
 </footer>
 
 <script>
 
-const imageInput =
-document.getElementById("imageInput");
+const input=document.getElementById("imageInput");
+const originalInfo=document.getElementById("originalInfo");
+const message=document.getElementById("message");
+const preview=document.getElementById("preview");
+const previewImage=document.getElementById("previewImage");
+const resultInfo=document.getElementById("resultInfo");
+const downloadBtn=document.getElementById("downloadBtn");
 
-const originalInfo =
-document.getElementById("originalInfo");
+let finalBlob=null;
 
-const controls =
-document.getElementById("controls");
+input.addEventListener("change",function(){
 
-const compressBtn =
-document.getElementById("compressBtn");
+const file=this.files[0];
 
-const downloadBtn =
-document.getElementById("downloadBtn");
-
-const preview =
-document.getElementById("preview");
-
-const previewImage =
-document.getElementById("previewImage");
-
-const resultInfo =
-document.getElementById("resultInfo");
-
-const message =
-document.getElementById("message");
-
-let img = new Image();
-let selectedFile = null;
-let resultBlob = null;
-
-imageInput.addEventListener("change",function(){
-
-selectedFile=this.files[0];
-
-if(!selectedFile)return;
+if(!file)return;
 
 message.innerHTML="";
 preview.style.display="none";
-downloadBtn.disabled=true;
+finalBlob=null;
 
 const reader=new FileReader();
 
 reader.onload=function(e){
 
-img.onload=function(){
+const img=new Image();
+
+img.onload=async function(){
 
 originalInfo.style.display="block";
 
 originalInfo.innerHTML=
 "<strong>Original Image</strong><br>"+
 "Dimensions: "+
-img.naturalWidth+
-" × "+
-img.naturalHeight+
+img.naturalWidth+" × "+img.naturalHeight+
 " px<br>"+
 "File size: "+
-formatBytes(selectedFile.size);
+formatBytes(file.size);
 
-controls.style.display="block";
+message.innerHTML="Creating image 20KB or less... Please wait.";
+
+finalBlob=await makeUnder20KB(img);
+
+if(!finalBlob){
+
+message.innerHTML=
+'<div class="error">This image could not be reduced to 20KB. Please try a smaller image.</div>';
+
+return;
+}
+
+const url=URL.createObjectURL(finalBlob);
+
+previewImage.src=url;
+
+preview.style.display="block";
+
+resultInfo.innerHTML=
+"<strong>Final Result</strong><br>"+
+"File size: <b>"+
+formatBytes(finalBlob.size)+
+"</b><br>"+
+"Maximum allowed: <b>20KB</b>";
+
+message.innerHTML=
+'<div class="success">Success! Image is 20KB or less. ✅</div>';
 
 };
 
@@ -299,127 +243,65 @@ img.src=e.target.result;
 
 };
 
-reader.readAsDataURL(selectedFile);
+reader.readAsDataURL(file);
 
 });
 
 
-compressBtn.addEventListener("click",async function(){
+async function makeUnder20KB(img){
 
-if(!selectedFile || !img.src){
-message.innerHTML=
-'<div class="error">Please select an image first.</div>';
-return;
-}
-
-message.innerHTML=
-"Creating image around 20KB... Please wait.";
+const limit=20*1024;
 
 let width=img.naturalWidth;
 let height=img.naturalHeight;
 
-const maxDimension=1200;
+/*
+Start with original dimensions.
+If necessary, gradually reduce dimensions.
+*/
 
-if(width>maxDimension || height>maxDimension){
+for(let dimensionScale=1;
+dimensionScale>=0.1;
+dimensionScale-=0.05){
 
-const ratio=Math.min(
-maxDimension/width,
-maxDimension/height
-);
-
-width=Math.round(width*ratio);
-height=Math.round(height*ratio);
-
-}
+let w=Math.max(1,Math.round(width*dimensionScale));
+let h=Math.max(1,Math.round(height*dimensionScale));
 
 const canvas=document.createElement("canvas");
 
-canvas.width=width;
-canvas.height=height;
+canvas.width=w;
+canvas.height=h;
 
 const ctx=canvas.getContext("2d");
 
-ctx.drawImage(img,0,0,width,height);
+ctx.drawImage(img,0,0,w,h);
 
-let bestBlob=null;
-let bestDifference=Infinity;
+/*
+Try many JPEG quality levels.
+*/
 
-for(let q=0.95;q>=0.05;q-=0.05){
+for(let quality=0.95;
+quality>=0.05;
+quality-=0.05){
 
-const blob=await canvasToBlob(canvas,q);
+const blob=await canvasToBlob(
+canvas,
+quality
+);
 
-const size=blob.size;
-const target=20*1024;
-const difference=Math.abs(size-target);
+if(blob && blob.size<=limit){
 
-if(difference<bestDifference){
+return blob;
 
-bestDifference=difference;
-bestBlob=blob;
+}
 
 }
 
 }
 
-resultBlob=bestBlob;
-
-const url=URL.createObjectURL(resultBlob);
-
-previewImage.src=url;
-
-preview.style.display="block";
-
-downloadBtn.disabled=false;
-
-const finalSize=resultBlob.size;
-
-resultInfo.innerHTML=
-"<strong>Result</strong><br>"+
-"Final dimensions: "+
-width+
-" × "+
-height+
-" px<br>"+
-"Final file size: "+
-formatBytes(finalSize);
-
-if(finalSize<=20*1024){
-
-message.innerHTML=
-'<div class="success">Image created within 20KB! ✅</div>';
-
-}else{
-
-message.innerHTML=
-'<div class="success">Best possible size created: '+
-formatBytes(finalSize)+
-'. Try a simpler/smaller original image if you need a strict 20KB limit.</div>';
+return null;
 
 }
-
-});
-
-
-downloadBtn.addEventListener("click",function(){
-
-if(!resultBlob)return;
-
-const url=URL.createObjectURL(resultBlob);
-
-const a=document.createElement("a");
-
-a.href=url;
-a.download="rg-digital-image-20kb.jpg";
-
-document.body.appendChild(a);
-
-a.click();
-
-document.body.removeChild(a);
-
-URL.revokeObjectURL(url);
-
-});
 
 
 function canvasToBlob(canvas,quality){
@@ -435,6 +317,43 @@ quality
 });
 
 }
+
+
+downloadBtn.addEventListener("click",function(){
+
+if(!finalBlob)return;
+
+/*
+Safety check:
+Never download a file larger than 20KB.
+*/
+
+if(finalBlob.size>20*1024){
+
+alert("File is larger than 20KB and cannot be downloaded.");
+
+return;
+
+}
+
+const url=URL.createObjectURL(finalBlob);
+
+const a=document.createElement("a");
+
+a.href=url;
+a.download="rg-digital-20kb.jpg";
+
+document.body.appendChild(a);
+
+a.click();
+
+document.body.removeChild(a);
+
+setTimeout(function(){
+URL.revokeObjectURL(url);
+},1000);
+
+});
 
 
 function formatBytes(bytes){
@@ -455,9 +374,7 @@ Math.log(bytes)/Math.log(1024)
 return(
 parseFloat(
 (bytes/Math.pow(1024,i)).toFixed(2)
-)+
-" "+
-sizes[i]
+)+" "+sizes[i]
 );
 
 }
