@@ -4,230 +4,513 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI Background Remover - RG Digital</title>
+<meta name="description" content="Fast AI background remover with background color options.">
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f4f7fb;color:#172033}
-header{background:#111827;color:white;text-align:center;padding:25px 15px}
-header h1{margin:0;font-size:30px}
-header p{margin:8px 0}
-.container{max-width:950px;margin:25px auto;padding:15px}
-.card{background:white;border-radius:16px;padding:25px;box-shadow:0 5px 20px #0001}
-.upload{border:2px dashed #999;border-radius:12px;padding:30px;text-align:center}
-input[type=file]{max-width:100%;margin:15px 0}
-button{border:0;background:#111827;color:white;padding:14px 22px;border-radius:9px;font-weight:bold;font-size:16px;cursor:pointer;margin:8px}
-button:disabled{background:#aaa}
-.preview{margin-top:20px;min-height:300px;border-radius:12px;padding:20px;text-align:center;background:#eee}
-.preview img{max-width:100%;max-height:550px}
-.status{text-align:center;font-weight:bold;margin:18px}
-.success{color:#16803c}
-.error{color:#c62828}
-.actions{text-align:center}
-footer{margin-top:30px;background:#111827;color:white;text-align:center;padding:22px}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+color:#172033
+}
+
+header{
+background:#111827;
+color:white;
+text-align:center;
+padding:25px 15px
+}
+
+header h1{
+margin:0;
+font-size:30px
+}
+
+header p{
+margin:8px 0
+}
+
+.container{
+max-width:950px;
+margin:25px auto;
+padding:15px
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:16px;
+box-shadow:0 5px 20px #0001
+}
+
+.upload{
+border:2px dashed #888;
+padding:30px;
+border-radius:12px;
+text-align:center
+}
+
+input[type=file]{
+max-width:100%;
+margin-top:12px
+}
+
+.controls{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-top:20px
+}
+
+.box{
+border:1px solid #ddd;
+padding:15px;
+border-radius:10px
+}
+
+select,input[type=color]{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+margin-top:8px
+}
+
+input[type=color]{
+height:48px;
+padding:3px
+}
+
+button{
+border:0;
+background:#111827;
+color:white;
+padding:14px 20px;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+margin-top:15px
+}
+
+button:disabled{
+background:#aaa;
+cursor:not-allowed
+}
+
+.preview{
+margin-top:20px;
+min-height:300px;
+border-radius:12px;
+padding:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+
+background-image:
+linear-gradient(45deg,#ddd 25%,transparent 25%),
+linear-gradient(-45deg,#ddd 25%,transparent 25%),
+linear-gradient(45deg,transparent 75%,#ddd 75%),
+linear-gradient(-45deg,transparent 75%,#ddd 75%);
+
+background-size:24px 24px;
+background-position:
+0 0,
+0 12px,
+12px -12px,
+-12px 0
+}
+
+.preview img{
+max-width:100%;
+max-height:550px;
+display:block
+}
+
+.status{
+text-align:center;
+font-weight:bold;
+margin:18px
+}
+
+.success{
+color:#16803c
+}
+
+.error{
+color:#c62828
+}
+
+.actions{
+text-align:center
+}
+
+.info{
+background:#f3f4f6;
+padding:12px;
+border-radius:8px;
+margin-top:15px;
+text-align:center
+}
+
+@media(max-width:700px){
+
+.controls{
+grid-template-columns:1fr
+}
+
+.card{
+padding:16px
+}
+
+}
 </style>
 </head>
+
 
 <body>
 
 <header>
+
 <h1>✂️ AI Background Remover</h1>
-<p>Remove Image Background Automatically</p>
+
+<p>Fast Background Removal + Background Color</p>
+
 </header>
+
 
 <div class="container">
 
 <div class="card">
 
+
 <div class="upload">
 
-<h2>📸 Select Your Image</h2>
+<h2>📸 Select Image</h2>
 
 <input
 type="file"
 id="file"
 accept="image/jpeg,image/png,image/webp">
 
-</div>
-
-<div class="preview">
-
-<img
-id="originalPreview"
-style="display:none"
-alt="Original Image">
-
-<p id="previewText">
-Your selected image will appear here
+<p>
+JPG • PNG • WEBP
 </p>
 
 </div>
+
+
+<div class="controls">
+
+
+<div class="box">
+
+<b>⚡ AI Speed</b>
+
+<select id="model">
+
+<option value="isnet_quint8">
+Fast Mode
+</option>
+
+<option value="isnet">
+High Quality
+</option>
+
+</select>
+
+</div>
+
+
+<div class="box">
+
+<b>🎨 Background Color</b>
+
+<select id="bg">
+
+<option value="transparent">
+Transparent
+</option>
+
+<option value="#ffffff">
+White
+</option>
+
+<option value="#000000">
+Black
+</option>
+
+<option value="#ff0000">
+Red
+</option>
+
+<option value="#0000ff">
+Blue
+</option>
+
+<option value="#008000">
+Green
+</option>
+
+<option value="#ffff00">
+Yellow
+</option>
+
+<option value="#808080">
+Gray
+</option>
+
+<option value="custom">
+Custom Color
+</option>
+
+</select>
+
+<input
+type="color"
+id="customColor"
+value="#ffffff">
+
+</div>
+
+
+</div>
+
 
 <div style="text-align:center">
 
-<button id="removeBtn" disabled>
+<button id="remove" disabled>
+
 ✨ Remove Background
+
 </button>
 
 </div>
 
+
 <div id="status" class="status"></div>
+
+
+<h3>Original Image</h3>
 
 <div class="preview">
 
 <img
-id="resultPreview"
-style="display:none"
-alt="Background Removed">
+id="original"
+style="display:none">
 
-<p id="resultText">
-Background removed image will appear here
-</p>
+<span id="originalText">
+Your selected photo will appear here
+</span>
 
 </div>
 
+
+<h3>Result</h3>
+
+<div
+id="resultBox"
+class="preview">
+
+<img
+id="result"
+style="display:none">
+
+<span id="resultText">
+Result will appear here
+</span>
+
+</div>
+
+
 <div class="actions">
 
-<button id="downloadBtn" disabled>
+<button
+id="downloadPNG"
+disabled>
+
 ⬇️ Download PNG
+
+</button>
+
+
+<button
+id="downloadJPG"
+disabled>
+
+⬇️ Download JPG
+
 </button>
 
 </div>
 
+
+<div
+id="sizeInfo"
+class="info"
+style="display:none">
 </div>
+
 
 </div>
 
-<footer>
-© 2026 RG Digital Image Tools
-</footer>
+</div>
 
 
 <script type="module">
 
+
 const fileInput =
 document.getElementById("file");
 
-const originalPreview =
-document.getElementById("originalPreview");
+const original =
+document.getElementById("original");
 
-const previewText =
-document.getElementById("previewText");
+const originalText =
+document.getElementById("originalText");
 
 const removeBtn =
-document.getElementById("removeBtn");
+document.getElementById("remove");
 
 const status =
 document.getElementById("status");
 
-const resultPreview =
-document.getElementById("resultPreview");
+const result =
+document.getElementById("result");
 
 const resultText =
 document.getElementById("resultText");
 
-const downloadBtn =
-document.getElementById("downloadBtn");
+const resultBox =
+document.getElementById("resultBox");
+
+const downloadPNG =
+document.getElementById("downloadPNG");
+
+const downloadJPG =
+document.getElementById("downloadJPG");
+
+const bg =
+document.getElementById("bg");
+
+const customColor =
+document.getElementById("customColor");
+
+const modelSelect =
+document.getElementById("model");
+
+const sizeInfo =
+document.getElementById("sizeInfo");
 
 
-let selectedFile = null;
-let resultBlob = null;
+let selectedFile=null;
+
+let transparentBlob=null;
+
+let currentResultBlob=null;
 
 
-/* SELECT IMAGE */
+/* -------------------------
+SELECT IMAGE
+------------------------- */
 
-fileInput.addEventListener("change",function(){
+fileInput.addEventListener(
+"change",
+function(){
 
-selectedFile = this.files[0];
+selectedFile=this.files[0];
 
 if(!selectedFile){
 
-removeBtn.disabled = true;
+removeBtn.disabled=true;
+
 return;
 
 }
 
 
-/* SHOW ORIGINAL IMAGE */
+/* SHOW SELECTED IMAGE IMMEDIATELY */
 
-const url =
+const url=
 URL.createObjectURL(selectedFile);
 
-originalPreview.src = url;
+original.src=url;
 
-originalPreview.style.display = "block";
+original.style.display="block";
 
-previewText.style.display = "none";
+originalText.style.display="none";
 
-removeBtn.disabled = false;
+result.style.display="none";
 
-resultPreview.style.display = "none";
+resultText.style.display="block";
 
-resultText.style.display = "block";
+downloadPNG.disabled=true;
 
-downloadBtn.disabled = true;
+downloadJPG.disabled=true;
 
-status.innerHTML =
-'<span class="success">✅ Image selected successfully</span>';
+sizeInfo.style.display="none";
+
+status.innerHTML=
+'<span class="success">'+
+"✅ Image selected successfully"+
+"</span>";
+
+removeBtn.disabled=false;
 
 });
 
 
-/* REMOVE BACKGROUND */
+/* -------------------------
+REMOVE BACKGROUND
+------------------------- */
 
-removeBtn.addEventListener("click",async function(){
+removeBtn.addEventListener(
+"click",
+async function(){
 
 if(!selectedFile)return;
 
-removeBtn.disabled = true;
+removeBtn.disabled=true;
 
-downloadBtn.disabled = true;
+downloadPNG.disabled=true;
 
-status.textContent =
-"⏳ Loading AI Background Remover...";
+downloadJPG.disabled=true;
+
+status.textContent=
+"⏳ Starting AI...";
 
 
 try{
 
 
-/*
-IMPORTANT:
-Use named export.
-*/
+/* LOAD LIBRARY */
 
-const library =
-await import(
+const {
+removeBackground
+}=await import(
 "https://esm.sh/@imgly/background-removal@1.7.0"
 );
 
-const removeBackground =
-library.removeBackground;
+
+status.textContent=
+"⏳ AI model loading...";
 
 
-if(typeof removeBackground !== "function"){
+/* PROCESS */
 
-throw new Error(
-"AI library could not load correctly."
-);
-
-}
-
-
-status.textContent =
-"⏳ AI model loading... First time may take a while.";
-
-
-/* AI PROCESSING */
-
-resultBlob =
+transparentBlob=
 await removeBackground(
 selectedFile,
 {
 
-model:"isnet",
+model:modelSelect.value,
 
 device:"cpu",
 
-proxyToWorker:false,
+proxyToWorker:true,
 
 output:{
 format:"image/png",
@@ -242,15 +525,14 @@ total
 
 if(total){
 
-const percent =
+const percent=
 Math.round(
-(current/total)*100
+current/total*100
 );
 
-status.textContent =
-"⏳ AI Processing: "+
-percent+
-"%";
+status.textContent=
+"⏳ AI Processing "+
+percent+"%";
 
 }
 
@@ -260,65 +542,310 @@ percent+
 );
 
 
-/* SHOW RESULT */
+/* SHOW TRANSPARENT RESULT */
 
-const resultURL =
-URL.createObjectURL(resultBlob);
-
-resultPreview.src =
-resultURL;
-
-resultPreview.style.display =
-"block";
-
-resultText.style.display =
-"none";
-
-downloadBtn.disabled =
-false;
-
-status.innerHTML =
-'<span class="success">'+
-"✅ Background Removed Successfully!"+
-"</span>";
+showBackground();
 
 
 }catch(error){
 
 console.error(error);
 
-status.innerHTML =
+status.innerHTML=
 '<span class="error">'+
-"❌ AI processing failed."+
-"<br>"+
+"❌ Background removal failed"+
+"<br><small>"+
 error.message+
+"</small>"+
 "</span>";
 
 }
 
-removeBtn.disabled = false;
+removeBtn.disabled=false;
 
 });
 
 
-/* DOWNLOAD */
+/* -------------------------
+SHOW BACKGROUND
+------------------------- */
 
-downloadBtn.addEventListener(
+function showBackground(){
+
+if(!transparentBlob)return;
+
+
+const img=
+new Image();
+
+
+img.onload=function(){
+
+const canvas=
+document.createElement("canvas");
+
+canvas.width=
+img.naturalWidth;
+
+canvas.height=
+img.naturalHeight;
+
+
+const ctx=
+canvas.getContext("2d");
+
+
+/* BACKGROUND */
+
+if(bg.value!=="transparent"){
+
+let chosenColor=
+bg.value;
+
+if(chosenColor==="custom"){
+
+chosenColor=
+customColor.value;
+
+}
+
+ctx.fillStyle=
+chosenColor;
+
+ctx.fillRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+}
+
+
+/* FOREGROUND */
+
+ctx.drawImage(
+img,
+0,
+0
+);
+
+
+/* PNG RESULT */
+
+canvas.toBlob(
+function(blob){
+
+currentResultBlob=
+blob;
+
+result.src=
+URL.createObjectURL(blob);
+
+result.style.display=
+"block";
+
+resultText.style.display=
+"none";
+
+downloadPNG.disabled=
+false;
+
+downloadJPG.disabled=
+false;
+
+
+sizeInfo.style.display=
+"block";
+
+sizeInfo.innerHTML=
+"Final image size: "+
+(blob.size/1024).toFixed(2)+
+" KB";
+
+
+status.innerHTML=
+'<span class="success">'+
+"✅ Background removed successfully!"+
+"</span>";
+
+},
+"image/png"
+);
+
+};
+
+
+img.src=
+URL.createObjectURL(
+transparentBlob
+);
+
+}
+
+
+/* -------------------------
+CHANGE COLOR WITHOUT AI AGAIN
+------------------------- */
+
+bg.addEventListener(
+"change",
+function(){
+
+if(transparentBlob){
+
+showBackground();
+
+}
+
+});
+
+
+customColor.addEventListener(
+"input",
+function(){
+
+if(
+transparentBlob &&
+bg.value==="custom"
+){
+
+showBackground();
+
+}
+
+});
+
+
+/* -------------------------
+DOWNLOAD PNG
+------------------------- */
+
+downloadPNG.addEventListener(
 "click",
 function(){
 
-if(!resultBlob)return;
+if(!currentResultBlob)return;
 
-const url =
-URL.createObjectURL(resultBlob);
+downloadFile(
+currentResultBlob,
+"RG-Digital-Background-Removed.png"
+);
 
-const a =
+});
+
+
+/* -------------------------
+DOWNLOAD JPG
+------------------------- */
+
+downloadJPG.addEventListener(
+"click",
+function(){
+
+if(!transparentBlob)return;
+
+
+const img=
+new Image();
+
+
+img.onload=function(){
+
+const canvas=
+document.createElement("canvas");
+
+canvas.width=
+img.naturalWidth;
+
+canvas.height=
+img.naturalHeight;
+
+
+const ctx=
+canvas.getContext("2d");
+
+
+let chosenColor=
+bg.value;
+
+if(
+chosenColor==="transparent"
+){
+
+chosenColor="#ffffff";
+
+}
+
+if(
+chosenColor==="custom"
+){
+
+chosenColor=
+customColor.value;
+
+}
+
+
+ctx.fillStyle=
+chosenColor;
+
+ctx.fillRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+ctx.drawImage(
+img,
+0,
+0
+);
+
+
+canvas.toBlob(
+function(blob){
+
+downloadFile(
+blob,
+"RG-Digital-Background-Removed.jpg"
+);
+
+},
+"image/jpeg",
+0.95
+);
+
+};
+
+
+img.src=
+URL.createObjectURL(
+transparentBlob
+);
+
+});
+
+
+/* -------------------------
+DOWNLOAD FUNCTION
+------------------------- */
+
+function downloadFile(
+blob,
+filename
+){
+
+const url=
+URL.createObjectURL(blob);
+
+const a=
 document.createElement("a");
 
-a.href = url;
+a.href=url;
 
-a.download =
-"RG-Digital-Background-Removed.png";
+a.download=filename;
 
 document.body.appendChild(a);
 
@@ -335,7 +862,7 @@ URL.revokeObjectURL(url);
 1000
 );
 
-});
+}
 
 
 </script>
