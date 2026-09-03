@@ -2,93 +2,511 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>RG Digital Image Tools</title>
-<meta name="description" content="Free online image resizer, compressor and background remover by RG Digital.">
+
+<meta name="description" content="Free online image tools by RG Digital. Resize, compress, remove background and convert images and PDF files.">
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#222}
-header{background:#111827;color:#fff;text-align:center;padding:35px 15px}
-header h1{margin:0;font-size:32px}
-header p{font-size:17px;margin:10px 0 0}
-.container{max-width:900px;margin:25px auto;padding:0 15px}
-.card{background:#fff;padding:25px;border-radius:16px;box-shadow:0 5px 20px #00000012;margin-bottom:20px}
-.tools{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
-.tool{display:block;text-decoration:none;color:#222;background:#f3f4f6;padding:22px;border-radius:12px;border:1px solid #ddd}
-.tool h2{margin:0 0 8px;font-size:20px}
-.tool p{margin:0;color:#555}
-.tool:hover{background:#e5e7eb}
-nav{text-align:center;margin-top:20px}
-nav a{color:#111827;text-decoration:none;margin:0 10px;font-weight:bold}
-footer{background:#111827;color:#fff;text-align:center;padding:25px;margin-top:30px}
-@media(max-width:600px){.tools{grid-template-columns:1fr}header h1{font-size:27px}}
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:linear-gradient(135deg,#eef2ff,#f8fafc,#e0f2fe);
+color:#172033;
+}
+
+/* HEADER */
+
+header{
+background:linear-gradient(135deg,#111827,#1e3a8a,#312e81);
+color:white;
+text-align:center;
+padding:38px 15px 32px;
+box-shadow:0 5px 20px #0003;
+}
+
+header h1{
+margin:0;
+font-size:36px;
+font-weight:800;
+letter-spacing:.3px;
+}
+
+header p{
+margin:10px 0 0;
+font-size:17px;
+opacity:.9;
+}
+
+.badges{
+margin-top:18px;
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.badges span{
+background:#ffffff18;
+border:1px solid #ffffff30;
+padding:7px 13px;
+border-radius:30px;
+font-size:13px;
+}
+
+/* MAIN */
+
+.container{
+max-width:1050px;
+margin:30px auto;
+padding:0 16px;
+}
+
+/* SECTION */
+
+.section{
+background:#ffffffde;
+backdrop-filter:blur(10px);
+border-radius:22px;
+padding:25px;
+box-shadow:0 10px 35px #00000012;
+border:1px solid #ffffff;
+}
+
+.section-title{
+font-size:26px;
+font-weight:800;
+margin:0 0 22px;
+}
+
+/* TOOLS GRID */
+
+.tools{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+}
+
+/* TOOL CARD */
+
+.tool{
+position:relative;
+display:block;
+text-decoration:none;
+color:#172033;
+background:linear-gradient(145deg,#ffffff,#f8fafc);
+border:1px solid #e2e8f0;
+border-radius:17px;
+padding:23px;
+min-height:135px;
+transition:.25s ease;
+overflow:hidden;
+box-shadow:0 5px 15px #0000000d;
+}
+
+.tool:before{
+content:"";
+position:absolute;
+left:0;
+top:0;
+width:5px;
+height:100%;
+background:linear-gradient(#2563eb,#7c3aed);
+}
+
+.tool:hover{
+transform:translateY(-5px);
+box-shadow:0 14px 28px #0002;
+border-color:#c7d2fe;
+}
+
+.tool h2{
+margin:0 0 8px;
+font-size:20px;
+}
+
+.tool p{
+margin:0;
+color:#64748b;
+font-size:15px;
+line-height:1.5;
+}
+
+.icon{
+font-size:30px;
+margin-bottom:8px;
+display:block;
+}
+
+/* FEATURE */
+
+.feature{
+margin-top:20px;
+background:linear-gradient(135deg,#ffffff,#f1f5ff);
+border-radius:18px;
+padding:24px;
+border:1px solid #e2e8f0;
+}
+
+.feature h2{
+margin:0 0 10px;
+font-size:23px;
+}
+
+.feature p{
+line-height:1.7;
+color:#475569;
+}
+
+.example{
+display:inline-block;
+background:#111827;
+color:white;
+padding:9px 14px;
+border-radius:8px;
+font-weight:bold;
+margin-top:5px;
+}
+
+/* PRIVACY */
+
+.privacy{
+margin-top:20px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+.info{
+background:white;
+border-radius:14px;
+padding:18px;
+text-align:center;
+box-shadow:0 4px 15px #0000000b;
+border:1px solid #e5e7eb;
+}
+
+.info strong{
+display:block;
+font-size:16px;
+margin-bottom:6px;
+}
+
+.info span{
+font-size:13px;
+color:#64748b;
+}
+
+/* FOOTER */
+
+footer{
+margin-top:35px;
+background:#111827;
+color:white;
+text-align:center;
+padding:30px 15px;
+}
+
+.footer-links{
+margin-bottom:18px;
+}
+
+.footer-links a{
+color:white;
+text-decoration:none;
+font-weight:bold;
+margin:0 12px;
+}
+
+.footer-links a:hover{
+text-decoration:underline;
+}
+
+.developer{
+font-size:15px;
+color:#cbd5e1;
+}
+
+.developer strong{
+color:white;
+}
+
+.copyright{
+margin-top:10px;
+font-size:13px;
+color:#94a3b8;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+header{
+padding:30px 15px;
+}
+
+header h1{
+font-size:28px;
+}
+
+header p{
+font-size:15px;
+}
+
+.container{
+padding:0 12px;
+margin-top:20px;
+}
+
+.section{
+padding:18px;
+border-radius:18px;
+}
+
+.tools{
+grid-template-columns:1fr;
+gap:14px;
+}
+
+.tool{
+min-height:auto;
+padding:20px;
+}
+
+.tool h2{
+font-size:19px;
+}
+
+.privacy{
+grid-template-columns:1fr;
+}
+
+.footer-links a{
+display:inline-block;
+margin:6px 9px;
+}
+
+}
+
+/* SMALL SCREEN */
+
+@media(max-width:380px){
+
+header h1{
+font-size:24px;
+}
+
+.section-title{
+font-size:22px;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
+
 <header>
+
 <h1>RG Digital Image Tools</h1>
+
 <p>Free Online Image Tools</p>
+
+<div class="badges">
+
+<span>⚡ Fast</span>
+<span>🆓 100% Free</span>
+<span>🔒 Secure</span>
+
+</div>
+
 </header>
+
 
 <div class="container">
 
-<div class="card">
-<h2>🛠️ Our Free Tools</h2>
+
+<section class="section">
+
+<h2 class="section-title">
+🛠️ Our Free Tools
+</h2>
+
 
 <div class="tools">
 
+
 <a class="tool" href="custom-image-resizer.html">
-<h2>📐 Custom Image Resizer</h2>
-<p>Set your own Width, Height and KB limit.</p>
+
+<span class="icon">📐</span>
+
+<h2>Custom Image Resizer</h2>
+
+<p>
+Set your own Width, Height and maximum KB limit.
+</p>
+
 </a>
+
 
 <a class="tool" href="compressor.html">
-<h2>🗜️ Image Compressor</h2>
-<p>Reduce image file size quickly.</p>
+
+<span class="icon">🗜️</span>
+
+<h2>Image Compressor</h2>
+
+<p>
+Reduce image file size quickly and easily.
+</p>
+
 </a>
+
 
 <a class="tool" href="background-remover.html">
-<h2>✂️ Background Remover</h2>
-<p>Remove image background online.</p>
+
+<span class="icon">✂️</span>
+
+<h2>Background Remover</h2>
+
+<p>
+Remove image background and change background colour.
+</p>
+
 </a>
+
+
 <a class="tool" href="pdf-to-jpg.html">
-<h2>📄 PDF to JPG</h2>
-<p>Convert PDF pages into JPG images.</p>
+
+<span class="icon">📄</span>
+
+<h2>PDF to JPG</h2>
+
+<p>
+Convert PDF pages into JPG images.
+</p>
+
 </a>
-</div>
-</div>
+
+
 <a class="tool" href="image-to-pdf.html">
-<h2>📸 Image to PDF</h2>
-<p>Convert one or multiple images into PDF.</p>
+
+<span class="icon">📷</span>
+
+<h2>JPG to PDF</h2>
+
+<p>
+Convert one or multiple images into PDF.
+</p>
+
 </a>
-<div class="card">
-<h2>📸 Custom Resizing Made Easy</h2>
 
-<p>
-Choose your required image dimensions and maximum file size.
-For example, you can create a photo of
-<strong>160 × 212 pixels and 20KB or less</strong>
-for online forms.
-</p>
-
-<p>
-You can also choose your own Width, Height and KB limit.
-</p>
-</div>
-
-<nav>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-<a href="privacy-policy.html">Privacy Policy</a>
-</nav>
 
 </div>
+
+</section>
+
+
+<section class="feature">
+
+<h2>📷 Custom Resizing Made Easy</h2>
+
+<p>
+Choose exactly how you want your image. Set your required
+<strong>Width, Height and maximum file size</strong>
+for online forms and document uploads.
+</p>
+
+<span class="example">
+Example: 160 × 212 px • 20 KB or less
+</span>
+
+<p>
+Perfect for government forms, certificates, applications
+and other online document requirements.
+</p>
+
+</section>
+
+
+<div class="privacy">
+
+<div class="info">
+
+<strong>⚡ Fast Processing</strong>
+
+<span>
+Quick and simple image tools.
+</span>
+
+</div>
+
+
+<div class="info">
+
+<strong>🔒 Privacy Friendly</strong>
+
+<span>
+Your images are processed directly in your browser where supported.
+</span>
+
+</div>
+
+
+<div class="info">
+
+<strong>🆓 Completely Free</strong>
+
+<span>
+Use our basic image tools without payment.
+</span>
+
+</div>
+
+</div>
+
+
+</div>
+
 
 <footer>
-© 2026 RG Digital Image Tools
+
+
+<div class="footer-links">
+
+<a href="about.html">About</a>
+
+<a href="contact.html">Contact</a>
+
+<a href="privacy-policy.html">Privacy Policy</a>
+
+</div>
+
+
+<div class="developer">
+
+Developed by
+<strong>Rameshwar Namdev Ghungrad</strong>
+
+</div>
+
+
+<div class="copyright">
+
+© 2026 RG Digital Image Tools. All Rights Reserved.
+
+</div>
+
+
 </footer>
+
 
 </body>
 </html>
