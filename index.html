@@ -1,614 +1,645 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>RG Digital Image Tools</title>
-
-<meta name="description" content="RG Digital Image Tools - Free online image resizing, compression, background removal and PDF tools.">
 
 <style>
 
 *{
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:linear-gradient(135deg,#eef2ff,#f8fafc,#e0f2fe);
-color:#172033;
+    font-family:Arial,Helvetica,sans-serif;
+    background:linear-gradient(135deg,#eef2ff,#f8fafc);
+    color:#172033;
+    min-height:100vh;
 }
 
 /* HEADER */
 
-header{
-background:linear-gradient(135deg,#111827,#1e3a8a,#312e81);
-color:white;
-text-align:center;
-padding:28px 15px 32px;
-box-shadow:0 5px 25px #0004;
+.header{
+    background:linear-gradient(
+        135deg,
+        #111827,
+        #1e3a8a,
+        #4f46e5
+    );
+
+    color:white;
+    padding:22px 15px;
+
+    box-shadow:0 5px 20px #0003;
 }
 
-.brand{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:13px;
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+/* LOGO */
+
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
 .logo{
-width:58px;
-height:58px;
-border-radius:16px;
-background:linear-gradient(135deg,#22c55e,#06b6d4);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-font-weight:900;
-color:white;
-box-shadow:0 5px 18px #0004;
-border:3px solid white;
+    width:58px;
+    height:58px;
+
+    border-radius:16px;
+
+    background:linear-gradient(
+        135deg,
+        #f59e0b,
+        #ef4444
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+
+    box-shadow:0 5px 15px #0004;
 }
 
-header h1{
-margin:0;
-font-size:34px;
-font-weight:800;
+.logo-text h1{
+    font-size:25px;
+    margin-bottom:4px;
 }
 
-header p{
-margin:9px 0 0;
-font-size:16px;
-opacity:.9;
+.logo-text p{
+    font-size:13px;
+    opacity:.9;
 }
 
-.badges{
-margin-top:18px;
-display:flex;
-justify-content:center;
-gap:9px;
-flex-wrap:wrap;
+/* NAVIGATION */
+
+.nav{
+    display:flex;
+    gap:8px;
 }
 
-.badges span{
-background:#ffffff18;
-border:1px solid #ffffff35;
-padding:7px 13px;
-border-radius:30px;
-font-size:13px;
+.nav a{
+    color:white;
+    text-decoration:none;
+
+    padding:10px 14px;
+
+    border-radius:9px;
+
+    transition:.25s;
 }
 
-/* YOUTUBE BUTTON */
-
-.youtube{
-display:inline-flex;
-align-items:center;
-gap:9px;
-margin-top:20px;
-padding:13px 22px;
-border-radius:30px;
-background:#ff0033;
-color:white;
-text-decoration:none;
-font-weight:bold;
-box-shadow:0 6px 18px #0004;
-transition:.25s;
+.nav a:hover{
+    background:#ffffff25;
 }
 
-.youtube:hover{
-transform:translateY(-3px);
-box-shadow:0 10px 25px #0005;
+/* HERO */
+
+.hero{
+    max-width:1100px;
+    margin:45px auto 25px;
+    padding:15px;
+    text-align:center;
 }
 
-/* MAIN */
+.hero h2{
+    font-size:38px;
+    margin-bottom:12px;
 
-.container{
-max-width:1050px;
-margin:30px auto;
-padding:0 16px;
+    background:linear-gradient(
+        90deg,
+        #1e3a8a,
+        #7c3aed,
+        #db2777
+    );
+
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
-.section{
-background:#ffffffeb;
-backdrop-filter:blur(10px);
-border-radius:22px;
-padding:25px;
-box-shadow:0 10px 35px #00000012;
-border:1px solid white;
-}
-
-.section-title{
-font-size:26px;
-font-weight:800;
-margin:0 0 22px;
+.hero p{
+    color:#64748b;
+    font-size:17px;
 }
 
 /* TOOLS */
 
 .tools{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:17px;
+    max-width:1100px;
+    margin:30px auto 50px;
+
+    padding:15px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
 }
+
+/* TOOL CARD */
 
 .tool{
-position:relative;
-display:block;
-text-decoration:none;
-color:#172033;
-background:linear-gradient(145deg,#ffffff,#f8fafc);
-border:1px solid #e2e8f0;
-border-radius:17px;
-padding:22px;
-min-height:135px;
-transition:.25s ease;
-overflow:hidden;
-box-shadow:0 5px 15px #0000000d;
+    background:white;
+
+    border-radius:20px;
+
+    padding:25px 20px;
+
+    text-align:center;
+
+    text-decoration:none;
+
+    color:#172033;
+
+    border:2px solid transparent;
+
+    box-shadow:0 8px 25px #00000012;
+
+    transition:all .3s ease;
+
+    position:relative;
+
+    overflow:hidden;
 }
 
-.tool:before{
-content:"";
-position:absolute;
-left:0;
-top:0;
-width:5px;
-height:100%;
-background:linear-gradient(#2563eb,#7c3aed);
+.tool::before{
+    content:"";
+
+    position:absolute;
+
+    width:100%;
+    height:4px;
+
+    top:0;
+    left:0;
+
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #7c3aed,
+        #db2777
+    );
 }
 
 .tool:hover{
-transform:translateY(-5px);
-box-shadow:0 15px 30px #0002;
-border-color:#c7d2fe;
+
+    transform:
+    translateY(-8px);
+
+    box-shadow:
+    0 18px 35px #0003;
+
+    border-color:#6366f1;
+
 }
 
-.icon{
-font-size:30px;
-display:block;
-margin-bottom:8px;
+.tool-icon{
+
+    width:70px;
+    height:70px;
+
+    margin:0 auto 15px;
+
+    border-radius:18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:35px;
+
+    background:#eef2ff;
+
+    transition:.3s;
 }
 
-.tool h2{
-margin:0 0 7px;
-font-size:20px;
+.tool:hover .tool-icon{
+
+    transform:
+    rotate(-5deg)
+    scale(1.1);
+
+    background:#e0e7ff;
+
+}
+
+.tool h3{
+    font-size:19px;
+    margin-bottom:8px;
 }
 
 .tool p{
-margin:0;
-color:#64748b;
-font-size:15px;
-line-height:1.5;
+    font-size:13px;
+    color:#64748b;
+    line-height:1.5;
 }
 
-/* FEATURE */
+/* SPECIAL ID CARD */
 
-.feature{
-margin-top:20px;
-background:linear-gradient(135deg,#ffffff,#f1f5ff);
-border-radius:18px;
-padding:24px;
-border:1px solid #e2e8f0;
+.id-card{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ffffff,
+        #f5f3ff
+    );
+
+    border:2px solid #8b5cf6;
+
 }
 
-.feature h2{
-margin:0 0 10px;
-font-size:23px;
+.id-card .tool-icon{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ede9fe,
+        #dbeafe
+    );
+
 }
 
-.feature p{
-line-height:1.7;
-color:#475569;
+/* ID CARD HOVER */
+
+.id-card:hover{
+
+    background:
+    linear-gradient(
+        135deg,
+        #7c3aed,
+        #2563eb
+    );
+
+    color:white;
+
+    border-color:#7c3aed;
+
+    transform:
+    translateY(-10px)
+    scale(1.02);
+
+    box-shadow:
+    0 20px 40px #4f46e566;
+
 }
 
-.example{
-display:inline-block;
-background:#111827;
-color:white;
-padding:9px 14px;
-border-radius:8px;
-font-weight:bold;
+.id-card:hover p{
+    color:#ffffffdd;
 }
 
-/* ABOUT CONTACT */
+.id-card:hover .tool-icon{
 
-.about{
-margin-top:20px;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:18px;
-}
+    background:#ffffff25;
 
-.about-card{
-background:white;
-border-radius:18px;
-padding:23px;
-border:1px solid #e2e8f0;
-box-shadow:0 5px 18px #0000000d;
-}
+    transform:
+    rotate(8deg)
+    scale(1.12);
 
-.about-card h2{
-margin-top:0;
-}
-
-.about-card p{
-color:#64748b;
-line-height:1.6;
-}
-
-.call{
-display:inline-block;
-margin-top:8px;
-background:#16a34a;
-color:white;
-padding:11px 18px;
-border-radius:9px;
-text-decoration:none;
-font-weight:bold;
-}
-
-/* INFO */
-
-.info-section{
-margin-top:20px;
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:15px;
-}
-
-.info{
-background:white;
-border-radius:15px;
-padding:18px;
-text-align:center;
-box-shadow:0 4px 15px #0000000b;
-border:1px solid #e5e7eb;
-}
-
-.info strong{
-display:block;
-font-size:16px;
-margin-bottom:6px;
-}
-
-.info span{
-font-size:13px;
-color:#64748b;
 }
 
 /* FOOTER */
 
 footer{
-margin-top:35px;
-background:#111827;
-color:white;
-text-align:center;
-padding:30px 15px;
+
+    background:#111827;
+
+    color:white;
+
+    text-align:center;
+
+    padding:25px 15px;
+
 }
 
-.footer-links{
-margin-bottom:18px;
-}
-
-.footer-links a{
-color:white;
-text-decoration:none;
-font-weight:bold;
-margin:0 12px;
-}
-
-.footer-links a:hover{
-text-decoration:underline;
+footer p{
+    margin:6px;
+    font-size:14px;
 }
 
 .developer{
-font-size:15px;
-color:#cbd5e1;
-}
-
-.developer strong{
-color:white;
-}
-
-.copyright{
-margin-top:10px;
-font-size:13px;
-color:#94a3b8;
+    color:#93c5fd;
+    font-weight:bold;
 }
 
 /* MOBILE */
 
-@media(max-width:700px){
+@media(max-width:650px){
 
-header h1{
-font-size:26px;
-}
+    .header-inner{
+        flex-direction:column;
+        text-align:center;
+    }
 
-.logo{
-width:50px;
-height:50px;
-font-size:21px;
-}
+    .nav{
+        width:100%;
+        justify-content:center;
+    }
 
-.tools{
-grid-template-columns:1fr;
-}
+    .hero h2{
+        font-size:29px;
+    }
 
-.about{
-grid-template-columns:1fr;
-}
-
-.info-section{
-grid-template-columns:1fr;
-}
-
-.container{
-padding:0 12px;
-}
-
-.section{
-padding:18px;
-}
+    .tools{
+        grid-template-columns:1fr;
+    }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
 
-<header>
+<!-- HEADER -->
 
-<div class="brand">
+<header class="header">
 
-<div class="logo">RG</div>
+<div class="header-inner">
+
+
+<div class="logo-area">
+
+<div class="logo">
+RG
+</div>
+
+<div class="logo-text">
 
 <h1>RG Digital Image Tools</h1>
 
+<p>Fast • Simple • Free Online Tools</p>
+
 </div>
-
-<p>Free Online Image Tools</p>
-
-
-<div class="badges">
-
-<span>⚡ Fast</span>
-<span>🆓 100% Free</span>
-<span>🔒 Secure</span>
 
 </div>
 
 
-<a class="youtube"
-href="https://youtube.com/@ramghungrad0071"
-target="_blank"
-rel="noopener">
+<nav class="nav">
 
-▶️ Site कशी वापरायची? YouTube वर पाहा
-
+<a href="index.html">
+Home
 </a>
+
+<a href="#tools">
+Tools
+</a>
+
+<a href="#about">
+About
+</a>
+
+</nav>
+
+
+</div>
 
 </header>
 
 
-<div class="container">
 
+<!-- HERO -->
 
-<section class="section">
+<section class="hero">
 
-<h2 class="section-title">
-🛠️ Our Free Tools
+<h2>
+All Your Image Tools in One Place
 </h2>
 
+<p>
+Compress, convert, resize and create ID cards easily.
+</p>
 
-<div class="tools">
+</section>
 
 
-<a class="tool" href="custom-image-resizer.html">
 
-<span class="icon">📐</span>
+<!-- TOOLS -->
 
-<h2>Custom Image Resizer</h2>
+<section
+class="tools"
+id="tools">
+
+
+<!-- IMAGE COMPRESSOR -->
+
+<a
+href="image-compressor.html"
+class="tool">
+
+<div class="tool-icon">
+🗜️
+</div>
+
+<h3>
+Image Compressor
+</h3>
 
 <p>
-Set your own Width, Height and maximum KB limit.
+Reduce image size in KB without unnecessary quality loss.
 </p>
 
 </a>
 
 
-<a class="tool" href="compressor.html">
 
-<span class="icon">🗜️</span>
+<!-- IMAGE RESIZER -->
 
-<h2>Image Compressor</h2>
+<a
+href="image-resizer.html"
+class="tool">
+
+<div class="tool-icon">
+📐
+</div>
+
+<h3>
+Image Resizer
+</h3>
 
 <p>
-Reduce image file size quickly and easily.
+Resize image height, width and quality easily.
 </p>
 
 </a>
 
 
-<a class="tool" href="background-remover.html">
 
-<span class="icon">✂️</span>
+<!-- BACKGROUND REMOVER -->
 
-<h2>Background Remover</h2>
+<a
+href="background-remover.html"
+class="tool">
+
+<div class="tool-icon">
+✂️
+</div>
+
+<h3>
+Background Remover
+</h3>
 
 <p>
-Remove background and change background colour.
+Remove image background and change background colour.
 </p>
 
 </a>
 
 
-<a class="tool" href="pdf-to-jpg.html">
 
-<span class="icon">📄</span>
+<!-- JPG TO PDF -->
 
-<h2>PDF to JPG</h2>
+<a
+href="jpg-to-pdf.html"
+class="tool">
+
+<div class="tool-icon">
+📄
+</div>
+
+<h3>
+JPG to PDF
+</h3>
 
 <p>
-Convert PDF pages into JPG images.
+Convert your JPG images into PDF documents.
 </p>
 
 </a>
 
 
-<a class="tool" href="image-to-pdf.html">
 
-<span class="icon">📷</span>
+<!-- PDF TO JPG -->
 
-<h2>JPG to PDF</h2>
+<a
+href="pdf-to-jpg.html"
+class="tool">
+
+<div class="tool-icon">
+📑
+</div>
+
+<h3>
+PDF to JPG
+</h3>
 
 <p>
-Convert one or multiple images into PDF.
+Convert PDF pages into high quality JPG images.
 </p>
 
 </a>
 
+
+
+<!-- ID CARD -->
+
+<a
+href="id-card.html"
+class="tool id-card">
+
+<div class="tool-icon">
+🪪
+</div>
+
+<h3>
+Create ID Card
+</h3>
+
+<p>
+Create a beautiful ID card from your photo.
+</p>
+
+</a>
+
+
+</section>
+
+
+
+<!-- ABOUT -->
+
+<section
+id="about"
+style="
+max-width:900px;
+margin:0 auto 50px;
+padding:15px;
+">
+
+<div
+style="
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 8px 25px #0002;
+text-align:center;
+">
+
+<h2 style="margin-bottom:12px;">
+ℹ️ About RG Digital
+</h2>
+
+<p style="
+color:#64748b;
+line-height:1.7;
+">
+
+RG Digital Image Tools is a simple and useful
+online image utility website for image compression,
+resizing, background removal, PDF conversion and
+ID card creation.
+
+</p>
 
 </div>
 
 </section>
 
 
-<section class="feature">
 
-<h2>📷 Custom Resizing Made Easy</h2>
-
-<p>
-Choose exactly how you want your image. Set your required
-<strong>Width, Height and maximum file size</strong>
-for online forms and document uploads.
-</p>
-
-<span class="example">
-Example: 160 × 212 px • 20 KB or less
-</span>
-
-<p>
-Perfect for government forms, certificates, applications
-and other online document requirements.
-</p>
-
-</section>
-
-
-<section class="about">
-
-
-<div class="about-card">
-
-<h2>👤 About RG Digital</h2>
-
-<p>
-RG Digital Image Tools हे image आणि document related
-online कामे सोपी करण्यासाठी तयार केलेले free tools platform आहे.
-</p>
-
-<p>
-<strong>Developed by Rameshwar Namdev Ghungrad</strong>
-</p>
-
-</div>
-
-
-<div class="about-card">
-
-<h2>📞 Contact</h2>
-
-<p>
-<strong>Rameshwar Namdev Ghungrad</strong>
-</p>
-
-<p>
-मोबाईल: <strong>9853874777</strong>
-</p>
-
-<a class="call" href="tel:9853874777">
-📞 Call Now
-</a>
-
-</div>
-
-
-</section>
-
-
-<div class="info-section">
-
-<div class="info">
-
-<strong>⚡ Fast Processing</strong>
-
-<span>
-Simple and easy-to-use tools.
-</span>
-
-</div>
-
-
-<div class="info">
-
-<strong>🔒 Privacy Friendly</strong>
-
-<span>
-Images are processed in your browser where supported.
-</span>
-
-</div>
-
-
-<div class="info">
-
-<strong>🆓 Completely Free</strong>
-
-<span>
-Free online image utilities.
-</span>
-
-</div>
-
-</div>
-
-
-</div>
-
+<!-- FOOTER -->
 
 <footer>
 
-<div class="footer-links">
+<p>
+© 2026 RG Digital Image Tools
+</p>
 
-<a href="about.html">About</a>
-
-<a href="contact.html">Contact</a>
-
-<a href="privacy-policy.html">Privacy Policy</a>
-
-</div>
-
-
-<div class="developer">
-
+<p>
 Developed by
-<strong>Rameshwar Namdev Ghungrad</strong>
+<span class="developer">
+Rameshwar Namdev Ghungrad
+</span>
+</p>
 
-</div>
-
-
-<div class="copyright">
-
-© 2026 RG Digital Image Tools. All Rights Reserved.
-
-</div>
+<p>
+Made with ❤️ for everyone
+</p>
 
 </footer>
 
 
 </body>
+
 </html>
