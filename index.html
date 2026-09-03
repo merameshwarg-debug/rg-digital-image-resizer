@@ -5,9 +5,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RG Digital Image Tools</title>
+<title>RG Digital Image Tools - Free Online Image Tools</title>
+
+<meta name="description"
+content="RG Digital Image Tools - Free online image compressor, resizer, PDF to JPG, JPG to PDF, background remover and image conversion tools.">
 
 <style>
+
+/* =========================
+   BASIC
+========================= */
 
 *{
     margin:0;
@@ -15,148 +22,252 @@
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:linear-gradient(135deg,#eef2ff,#f8fafc);
+
+    background:
+    linear-gradient(
+        135deg,
+        #eef2ff 0%,
+        #f8fafc 50%,
+        #eef2ff 100%
+    );
+
     color:#172033;
     min-height:100vh;
 }
 
-/* HEADER */
 
-.header{
-    background:linear-gradient(
+/* =========================
+   HEADER
+========================= */
+
+header{
+
+    background:
+    linear-gradient(
         135deg,
-        #111827,
+        #0f172a,
         #1e3a8a,
         #4f46e5
     );
 
     color:white;
+
     padding:22px 15px;
 
-    box-shadow:0 5px 20px #0003;
+    box-shadow:
+    0 5px 25px rgba(0,0,0,.25);
+
 }
 
 .header-inner{
-    max-width:1100px;
+
+    max-width:1150px;
+
     margin:auto;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
-    gap:15px;
+
+    gap:20px;
+
 }
+
 
 /* LOGO */
 
 .logo-area{
+
     display:flex;
+
     align-items:center;
-    gap:12px;
+
+    gap:14px;
+
 }
 
 .logo{
-    width:58px;
-    height:58px;
 
-    border-radius:16px;
+    width:62px;
 
-    background:linear-gradient(
+    height:62px;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(
         135deg,
-        #f59e0b,
-        #ef4444
+        #22c55e,
+        #06b6d4,
+        #3b82f6
     );
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    font-size:28px;
+    font-size:22px;
 
-    box-shadow:0 5px 15px #0004;
+    font-weight:bold;
+
+    border:3px solid rgba(255,255,255,.7);
+
+    box-shadow:
+    0 6px 20px rgba(0,0,0,.3);
+
 }
 
 .logo-text h1{
+
     font-size:25px;
-    margin-bottom:4px;
+
+    margin-bottom:5px;
+
 }
 
 .logo-text p{
+
     font-size:13px;
+
     opacity:.9;
+
 }
 
-/* NAVIGATION */
 
-.nav{
+/* NAV */
+
+nav{
+
     display:flex;
-    gap:8px;
+
+    gap:7px;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
 }
 
-.nav a{
+nav a{
+
     color:white;
+
     text-decoration:none;
 
     padding:10px 14px;
 
-    border-radius:9px;
+    border-radius:10px;
+
+    font-weight:bold;
 
     transition:.25s;
+
 }
 
-.nav a:hover{
-    background:#ffffff25;
+nav a:hover{
+
+    background:
+    rgba(255,255,255,.2);
+
+    transform:
+    translateY(-2px);
+
 }
 
-/* HERO */
+
+/* =========================
+   HERO
+========================= */
 
 .hero{
-    max-width:1100px;
+
+    max-width:1150px;
+
     margin:45px auto 25px;
+
     padding:15px;
+
     text-align:center;
+
 }
 
 .hero h2{
-    font-size:38px;
-    margin-bottom:12px;
 
-    background:linear-gradient(
+    font-size:40px;
+
+    line-height:1.2;
+
+    margin-bottom:13px;
+
+    background:
+    linear-gradient(
         90deg,
-        #1e3a8a,
+        #1d4ed8,
         #7c3aed,
-        #db2777
+        #db2777,
+        #ea580c
     );
 
     -webkit-background-clip:text;
-    color:transparent;
+
+    -webkit-text-fill-color:transparent;
+
 }
 
 .hero p{
-    color:#64748b;
+
     font-size:17px;
+
+    color:#64748b;
+
 }
 
-/* TOOLS */
+
+/* =========================
+   TOOL GRID
+========================= */
 
 .tools{
-    max-width:1100px;
-    margin:30px auto 50px;
+
+    max-width:1150px;
+
+    margin:25px auto 55px;
 
     padding:15px;
 
     display:grid;
 
     grid-template-columns:
-    repeat(auto-fit,minmax(220px,1fr));
+    repeat(
+        auto-fit,
+        minmax(230px,1fr)
+    );
 
     gap:20px;
+
 }
 
-/* TOOL CARD */
+
+/* =========================
+   TOOL CARD
+========================= */
 
 .tool{
+
+    position:relative;
+
+    overflow:hidden;
+
     background:white;
 
     border-radius:20px;
@@ -171,195 +282,518 @@ body{
 
     border:2px solid transparent;
 
-    box-shadow:0 8px 25px #00000012;
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.10);
 
-    transition:all .3s ease;
+    transition:
+    transform .28s ease,
+    box-shadow .28s ease,
+    background .28s ease,
+    color .28s ease,
+    border .28s ease;
 
-    position:relative;
-
-    overflow:hidden;
 }
 
+
+/* TOP LINE */
+
 .tool::before{
+
     content:"";
 
     position:absolute;
 
-    width:100%;
-    height:4px;
-
     top:0;
+
     left:0;
 
-    background:linear-gradient(
+    width:100%;
+
+    height:5px;
+
+    background:
+    linear-gradient(
         90deg,
         #2563eb,
         #7c3aed,
-        #db2777
+        #ec4899
     );
+
 }
+
+
+/* HOVER */
 
 .tool:hover{
 
     transform:
-    translateY(-8px);
+    translateY(-9px)
+    scale(1.02);
 
     box-shadow:
-    0 18px 35px #0003;
+    0 20px 40px rgba(0,0,0,.22);
 
-    border-color:#6366f1;
+    color:white;
 
 }
+
+
+/* ICON */
 
 .tool-icon{
 
     width:70px;
+
     height:70px;
 
     margin:0 auto 15px;
 
-    border-radius:18px;
+    border-radius:20px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     font-size:35px;
 
     background:#eef2ff;
 
-    transition:.3s;
+    transition:
+    .3s ease;
+
 }
 
 .tool:hover .tool-icon{
 
-    transform:
-    rotate(-5deg)
-    scale(1.1);
+    background:
+    rgba(255,255,255,.22);
 
-    background:#e0e7ff;
+    transform:
+    rotate(7deg)
+    scale(1.12);
 
 }
 
+
+/* TEXT */
+
 .tool h3{
+
     font-size:19px;
+
     margin-bottom:8px;
+
 }
 
 .tool p{
+
     font-size:13px;
-    color:#64748b;
+
     line-height:1.5;
+
+    color:#64748b;
+
+    transition:.25s;
+
 }
 
-/* SPECIAL ID CARD */
+.tool:hover p{
 
-.id-card{
+    color:
+    rgba(255,255,255,.9);
+
+}
+
+
+/* =========================
+   DIFFERENT HOVER COLOURS
+========================= */
+
+
+/* 1 */
+
+.tool.blue:hover{
 
     background:
     linear-gradient(
         135deg,
-        #ffffff,
-        #f5f3ff
+        #2563eb,
+        #1d4ed8
     );
 
-    border:2px solid #8b5cf6;
+    border-color:#1d4ed8;
 
 }
 
-.id-card .tool-icon{
+
+/* 2 */
+
+.tool.orange:hover{
 
     background:
     linear-gradient(
         135deg,
-        #ede9fe,
-        #dbeafe
+        #f97316,
+        #ea580c
     );
+
+    border-color:#ea580c;
 
 }
 
-/* ID CARD HOVER */
 
-.id-card:hover{
+/* 3 */
+
+.tool.green:hover{
+
+    background:
+    linear-gradient(
+        135deg,
+        #16a34a,
+        #059669
+    );
+
+    border-color:#059669;
+
+}
+
+
+/* 4 */
+
+.tool.purple:hover{
 
     background:
     linear-gradient(
         135deg,
         #7c3aed,
-        #2563eb
+        #6d28d9
+    );
+
+    border-color:#6d28d9;
+
+}
+
+
+/* 5 */
+
+.tool.pink:hover{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ec4899,
+        #db2777
+    );
+
+    border-color:#db2777;
+
+}
+
+
+/* 6 */
+
+.tool.red:hover{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ef4444,
+        #dc2626
+    );
+
+    border-color:#dc2626;
+
+}
+
+
+/* 7 */
+
+.tool.teal:hover{
+
+    background:
+    linear-gradient(
+        135deg,
+        #0d9488,
+        #0891b2
+    );
+
+    border-color:#0891b2;
+
+}
+
+
+/* 8 */
+
+.tool.indigo:hover{
+
+    background:
+    linear-gradient(
+        135deg,
+        #4f46e5,
+        #4338ca
+    );
+
+    border-color:#4338ca;
+
+}
+
+
+/* 9 */
+
+.tool.yellow:hover{
+
+    background:
+    linear-gradient(
+        135deg,
+        #eab308,
+        #ca8a04
+    );
+
+    border-color:#ca8a04;
+
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about{
+
+    max-width:950px;
+
+    margin:0 auto 35px;
+
+    padding:15px;
+
+}
+
+.about-box{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:22px;
+
+    text-align:center;
+
+    box-shadow:
+    0 8px 28px rgba(0,0,0,.10);
+
+}
+
+.about-box h2{
+
+    margin-bottom:12px;
+
+}
+
+.about-box p{
+
+    color:#64748b;
+
+    line-height:1.7;
+
+}
+
+
+/* =========================
+   YOUTUBE
+========================= */
+
+.youtube{
+
+    text-align:center;
+
+    margin:20px auto 45px;
+
+}
+
+.youtube a{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:15px 25px;
+
+    border-radius:14px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #ef4444,
+        #b91c1c
     );
 
     color:white;
 
-    border-color:#7c3aed;
+    text-decoration:none;
 
-    transform:
-    translateY(-10px)
-    scale(1.02);
+    font-weight:bold;
 
     box-shadow:
-    0 20px 40px #4f46e566;
+    0 8px 20px rgba(239,68,68,.25);
+
+    transition:.3s;
 
 }
 
-.id-card:hover p{
-    color:#ffffffdd;
-}
+.youtube a:hover{
 
-.id-card:hover .tool-icon{
-
-    background:#ffffff25;
+    background:
+    linear-gradient(
+        135deg,
+        #111827,
+        #334155
+    );
 
     transform:
-    rotate(8deg)
-    scale(1.12);
+    translateY(-5px)
+    scale(1.03);
+
+    box-shadow:
+    0 15px 30px rgba(0,0,0,.25);
 
 }
 
-/* FOOTER */
+
+/* =========================
+   FOOTER
+========================= */
 
 footer{
 
-    background:#111827;
+    background:
+    linear-gradient(
+        135deg,
+        #0f172a,
+        #111827
+    );
 
     color:white;
 
     text-align:center;
 
-    padding:25px 15px;
+    padding:30px 15px;
+
+    margin-top:20px;
 
 }
 
 footer p{
-    margin:6px;
+
+    margin:7px;
+
     font-size:14px;
+
 }
 
 .developer{
-    color:#93c5fd;
+
+    color:#60a5fa;
+
     font-weight:bold;
+
 }
 
-/* MOBILE */
 
-@media(max-width:650px){
+/* FOOTER LINKS */
+
+.footer-links{
+
+    margin-top:15px;
+
+}
+
+.footer-links a{
+
+    color:#cbd5e1;
+
+    text-decoration:none;
+
+    margin:0 8px;
+
+    transition:.25s;
+
+}
+
+.footer-links a:hover{
+
+    color:#38bdf8;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
 
     .header-inner{
+
         flex-direction:column;
+
         text-align:center;
+
     }
 
-    .nav{
-        width:100%;
+    .logo-area{
+
         justify-content:center;
+
+    }
+
+    nav{
+
+        width:100%;
+
+    }
+
+    nav a{
+
+        padding:8px 10px;
+
+    }
+
+    .hero{
+
+        margin-top:30px;
+
     }
 
     .hero h2{
+
         font-size:29px;
+
+    }
+
+    .hero p{
+
+        font-size:15px;
+
     }
 
     .tools{
+
         grid-template-columns:1fr;
+
+        gap:16px;
+
+    }
+
+    .tool{
+
+        padding:23px 18px;
+
     }
 
 }
@@ -372,9 +806,11 @@ footer p{
 <body>
 
 
-<!-- HEADER -->
+<!-- =========================
+     HEADER
+========================= -->
 
-<header class="header">
+<header>
 
 <div class="header-inner">
 
@@ -389,14 +825,14 @@ RG
 
 <h1>RG Digital Image Tools</h1>
 
-<p>Fast • Simple • Free Online Tools</p>
+<p>Fast • Simple • Free Online Image Tools</p>
 
 </div>
 
 </div>
 
 
-<nav class="nav">
+<nav>
 
 <a href="index.html">
 Home
@@ -419,78 +855,38 @@ About
 
 
 
-<!-- HERO -->
+<!-- =========================
+     HERO
+========================= -->
 
 <section class="hero">
 
 <h2>
-All Your Image Tools in One Place
+Powerful Image Tools
 </h2>
 
 <p>
-Compress, convert, resize and create ID cards easily.
+Compress • Resize • Convert • Edit
 </p>
 
 </section>
 
 
 
-<!-- TOOLS -->
+<!-- =========================
+     TOOLS
+========================= -->
 
 <section
 class="tools"
 id="tools">
 
 
-<!-- IMAGE COMPRESSOR -->
-
-<a
-href="image-compressor.html"
-class="tool">
-
-<div class="tool-icon">
-🗜️
-</div>
-
-<h3>
-Image Compressor
-</h3>
-
-<p>
-Reduce image size in KB without unnecessary quality loss.
-</p>
-
-</a>
-
-
-
-<!-- IMAGE RESIZER -->
-
-<a
-href="image-resizer.html"
-class="tool">
-
-<div class="tool-icon">
-📐
-</div>
-
-<h3>
-Image Resizer
-</h3>
-
-<p>
-Resize image height, width and quality easily.
-</p>
-
-</a>
-
-
-
 <!-- BACKGROUND REMOVER -->
 
 <a
 href="background-remover.html"
-class="tool">
+class="tool purple">
 
 <div class="tool-icon">
 ✂️
@@ -501,40 +897,164 @@ Background Remover
 </h3>
 
 <p>
-Remove image background and change background colour.
+Remove image background easily.
 </p>
 
 </a>
 
 
-
-<!-- JPG TO PDF -->
+<!-- IMAGE COMPRESSOR -->
 
 <a
-href="jpg-to-pdf.html"
-class="tool">
+href="image-compressor.html"
+class="tool blue">
+
+<div class="tool-icon">
+🗜️
+</div>
+
+<h3>
+Image Compressor
+</h3>
+
+<p>
+Compress images quickly and easily.
+</p>
+
+</a>
+
+
+<!-- COMPRESSOR -->
+
+<a
+href="compressor.html"
+class="tool orange">
+
+<div class="tool-icon">
+📦
+</div>
+
+<h3>
+Compressor
+</h3>
+
+<p>
+Reduce image file size online.
+</p>
+
+</a>
+
+
+<!-- CUSTOM IMAGE RESIZER -->
+
+<a
+href="custom-image-resizer.html"
+class="tool green">
+
+<div class="tool-icon">
+📐
+</div>
+
+<h3>
+Custom Image Resizer
+</h3>
+
+<p>
+Set your own width, height and KB limit.
+</p>
+
+</a>
+
+
+<!-- IMAGE RESIZER -->
+
+<a
+href="image-resizer.html"
+class="tool indigo">
+
+<div class="tool-icon">
+📏
+</div>
+
+<h3>
+Image Resizer
+</h3>
+
+<p>
+Resize image dimensions easily.
+</p>
+
+</a>
+
+
+<!-- IMAGE SIZE REDUCER -->
+
+<a
+href="image-size-reducer.html"
+class="tool teal">
+
+<div class="tool-icon">
+📉
+</div>
+
+<h3>
+Image Size Reducer
+</h3>
+
+<p>
+Reduce image size quickly.
+</p>
+
+</a>
+
+
+<!-- IMAGE DPI -->
+
+<a
+href="image-dpi-changer.html"
+class="tool pink">
+
+<div class="tool-icon">
+🖨️
+</div>
+
+<h3>
+Image DPI Changer
+</h3>
+
+<p>
+Change image DPI and resolution.
+</p>
+
+</a>
+
+
+<!-- IMAGE TO PDF -->
+
+<a
+href="image-to-pdf.html"
+class="tool red">
 
 <div class="tool-icon">
 📄
 </div>
 
 <h3>
-JPG to PDF
+Image to PDF
 </h3>
 
 <p>
-Convert your JPG images into PDF documents.
+Convert one or multiple images to PDF.
 </p>
 
 </a>
-
 
 
 <!-- PDF TO JPG -->
 
 <a
 href="pdf-to-jpg.html"
-class="tool">
+class="tool orange">
 
 <div class="tool-icon">
 📑
@@ -545,29 +1065,175 @@ PDF to JPG
 </h3>
 
 <p>
-Convert PDF pages into high quality JPG images.
+Convert PDF pages into JPG images.
 </p>
 
 </a>
 
 
-
-<!-- ID CARD -->
+<!-- JPG TO PNG -->
 
 <a
-href="id-card.html"
-class="tool id-card">
+href="jpg-to-png.html"
+class="tool blue">
+
+<div class="tool-icon">
+🖼️
+</div>
+
+<h3>
+JPG to PNG
+</h3>
+
+<p>
+Convert JPG images into PNG format.
+</p>
+
+</a>
+
+
+<!-- PNG TO JPG -->
+
+<a
+href="png-to-jpg.html"
+class="tool green">
+
+<div class="tool-icon">
+🔄
+</div>
+
+<h3>
+PNG to JPG
+</h3>
+
+<p>
+Convert PNG images into JPG format.
+</p>
+
+</a>
+
+
+<!-- PHOTO COMPRESSOR -->
+
+<a
+href="photo-compressor.html"
+class="tool purple">
+
+<div class="tool-icon">
+📷
+</div>
+
+<h3>
+Photo Compressor
+</h3>
+
+<p>
+Compress photos for easy sharing.
+</p>
+
+</a>
+
+
+<!-- PASSPORT PHOTO -->
+
+<a
+href="passport-photo-resizer.html"
+class="tool pink">
 
 <div class="tool-icon">
 🪪
 </div>
 
 <h3>
-Create ID Card
+Passport Photo Resizer
 </h3>
 
 <p>
-Create a beautiful ID card from your photo.
+Resize photos for passport requirements.
+</p>
+
+</a>
+
+
+<!-- SIGNATURE -->
+
+<a
+href="signature-resizer.html"
+class="tool teal">
+
+<div class="tool-icon">
+✍️
+</div>
+
+<h3>
+Signature Resizer
+</h3>
+
+<p>
+Resize your signature image easily.
+</p>
+
+</a>
+
+
+<!-- 20 KB -->
+
+<a
+href="resize-image-to-20kb.html"
+class="tool blue">
+
+<div class="tool-icon">
+2️⃣0️⃣
+</div>
+
+<h3>
+Resize Image to 20KB
+</h3>
+
+<p>
+Create an image of 20KB or less.
+</p>
+
+</a>
+
+
+<!-- 50 KB -->
+
+<a
+href="resize-image-to-50kb.html"
+class="tool orange">
+
+<div class="tool-icon">
+5️⃣0️⃣
+</div>
+
+<h3>
+Resize Image to 50KB
+</h3>
+
+<p>
+Create an image of 50KB or less.
+</p>
+
+</a>
+
+
+<!-- 100 KB -->
+
+<a
+href="resize-image-to-100kb.html"
+class="tool red">
+
+<div class="tool-icon">
+💯
+</div>
+
+<h3>
+Resize Image to 100KB
+</h3>
+
+<p>
+Create an image of 100KB or less.
 </p>
 
 </a>
@@ -577,38 +1243,26 @@ Create a beautiful ID card from your photo.
 
 
 
-<!-- ABOUT -->
+<!-- =========================
+     ABOUT
+========================= -->
 
 <section
-id="about"
-style="
-max-width:900px;
-margin:0 auto 50px;
-padding:15px;
-">
+class="about"
+id="about">
 
-<div
-style="
-background:white;
-padding:25px;
-border-radius:20px;
-box-shadow:0 8px 25px #0002;
-text-align:center;
-">
+<div class="about-box">
 
-<h2 style="margin-bottom:12px;">
-ℹ️ About RG Digital
+<h2>
+ℹ️ About RG Digital Image Tools
 </h2>
 
-<p style="
-color:#64748b;
-line-height:1.7;
-">
+<p>
 
-RG Digital Image Tools is a simple and useful
-online image utility website for image compression,
-resizing, background removal, PDF conversion and
-ID card creation.
+RG Digital Image Tools is a free online platform
+providing simple and useful image tools such as
+image compression, resizing, background removal,
+PDF conversion, DPI changing and photo resizing.
 
 </p>
 
@@ -618,7 +1272,28 @@ ID card creation.
 
 
 
-<!-- FOOTER -->
+<!-- =========================
+     YOUTUBE
+========================= -->
+
+<div class="youtube">
+
+<a
+href="https://youtube.com/@ramghungrad0071?si=ejnl0ZnU0WD7G1Mc"
+target="_blank"
+rel="noopener">
+
+▶️ Visit Our YouTube Channel
+
+</a>
+
+</div>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
@@ -633,9 +1308,22 @@ Rameshwar Namdev Ghungrad
 </span>
 </p>
 
-<p>
-Made with ❤️ for everyone
-</p>
+
+<div class="footer-links">
+
+<a href="index.html">
+Home
+</a>
+
+<a href="contact.html">
+Contact
+</a>
+
+<a href="privacy-policy.html">
+Privacy Policy
+</a>
+
+</div>
 
 </footer>
 
