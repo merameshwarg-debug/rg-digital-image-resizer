@@ -59,15 +59,16 @@ max-width:100%;
 margin:15px
 }
 
-.password{
+.passwordBox{
 display:none;
-margin-top:18px;
-padding:18px;
+margin-top:20px;
+padding:20px;
 background:#f8fafc;
-border-radius:12px
+border-radius:12px;
+border:1px solid #ddd
 }
 
-.password input{
+.passwordBox input{
 width:100%;
 padding:13px;
 border:1px solid #ccc;
@@ -138,6 +139,7 @@ padding:10px 15px
 }
 
 @media(max-width:650px){
+
 .pages{
 grid-template-columns:1fr
 }
@@ -149,6 +151,7 @@ padding:16px
 header h1{
 font-size:25px
 }
+
 }
 </style>
 </head>
@@ -159,7 +162,7 @@ font-size:25px
 
 <h1>📄 PDF to JPG</h1>
 
-<p>Convert PDF Pages into High Quality JPG Images</p>
+<p>Convert PDF Pages into JPG Images</p>
 
 </header>
 
@@ -168,7 +171,6 @@ font-size:25px
 
 <div class="card">
 
-
 <div class="upload">
 
 <h2>📁 Select PDF</h2>
@@ -176,27 +178,31 @@ font-size:25px
 <input
 type="file"
 id="pdfFile"
-accept="application/pdf">
+accept=".pdf,application/pdf">
 
 <p>PDF files only</p>
 
 </div>
 
 
+<!-- PASSWORD -->
+
 <div
 id="passwordBox"
-class="password">
+class="passwordBox">
 
-<b>🔐 This PDF is Password Protected</b>
+<h3>🔐 Password Protected PDF</h3>
 
 <p>
-Enter the PDF password to continue.
+This PDF is protected with a password.
+Enter the correct password to continue.
 </p>
 
 <input
 type="password"
 id="password"
-placeholder="Enter PDF Password">
+placeholder="Enter PDF Password"
+autocomplete="off">
 
 <div class="center">
 
@@ -223,7 +229,7 @@ disabled>
 id="downloadAll"
 disabled>
 
-⬇️ Download All JPG
+⬇️ Download All
 
 </button>
 
@@ -243,13 +249,8 @@ class="pages">
 
 
 </div>
+
 </div>
-
-
-<script
-src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
-type="module">
-</script>
 
 
 <script type="module">
@@ -258,39 +259,42 @@ import * as pdfjsLib from
 "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
 
 
-pdfjsLib.GlobalWorkerOptions.workerSrc=
+pdfjsLib.GlobalWorkerOptions.workerSrc =
 "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
 
 
-const pdfFile=
+const pdfFile =
 document.getElementById("pdfFile");
 
-const passwordBox=
+const passwordBox =
 document.getElementById("passwordBox");
 
-const password=
+const passwordInput =
 document.getElementById("password");
 
-const openBtn=
+const openBtn =
 document.getElementById("openBtn");
 
-const convertBtn=
+const convertBtn =
 document.getElementById("convertBtn");
 
-const downloadAll=
+const downloadAll =
 document.getElementById("downloadAll");
 
-const status=
+const status =
 document.getElementById("status");
 
-const pages=
+const pages =
 document.getElementById("pages");
 
 
-let selectedFile=null;
-let pdfData=null;
-let pdfDocument=null;
-let jpgFiles=[];
+let selectedFile = null;
+
+let pdfBytes = null;
+
+let pdfDocument = null;
+
+let convertedImages = [];
 
 
 /* SELECT PDF */
@@ -299,64 +303,87 @@ pdfFile.addEventListener(
 "change",
 async function(){
 
-selectedFile=this.files[0];
+selectedFile = this.files[0];
 
-if(!selectedFile)return;
+if(!selectedFile){
+return;
+}
 
-pages.innerHTML="";
-jpgFiles=[];
+passwordBox.style.display="none";
 
 convertBtn.disabled=true;
+
 downloadAll.disabled=true;
+
+pages.innerHTML="";
+
+convertedImages=[];
 
 status.textContent=
 "⏳ Checking PDF...";
 
-const buffer=
-await selectedFile.arrayBuffer();
-
-pdfData=buffer;
 
 try{
 
-pdfDocument=
-await loadPDF(buffer,null);
+pdfBytes =
+new Uint8Array(
+await selectedFile.arrayBuffer()
+);
+
+
+/*
+First attempt without password.
+*/
+
+pdfDocument =
+await openPDF();
+
 
 passwordBox.style.display="none";
 
 convertBtn.disabled=false;
 
-status.innerHTML=
+status.innerHTML =
 '<span class="success">'+
 "✅ PDF opened successfully"+
 "</span>";
 
+
 }
 catch(error){
 
+console.log(error);
+
+
+/*
+Password protected PDF
+*/
+
 if(
 error &&
-error.name==="PasswordException"
+(
+error.name==="PasswordException" ||
+error.code===1 ||
+error.code===2
+)
 ){
 
 passwordBox.style.display="block";
 
-status.innerHTML=
+status.innerHTML =
 '<span class="error">'+
 "🔐 Password required"+
 "</span>";
 
-password.focus();
+passwordInput.focus();
 
 }
 else{
 
-status.innerHTML=
+status.innerHTML =
 '<span class="error">'+
 "❌ Could not open PDF"+
 "</span>";
-
-console.error(error);
 
 }
 
@@ -365,20 +392,23 @@ console.error(error);
 });
 
 
-/* OPEN WITH PASSWORD */
+/* OPEN PASSWORD PDF */
 
 openBtn.addEventListener(
 "click",
 async function(){
 
-const pass=password.value;
+const pass =
+passwordInput.value;
 
 if(!pass){
 
-status.innerHTML=
+status.innerHTML =
 '<span class="error">'+
-"Please enter password"+
+"Please enter PDF password"+
 "</span>";
+
+passwordInput.focus();
 
 return;
 
@@ -386,22 +416,21 @@ return;
 
 openBtn.disabled=true;
 
-status.textContent=
+status.textContent =
 "⏳ Checking password...";
+
 
 try{
 
-pdfDocument=
-await loadPDF(
-pdfData,
-pass
-);
+pdfDocument =
+await openPDF(pass);
+
 
 passwordBox.style.display="none";
 
 convertBtn.disabled=false;
 
-status.innerHTML=
+status.innerHTML =
 '<span class="success">'+
 "✅ Correct password. PDF opened."+
 "</span>";
@@ -409,12 +438,14 @@ status.innerHTML=
 }
 catch(error){
 
-console.error(error);
+console.log(error);
 
-status.innerHTML=
+status.innerHTML =
 '<span class="error">'+
-"❌ Wrong password. PDF cannot be opened."+
+"❌ Wrong password. Please try again."+
 "</span>";
+
+passwordInput.select();
 
 openBtn.disabled=false;
 
@@ -423,18 +454,63 @@ openBtn.disabled=false;
 });
 
 
-/* LOAD PDF */
+/* ENTER KEY */
 
-function loadPDF(data,pass){
+passwordInput.addEventListener(
+"keydown",
+function(e){
+
+if(e.key==="Enter"){
+
+openBtn.click();
+
+}
+
+});
+
+
+/* OPEN PDF FUNCTION */
+
+function openPDF(pass){
 
 return new Promise(
 (resolve,reject)=>{
 
-let loadingTask=
+let task =
 pdfjsLib.getDocument({
-data:data,
-password:
+
+data:pdfBytes,
+
+isEvalSupported:true,
+
+useWorkerFetch:true,
+
+onProgress:
+function(progress){
+
+if(progress.total){
+
+const percent =
+Math.round(
+progress.loaded /
+progress.total * 100
+);
+
+status.textContent =
+"⏳ Loading PDF "+
+percent+"%";
+
+}
+
+},
+
+onPassword:
 function(callback,reason){
+
+/*
+Reason 1 = NEED_PASSWORD
+Reason 2 = INCORRECT_PASSWORD
+*/
 
 if(pass){
 
@@ -444,15 +520,18 @@ callback(pass);
 else{
 
 reject({
-name:"PasswordException"
+name:"PasswordException",
+code:reason
 });
 
 }
 
 }
+
 });
 
-loadingTask.promise.then(
+
+task.promise.then(
 resolve,
 reject
 );
@@ -462,13 +541,15 @@ reject
 }
 
 
-/* CONVERT */
+/* CONVERT PDF */
 
 convertBtn.addEventListener(
 "click",
 async function(){
 
-if(!pdfDocument)return;
+if(!pdfDocument){
+return;
+}
 
 convertBtn.disabled=true;
 
@@ -476,10 +557,10 @@ downloadAll.disabled=true;
 
 pages.innerHTML="";
 
-jpgFiles=[];
+convertedImages=[];
 
-status.textContent=
-"⏳ Converting PDF pages...";
+status.textContent =
+"⏳ Converting PDF to JPG...";
 
 
 try{
@@ -490,97 +571,111 @@ i<=pdfDocument.numPages;
 i++
 ){
 
-status.textContent=
+status.textContent =
 "⏳ Converting page "+
 i+" of "+
 pdfDocument.numPages;
 
 
-const page=
+const page =
 await pdfDocument.getPage(i);
 
 
 /*
-High quality rendering
+High quality
 */
 
 const scale=2;
 
-const viewport=
+const viewport =
 page.getViewport({
 scale:scale
 });
 
 
-const canvas=
+const canvas =
 document.createElement("canvas");
 
-const context=
+const context =
 canvas.getContext("2d");
 
-canvas.width=
-viewport.width;
 
-canvas.height=
-viewport.height;
+canvas.width =
+Math.floor(viewport.width);
+
+canvas.height =
+Math.floor(viewport.height);
 
 
 await page.render({
+
 canvasContext:context,
+
 viewport:viewport
+
 }).promise;
 
 
 /*
-Convert to JPG
+JPG conversion
 */
 
-const blob=
-await canvasToBlob(
-canvas,
+const blob =
+await new Promise(
+resolve=>{
+
+canvas.toBlob(
+resolve,
 "image/jpeg",
 0.95
 );
 
+});
 
-jpgFiles.push(blob);
+
+convertedImages.push(blob);
 
 
 /*
 Preview
 */
 
-const url=
+const url =
 URL.createObjectURL(blob);
 
-const box=
+const box =
 document.createElement("div");
 
 box.className="page";
 
-const img=
+
+const title =
+document.createElement("p");
+
+title.innerHTML =
+"<b>Page "+i+"</b>";
+
+
+const img =
 document.createElement("img");
 
 img.src=url;
 
-const title=
-document.createElement("p");
 
-title.innerHTML=
-"<b>Page "+i+"</b>";
-
-
-const btn=
+const btn =
 document.createElement("button");
 
-btn.textContent=
+btn.textContent =
 "⬇️ Download JPG";
 
-btn.onclick=()=>{
+btn.onclick =
+function(){
+
 downloadBlob(
 blob,
 "page-"+i+".jpg"
 );
+
 };
 
 
@@ -595,9 +690,9 @@ pages.appendChild(box);
 }
 
 
-status.innerHTML=
+status.innerHTML =
 '<span class="success">'+
-"✅ All pages converted successfully"+
+"✅ PDF converted successfully"+
 "</span>";
 
 downloadAll.disabled=false;
@@ -607,7 +702,7 @@ catch(error){
 
 console.error(error);
 
-status.innerHTML=
+status.innerHTML =
 '<span class="error">'+
 "❌ Conversion failed"+
 "</span>";
@@ -625,58 +720,43 @@ downloadAll.addEventListener(
 "click",
 async function(){
 
-if(!jpgFiles.length)return;
+if(!convertedImages.length){
+return;
+}
 
 downloadAll.disabled=true;
 
-status.textContent=
-"⏳ Preparing downloads...";
+status.textContent =
+"⏳ Starting downloads...";
+
 
 for(
 let i=0;
-i<jpgFiles.length;
+i<convertedImages.length;
 i++
 ){
 
 downloadBlob(
-jpgFiles[i],
+convertedImages[i],
 "page-"+(i+1)+".jpg"
 );
 
-await wait(400);
+await new Promise(
+resolve=>
+setTimeout(resolve,500)
+);
 
 }
 
-status.innerHTML=
+
+status.innerHTML =
 '<span class="success">'+
-"✅ Downloads started"+
+"✅ All JPG downloads started"+
 "</span>";
 
 downloadAll.disabled=false;
 
 });
-
-
-/* CANVAS TO BLOB */
-
-function canvasToBlob(
-canvas,
-type,
-quality
-){
-
-return new Promise(
-resolve=>{
-
-canvas.toBlob(
-blob=>resolve(blob),
-type,
-quality
-);
-
-});
-
-}
 
 
 /* DOWNLOAD */
@@ -686,10 +766,10 @@ blob,
 filename
 ){
 
-const url=
+const url =
 URL.createObjectURL(blob);
 
-const a=
+const a =
 document.createElement("a");
 
 a.href=url;
@@ -703,22 +783,12 @@ a.click();
 a.remove();
 
 setTimeout(
-()=>{
+function(){
+
 URL.revokeObjectURL(url);
+
 },
-1000
-);
-
-}
-
-
-/* WAIT */
-
-function wait(ms){
-
-return new Promise(
-resolve=>
-setTimeout(resolve,ms)
+1500
 );
 
 }
