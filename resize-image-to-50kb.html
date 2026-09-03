@@ -4,180 +4,653 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Resize Image to 50KB Online - Free 50KB Image Resizer | RG Digital</title>
+<title>Image to 50KB Online - RG Digital</title>
 
-<meta name="description" content="Resize and compress JPG, PNG and WebP images to approximately 50KB online for free. Reduce image size for online forms, applications and document uploads with RG Digital Image Resizer.">
-
-<meta name="keywords" content="resize image to 50kb, image resizer 50kb, compress image to 50kb, reduce image size to 50kb, jpg to 50kb, png to 50kb, 50kb image">
-
-<link rel="canonical" href="https://merameshwarg-debug.github.io/rg-digital-image-resizer/resize-image-to-50kb.html">
+<meta name="description" content="Compress any image to 50KB or less online for free.">
 
 <style>
-*{box-sizing:border-box}
-
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f7fb;
-color:#202124;
-line-height:1.7
+*{
+    box-sizing:border-box;
 }
 
-.wrap{
-max-width:900px;
-margin:30px auto;
-padding:20px
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7fb;
+    color:#222;
+}
+
+header{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:28px 15px;
+}
+
+header h1{
+    margin:0;
+    font-size:30px;
+}
+
+header p{
+    margin:8px 0 0;
+}
+
+.container{
+    max-width:850px;
+    margin:25px auto;
+    padding:0 15px;
 }
 
 .card{
-background:#fff;
-border-radius:18px;
-padding:28px;
-box-shadow:0 5px 24px rgba(0,0,0,.08)
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
-h1{
-font-size:32px;
-margin-top:0;
-color:#111827
+.upload{
+    border:2px dashed #9ca3af;
+    border-radius:14px;
+    padding:35px 15px;
+    text-align:center;
 }
 
-h2{
-margin-top:28px;
-color:#1f2937
+input[type=file]{
+    max-width:100%;
 }
 
-.nav{
-margin-bottom:20px;
-font-size:14px
+.info{
+    background:#f3f4f6;
+    padding:15px;
+    border-radius:10px;
+    margin-top:18px;
 }
 
-.nav a{
-margin-right:12px;
-color:#2563eb;
-text-decoration:none
+button{
+    border:0;
+    background:#111827;
+    color:white;
+    padding:13px 20px;
+    border-radius:9px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:15px;
 }
 
-.btn{
-display:inline-block;
-padding:13px 20px;
-background:#111827;
-color:#fff;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold;
-margin:8px 5px 8px 0
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
 }
 
-.box{
-background:#f3f4f6;
-border-radius:12px;
-padding:18px;
-margin:18px 0
+#result{
+    display:none;
+    text-align:center;
+    margin-top:25px;
 }
 
-.note{
-background:#fff7ed;
-padding:15px;
-border-radius:10px;
-margin:18px 0
+#previewImage{
+    max-width:100%;
+    max-height:500px;
+    border-radius:10px;
+    border:1px solid #ddd;
 }
 
-li{
-margin:7px 0
+.success{
+    color:#166534;
+    font-weight:bold;
+    margin-top:15px;
 }
 
-.footer{
-margin-top:35px;
-padding-top:18px;
-border-top:1px solid #ddd;
-color:#666;
-font-size:14px
+.error{
+    color:#b91c1c;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+footer{
+    margin-top:30px;
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+@media(max-width:600px){
+    header h1{
+        font-size:25px;
+    }
+
+    .card{
+        padding:18px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrap">
+<header>
+    <h1>Image to 50KB</h1>
+    <p>Automatically Compress Any Image to 50KB or Less</p>
+</header>
+
+<div class="container">
+
 <div class="card">
 
-<div class="nav">
-<a href="index.html">Home</a>
-<a href="image-resizer.html">Image Resizer</a>
-<a href="image-compressor.html">Compressor</a>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-<a href="privacy-policy.html">Privacy</a>
+<div class="upload">
+
+<h2>Select Your Image</h2>
+
+<p>JPG, JPEG, PNG or WebP</p>
+
+<input
+    type="file"
+    id="imageInput"
+    accept="image/jpeg,image/png,image/webp"
+>
+
 </div>
 
-<h1>Resize Image to 50KB Online</h1>
+<div
+    id="originalInfo"
+    class="info"
+    style="display:none">
+</div>
+
+<div id="message"></div>
+
+<div id="result">
+
+<h2>Final Image</h2>
+
+<img
+    id="previewImage"
+    alt="Compressed image 50KB or less"
+>
+
+<div
+    id="resultInfo"
+    class="info">
+</div>
+
+<button
+    id="downloadBtn"
+    disabled>
+    Download Image
+</button>
+
+</div>
+
+</div>
+
+<div class="card" style="margin-top:20px">
+
+<h2>50KB Image Compressor</h2>
 
 <p>
-Looking for a simple way to reduce an image to approximately <strong>50KB</strong>?
-RG Digital Image Resizer helps you resize and compress JPG, PNG and WebP images for online forms, applications and document uploads.
+Upload any supported image. The tool automatically reduces
+the image dimensions and JPEG quality until the final file
+is <strong>50KB or less</strong>.
 </p>
-
-<a class="btn" href="index.html">Resize Image to 50KB</a>
-
-<h2>How to Resize an Image to 50KB</h2>
-
-<ol>
-<li>Open the RG Digital Image Resizer.</li>
-<li>Select your JPG, PNG or WebP image.</li>
-<li>Choose the target file size and enter approximately <strong>50KB</strong>.</li>
-<li>Process and compress the image.</li>
-<li>Check the resulting file size.</li>
-<li>Download the resized image.</li>
-</ol>
-
-<h2>Why Resize an Image to 50KB?</h2>
 
 <p>
-Some online application forms and government or educational portals require images to be uploaded within a specific file-size limit. Reducing an image to approximately 50KB can make it easier to upload photographs, signatures and other documents.
+Image processing is done directly in your browser.
 </p>
 
-<div class="note">
-<strong>Important:</strong> The exact final file size may vary slightly depending on the original image, dimensions, format and image content. Always follow the exact file-size requirement mentioned on the application website.
-</div>
-
-<h2>Supported Image Formats</h2>
-
-<div class="box">
-<ul>
-<li>JPG / JPEG</li>
-<li>PNG</li>
-<li>WebP</li>
-</ul>
-</div>
-
-<h2>Free 50KB Image Resizer</h2>
-
-<p>
-RG Digital Image Resizer is designed to work conveniently on mobile phones and computers. The main image tool lets you adjust image dimensions, compression and file format according to your requirements.
-</p>
-
-<h2>50KB Image for Online Forms</h2>
-
-<p>
-If an online form asks for an image around 50KB, you can use the RG Digital Image Resizer to reduce the file size before uploading it. This can be useful for applications, registrations, document submissions and other online services.
-</p>
-
-<h2>Related Image Tools</h2>
-
-<ul>
-<li><a href="image-resizer.html">Image Resizer Online</a></li>
-<li><a href="image-compressor.html">Image Compressor Online</a></li>
-<li><a href="resize-image-to-20kb.html">Resize Image to 20KB</a></li>
-<li><a href="index.html">All RG Digital Image Tools</a></li>
-</ul>
-
-<div class="footer">
-© 2026 RG Digital Image Resizer. All rights reserved.
 </div>
 
 </div>
-</div>
+
+<footer>
+© 2026 RG Digital Image Tools
+</footer>
+
+<script>
+
+const LIMIT = 50 * 1024;
+
+const input =
+document.getElementById("imageInput");
+
+const originalInfo =
+document.getElementById("originalInfo");
+
+const message =
+document.getElementById("message");
+
+const result =
+document.getElementById("result");
+
+const previewImage =
+document.getElementById("previewImage");
+
+const resultInfo =
+document.getElementById("resultInfo");
+
+const downloadBtn =
+document.getElementById("downloadBtn");
+
+let finalBlob = null;
+
+
+/* SELECT IMAGE */
+
+input.addEventListener("change", function(){
+
+    const file = this.files[0];
+
+    if(!file) return;
+
+    result.style.display = "none";
+
+    downloadBtn.disabled = true;
+
+    finalBlob = null;
+
+    message.innerHTML =
+        "Processing image... Please wait.";
+
+    originalInfo.style.display = "block";
+
+    originalInfo.innerHTML =
+        "<strong>Original Image</strong><br>" +
+        "File size: " +
+        formatSize(file.size);
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+        const img = new Image();
+
+        img.onload = async function(){
+
+            originalInfo.innerHTML =
+                "<strong>Original Image</strong><br>" +
+                "Dimensions: " +
+                img.naturalWidth +
+                " × " +
+                img.naturalHeight +
+                " px<br>" +
+                "File size: " +
+                formatSize(file.size);
+
+            finalBlob =
+                await compressTo50KB(img);
+
+            if(!finalBlob){
+
+                message.innerHTML =
+                    '<div class="error">' +
+                    'Unable to create image under 50KB.' +
+                    '</div>';
+
+                return;
+            }
+
+            /* FINAL SAFETY CHECK */
+
+            if(finalBlob.size > LIMIT){
+
+                message.innerHTML =
+                    '<div class="error">' +
+                    'File is larger than 50KB. Download blocked.' +
+                    '</div>';
+
+                downloadBtn.disabled = true;
+
+                return;
+            }
+
+            showResult();
+
+        };
+
+        img.onerror = function(){
+
+            message.innerHTML =
+                '<div class="error">' +
+                'Unable to read this image.' +
+                '</div>';
+
+        };
+
+        img.src = e.target.result;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+/*
+==================================================
+COMPRESS TO 50KB
+==================================================
+*/
+
+async function compressTo50KB(img){
+
+    /*
+    Start with original dimensions.
+    Gradually reduce dimensions if necessary.
+    */
+
+    let width = img.naturalWidth;
+    let height = img.naturalHeight;
+
+    for(
+        let scale = 1;
+        scale >= 0.03;
+        scale -= 0.04
+    ){
+
+        const ratio =
+            Math.min(
+                1,
+                scale
+            );
+
+        const w =
+            Math.max(
+                20,
+                Math.round(width * ratio)
+            );
+
+        const h =
+            Math.max(
+                20,
+                Math.round(height * ratio)
+            );
+
+        const canvas =
+            document.createElement("canvas");
+
+        canvas.width = w;
+        canvas.height = h;
+
+        const ctx =
+            canvas.getContext("2d");
+
+        /*
+        White background for transparent images.
+        */
+
+        ctx.fillStyle = "#ffffff";
+
+        ctx.fillRect(
+            0,
+            0,
+            w,
+            h
+        );
+
+        ctx.drawImage(
+            img,
+            0,
+            0,
+            w,
+            h
+        );
+
+
+        /*
+        Binary search for best quality
+        within 50KB.
+        */
+
+        let low = 0.01;
+        let high = 0.95;
+        let best = null;
+
+        for(let i = 0; i < 12; i++){
+
+            const quality =
+                (low + high) / 2;
+
+            const blob =
+                await makeBlob(
+                    canvas,
+                    quality
+                );
+
+            if(
+                blob &&
+                blob.size <= LIMIT
+            ){
+
+                best = blob;
+
+                /*
+                Try higher quality.
+                */
+
+                low = quality;
+
+            }else{
+
+                /*
+                Need lower quality.
+                */
+
+                high = quality;
+            }
+
+        }
+
+        if(
+            best &&
+            best.size <= LIMIT
+        ){
+
+            return best;
+        }
+
+    }
+
+
+    /*
+    Last-resort very small image.
+    */
+
+    for(
+        let size = 150;
+        size >= 10;
+        size -= 5
+    ){
+
+        const ratio =
+            img.naturalWidth /
+            img.naturalHeight;
+
+        const w = size;
+
+        const h =
+            Math.max(
+                1,
+                Math.round(size / ratio)
+            );
+
+        const canvas =
+            document.createElement("canvas");
+
+        canvas.width = w;
+        canvas.height = h;
+
+        const ctx =
+            canvas.getContext("2d");
+
+        ctx.drawImage(
+            img,
+            0,
+            0,
+            w,
+            h
+        );
+
+        const blob =
+            await makeBlob(
+                canvas,
+                0.01
+            );
+
+        if(
+            blob &&
+            blob.size <= LIMIT
+        ){
+
+            return blob;
+        }
+
+    }
+
+    return null;
+}
+
+
+/*
+==================================================
+CREATE JPEG
+==================================================
+*/
+
+function makeBlob(canvas, quality){
+
+    return new Promise(function(resolve){
+
+        canvas.toBlob(
+            function(blob){
+                resolve(blob);
+            },
+            "image/jpeg",
+            quality
+        );
+
+    });
+
+}
+
+
+/*
+==================================================
+SHOW RESULT
+==================================================
+*/
+
+function showResult(){
+
+    if(!finalBlob) return;
+
+    /*
+    Absolute safety check.
+    */
+
+    if(finalBlob.size > LIMIT){
+
+        message.innerHTML =
+            '<div class="error">' +
+            'Download blocked because file is larger than 50KB.' +
+            '</div>';
+
+        downloadBtn.disabled = true;
+
+        return;
+    }
+
+    const url =
+        URL.createObjectURL(finalBlob);
+
+    previewImage.src = url;
+
+    result.style.display = "block";
+
+    resultInfo.innerHTML =
+        "<strong>Success ✅</strong><br>" +
+        "Final file size: <strong>" +
+        formatSize(finalBlob.size) +
+        "</strong><br>" +
+        "Maximum allowed: <strong>50KB</strong>";
+
+    message.innerHTML =
+        '<div class="success">' +
+        'Image successfully created at 50KB or less! ✅' +
+        '</div>';
+
+    downloadBtn.disabled = false;
+}
+
+
+/*
+==================================================
+DOWNLOAD
+==================================================
+*/
+
+downloadBtn.addEventListener("click", function(){
+
+    if(!finalBlob) return;
+
+    /*
+    FINAL SAFETY CHECK
+    */
+
+    if(finalBlob.size > LIMIT){
+
+        alert(
+            "Download blocked. File is larger than 50KB."
+        );
+
+        downloadBtn.disabled = true;
+
+        return;
+    }
+
+    const url =
+        URL.createObjectURL(finalBlob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "rg-digital-50kb.jpg";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    setTimeout(function(){
+
+        URL.revokeObjectURL(url);
+
+    },1000);
+
+});
+
+
+/*
+==================================================
+FORMAT FILE SIZE
+==================================================
+*/
+
+function formatSize(bytes){
+
+    return (
+        (bytes / 1024).toFixed(2) +
+        " KB"
+    );
+
+}
+
+</script>
 
 </body>
 </html>
