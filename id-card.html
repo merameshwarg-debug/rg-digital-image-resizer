@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>Create ID Card - RG Digital</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+
+margin:0;
+
+font-family:Arial,sans-serif;
+
+background:linear-gradient(
+135deg,
+#eef2ff,
+#f8fafc
+);
+
+color:#172033;
+
+}
+
+header{
+
+background:linear-gradient(
+135deg,
+#111827,
+#1e3a8a,
+#4f46e5
+);
+
+color:white;
+
+padding:25px 15px;
+
+text-align:center;
+
+}
+
+header h1{
+
+margin:0;
+
+font-size:30px;
+
+}
+
+.container{
+
+max-width:1000px;
+
+margin:25px auto;
+
+padding:15px;
+
+}
+
+.box{
+
+background:white;
+
+padding:25px;
+
+border-radius:20px;
+
+box-shadow:0 8px 30px #0002;
+
+margin-bottom:20px;
+
+}
+
+.upload{
+
+border:2px dashed #64748b;
+
+padding:30px;
+
+border-radius:15px;
+
+text-align:center;
+
+background:#f8fafc;
+
+}
+
+input[type=file]{
+
+max-width:100%;
+
+margin:15px;
+
+}
+
+.fields{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:15px;
+
+margin-top:20px;
+
+}
+
+.fields input{
+
+width:100%;
+
+padding:13px;
+
+border:1px solid #cbd5e1;
+
+border-radius:10px;
+
+font-size:16px;
+
+}
+
+button{
+
+border:0;
+
+border-radius:10px;
+
+padding:14px 22px;
+
+margin:8px 4px;
+
+background:#1e3a8a;
+
+color:white;
+
+font-weight:bold;
+
+font-size:15px;
+
+cursor:pointer;
+
+}
+
+button:hover{
+
+opacity:.9;
+
+}
+
+.preview{
+
+text-align:center;
+
+margin-top:25px;
+
+}
+
+canvas{
+
+max-width:100%;
+
+border-radius:15px;
+
+box-shadow:0 8px 30px #0003;
+
+background:white;
+
+}
+
+.hidden{
+
+display:none;
+
+}
+
+@media(max-width:650px){
+
+.fields{
+
+grid-template-columns:1fr;
+
+}
+
+header h1{
+
+font-size:24px;
+
+}
+
+button{
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>🪪 RG Digital ID Card Creator</h1>
+
+<p>Create your ID Card easily</p>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="box">
+
+
+<div class="upload">
+
+<h2>📷 Select Photo</h2>
+
+<input
+type="file"
+id="photoInput"
+accept="image/*">
+
+<p>
+तुमचा फोटो निवडा
+</p>
+
+</div>
+
+
+<div class="fields">
+
+
+<input
+id="name"
+placeholder="Name">
+
+
+<input
+id="idnumber"
+placeholder="ID Number">
+
+
+<input
+id="dob"
+placeholder="Date of Birth">
+
+
+<input
+id="mobile"
+placeholder="Mobile Number">
+
+</div>
+
+
+<div style="text-align:center">
+
+<button
+onclick="createCard()">
+
+🪪 Create ID Card
+
+</button>
+
+
+<button
+onclick="downloadCard()">
+
+⬇️ Download
+
+</button>
+
+
+<button
+onclick="window.print()">
+
+🖨️ Print
+
+</button>
+
+</div>
+
+</div>
+
+
+<div
+id="previewBox"
+class="box preview hidden">
+
+<h2>Preview</h2>
+
+<canvas
+id="cardCanvas"
+width="856"
+height="540">
+</canvas>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+let selectedImage=null;
+
+
+document
+.getElementById("photoInput")
+.addEventListener(
+"change",
+function(){
+
+const file=this.files[0];
+
+if(!file)return;
+
+
+const reader=
+new FileReader();
+
+
+reader.onload=function(e){
+
+selectedImage=
+new Image();
+
+
+selectedImage.onload=function(){
+
+document
+.getElementById(
+"previewBox"
+)
+.classList.remove(
+"hidden"
+);
+
+createCard();
+
+};
+
+
+selectedImage.src=
+e.target.result;
+
+};
+
+
+reader.readAsDataURL(file);
+
+});
+
+
+
+function createCard(){
+
+if(!selectedImage){
+
+alert(
+"कृपया आधी फोटो निवडा."
+);
+
+return;
+
+}
+
+
+const canvas=
+document.getElementById(
+"cardCanvas"
+);
+
+const ctx=
+canvas.getContext("2d");
+
+
+const W=856;
+
+const H=540;
+
+
+/* Background */
+
+ctx.fillStyle="white";
+
+ctx.fillRect(
+0,
+0,
+W,
+H
+);
+
+
+/* Border */
+
+ctx.strokeStyle=
+"#1e3a8a";
+
+ctx.lineWidth=6;
+
+ctx.strokeRect(
+3,
+3,
+W-6,
+H-6
+);
+
+
+/* Header */
+
+const gradient=
+ctx.createLinearGradient(
+0,
+0,
+W,
+120
+);
+
+gradient.addColorStop(
+0,
+"#111827"
+);
+
+gradient.addColorStop(
+0.5,
+"#1e3a8a"
+);
+
+gradient.addColorStop(
+1,
+"#4f46e5"
+);
+
+ctx.fillStyle=
+gradient;
+
+ctx.fillRect(
+0,
+0,
+W,
+120
+);
+
+
+/* Header Text */
+
+ctx.fillStyle="white";
+
+ctx.font=
+"bold 30px Arial";
+
+ctx.textAlign="center";
+
+ctx.fillText(
+"RG DIGITAL ID CARD",
+W/2,
+72
+);
+
+
+/* Photo */
+
+const photoX=45;
+
+const photoY=155;
+
+const photoW=300;
+
+const photoH=300;
+
+
+/* White photo background */
+
+ctx.fillStyle=
+"#f8fafc";
+
+ctx.fillRect(
+photoX,
+photoY,
+photoW,
+photoH
+);
+
+
+/* Keep image ratio */
+
+const ratio=
+Math.min(
+photoW/selectedImage.width,
+photoH/selectedImage.height
+);
+
+const drawW=
+selectedImage.width*ratio;
+
+const drawH=
+selectedImage.height*ratio;
+
+const drawX=
+photoX+
+(photoW-drawW)/2;
+
+const drawY=
+photoY+
+(photoH-drawH)/2;
+
+
+ctx.drawImage(
+selectedImage,
+drawX,
+drawY,
+drawW,
+drawH
+);
+
+
+/* Information */
+
+ctx.textAlign="left";
+
+ctx.fillStyle=
+"#1e3a8a";
+
+ctx.font=
+"bold 25px Arial";
+
+ctx.fillText(
+"Identity Card",
+400,
+175
+);
+
+
+ctx.fillStyle=
+"#172033";
+
+ctx.font=
+"bold 18px Arial";
+
+
+ctx.fillText(
+"Name: "+
+(
+document
+.getElementById("name")
+.value || "-"
+),
+400,
+235
+);
+
+
+ctx.fillText(
+"ID Number: "+
+(
+document
+.getElementById("idnumber")
+.value || "-"
+),
+400,
+285
+);
+
+
+ctx.fillText(
+"DOB: "+
+(
+document
+.getElementById("dob")
+.value || "-"
+),
+400,
+335
+);
+
+
+ctx.fillText(
+"Mobile: "+
+(
+document
+.getElementById("mobile")
+.value || "-"
+),
+400,
+385
+);
+
+
+/* Footer */
+
+ctx.fillStyle=
+"#64748b";
+
+ctx.font=
+"13px Arial";
+
+ctx.textAlign="center";
+
+ctx.fillText(
+"Developed by Rameshwar Namdev Ghungrad",
+W/2,
+515
+);
+
+}
+
+
+
+function downloadCard(){
+
+if(!selectedImage){
+
+alert(
+"कृपया आधी फोटो निवडा."
+);
+
+return;
+
+}
+
+
+createCard();
+
+
+const canvas=
+document.getElementById(
+"cardCanvas"
+);
+
+
+canvas.toBlob(
+function(blob){
+
+const url=
+URL.createObjectURL(blob);
+
+
+const a=
+document.createElement("a");
+
+
+a.href=url;
+
+a.download=
+"RG-Digital-ID-Card.jpg";
+
+
+document.body.appendChild(a);
+
+a.click();
+
+a.remove();
+
+
+setTimeout(
+function(){
+
+URL.revokeObjectURL(
+url
+);
+
+},
+1000
+);
+
+},
+"image/jpeg",
+0.95
+);
+
+}
+
+</script>
+
+
+</body>
+
+</html>
