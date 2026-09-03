@@ -1,41 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RG Digital Image Tools</title>
+<title>RG Digital Image Tools | Free Online Image Tools</title>
 
 <meta name="description"
-content="RG Digital Image Tools - Free online image compressor, resizer, background remover, JPG to PDF and PDF to JPG tools.">
+content="RG Digital Image Tools - Professional free online tools for image compression, resizing, background removal and PDF conversion.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
+/* =========================
+   RESET
+========================= */
+
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:linear-gradient(135deg,#eef2ff,#f8fafc);
-    color:#172033;
+    font-family:"Inter",Arial,sans-serif;
+    background:#f6f8fc;
+    color:#111827;
 }
 
-/* HEADER */
+
+/* =========================
+   HEADER
+========================= */
+
 header{
-    background:linear-gradient(135deg,#111827,#1e3a8a,#312e81);
-    color:white;
-    padding:18px 25px;
-    box-shadow:0 5px 20px #0003;
+    position:sticky;
+    top:0;
+    z-index:999;
+
+    background:rgba(10,18,38,.94);
+    backdrop-filter:blur(14px);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    box-shadow:0 8px 30px rgba(0,0,0,.18);
 }
 
-.header{
-    max-width:1100px;
+.header-inner{
+    max-width:1180px;
     margin:auto;
+
+    height:72px;
+
+    padding:0 22px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
 }
+
+
+/* BRAND */
 
 .brand{
     display:flex;
@@ -44,328 +78,752 @@ header{
 }
 
 .logo{
-    width:48px;
-    height:48px;
-    border-radius:12px;
+    width:46px;
+    height:46px;
+
+    border-radius:13px;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:18px;
-    font-weight:bold;
+
     background:linear-gradient(135deg,#06b6d4,#2563eb);
-    border:2px solid #fff8;
+
+    color:#fff;
+
+    font-size:15px;
+    font-weight:800;
+
+    box-shadow:
+        0 6px 20px rgba(37,99,235,.4);
+
+    border:1px solid rgba(255,255,255,.35);
 }
 
 .brand h1{
-    margin:0;
-    font-size:21px;
+    color:white;
+
+    font-size:18px;
+    font-weight:700;
+
+    letter-spacing:-.4px;
 }
 
 .brand p{
-    margin:3px 0 0;
-    font-size:10px;
-    opacity:.9;
+    color:#94a3b8;
+
+    font-size:9px;
+
+    margin-top:3px;
+}
+
+
+/* NAV */
+
+nav{
+    display:flex;
+    align-items:center;
+    gap:26px;
 }
 
 nav a{
-    color:white;
+    color:#dbeafe;
+
     text-decoration:none;
-    margin-left:22px;
-    font-size:13px;
-    font-weight:bold;
+
+    font-size:12px;
+    font-weight:600;
+
+    transition:.25s;
 }
 
 nav a:hover{
     color:#38bdf8;
 }
 
-/* HERO */
+
+/* =========================
+   HERO
+========================= */
+
 .hero{
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(circle at 15% 20%,rgba(37,99,235,.30),transparent 35%),
+        radial-gradient(circle at 85% 20%,rgba(124,58,237,.28),transparent 35%),
+        linear-gradient(135deg,#0f172a,#172554,#1e1b4b);
+
+    color:white;
+
+    padding:75px 20px 85px;
+
     text-align:center;
-    padding:40px 15px 25px;
 }
 
+
+/* decorative circles */
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    top:-130px;
+    left:-100px;
+}
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    width:360px;
+    height:360px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.07);
+
+    bottom:-200px;
+    right:-120px;
+}
+
+
+.hero-content{
+    position:relative;
+    z-index:2;
+
+    max-width:850px;
+    margin:auto;
+}
+
+
+.badge{
+    display:inline-flex;
+
+    align-items:center;
+    gap:7px;
+
+    padding:7px 14px;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.14);
+
+    color:#bfdbfe;
+
+    font-size:10px;
+    font-weight:600;
+
+    margin-bottom:20px;
+
+    backdrop-filter:blur(10px);
+}
+
+
 .hero h2{
-    margin:0;
-    font-size:30px;
-    background:linear-gradient(90deg,#7c3aed,#ec4899,#ea580c);
+    font-size:46px;
+
+    line-height:1.12;
+
+    font-weight:800;
+
+    letter-spacing:-1.5px;
+
+    margin-bottom:16px;
+}
+
+
+.hero h2 span{
+    background:linear-gradient(
+        90deg,
+        #38bdf8,
+        #818cf8,
+        #c084fc
+    );
+
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
 
+
 .hero p{
-    margin-top:8px;
+    max-width:650px;
+
+    margin:auto;
+
+    color:#cbd5e1;
+
+    font-size:14px;
+
+    line-height:1.7;
+}
+
+
+/* =========================
+   TOOLS SECTION
+========================= */
+
+.tools-section{
+    max-width:1120px;
+
+    margin:-35px auto 0;
+
+    position:relative;
+    z-index:5;
+
+    padding:0 20px 60px;
+}
+
+
+.section-title{
+    text-align:center;
+
+    margin-bottom:25px;
+}
+
+.section-title h3{
+    font-size:22px;
+
+    color:#111827;
+
+    font-weight:700;
+}
+
+.section-title p{
+    margin-top:5px;
+
+    font-size:11px;
+
     color:#64748b;
-    font-size:13px;
 }
 
-/* TOOLS */
-.tools{
-    max-width:900px;
-    margin:10px auto 45px;
-    padding:15px;
 
+/* GRID */
+
+.tools-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
 }
+
+
+/* CARD */
 
 .tool{
     position:relative;
-    overflow:hidden;
 
-    min-height:145px;
+    min-height:185px;
 
-    background:#fff;
-    border-radius:17px;
+    padding:25px 20px;
 
-    padding:20px 12px;
+    border-radius:20px;
 
-    text-align:center;
-    text-decoration:none;
-    color:#172033;
+    background:rgba(255,255,255,.96);
 
     border:1px solid #e2e8f0;
 
-    box-shadow:0 7px 20px #00000012;
+    text-decoration:none;
+
+    color:#111827;
+
+    box-shadow:
+        0 10px 30px rgba(15,23,42,.08);
+
+    overflow:hidden;
 
     transition:
-        transform .25s ease,
-        box-shadow .25s ease,
-        color .25s ease,
-        background .25s ease;
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
 }
 
-/* TOP LINE */
+
+/* coloured top */
+
 .tool::before{
     content:"";
+
     position:absolute;
+
     top:0;
     left:0;
+
     width:100%;
     height:4px;
-    background:linear-gradient(90deg,#2563eb,#ec4899);
+
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #7c3aed
+    );
 }
 
+
+/* glow */
+
+.tool::after{
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
+
+    right:-60px;
+    bottom:-60px;
+
+    background:#2563eb15;
+
+    transition:.3s;
+}
+
+
+.tool:hover{
+    transform:translateY(-8px);
+
+    box-shadow:
+        0 20px 45px rgba(15,23,42,.16);
+
+    border-color:#c7d2fe;
+}
+
+.tool:hover::after{
+    transform:scale(2.2);
+}
+
+
 /* ICON */
-.icon{
-    width:48px;
-    height:48px;
 
-    margin:0 auto 10px;
-
-    border-radius:12px;
+.tool-icon{
+    width:58px;
+    height:58px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    font-size:25px;
+    border-radius:16px;
 
     background:#eef2ff;
 
-    transition:.25s;
+    font-size:27px;
+
+    margin-bottom:18px;
+
+    transition:.3s;
 }
 
-.tool h3{
-    margin:5px 0 6px;
-    font-size:15px;
+.tool:hover .tool-icon{
+    transform:scale(1.08) rotate(-3deg);
+
+    background:#e0e7ff;
 }
+
+
+.tool h4{
+    font-size:16px;
+
+    font-weight:700;
+
+    margin-bottom:7px;
+}
+
 
 .tool p{
-    margin:0;
-    font-size:10px;
     color:#64748b;
-    line-height:1.4;
+
+    font-size:10px;
+
+    line-height:1.6;
+
+    max-width:270px;
 }
 
-/* HOVER COLOURS */
 
-.tool:hover{
-    transform:translateY(-7px) scale(1.02);
-    box-shadow:0 15px 30px #0003;
+/* OPEN ARROW */
+
+.open-tool{
+    position:absolute;
+
+    right:18px;
+    top:25px;
+
+    width:32px;
+    height:32px;
+
+    border-radius:50%;
+
+    background:#f1f5f9;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#475569;
+
+    font-size:15px;
+
+    transition:.3s;
+}
+
+.tool:hover .open-tool{
+    background:#2563eb;
+
     color:white;
+
+    transform:translateX(3px);
 }
 
-.tool:hover p{
-    color:white;
+
+/* =========================
+   FEATURE STRIP
+========================= */
+
+.features{
+    max-width:1120px;
+
+    margin:0 auto 55px;
+
+    padding:0 20px;
 }
 
-.tool:hover .icon{
-    background:#ffffff33;
-    transform:scale(1.1) rotate(4deg);
-}
-
-/* Individual colours */
-
-.background:hover{
-    background:linear-gradient(135deg,#7c3aed,#4f46e5);
-}
-
-.compressor:hover{
-    background:linear-gradient(135deg,#2563eb,#1d4ed8);
-}
-
-.resizer:hover{
-    background:linear-gradient(135deg,#059669,#16a34a);
-}
-
-.jpgpdf:hover{
-    background:linear-gradient(135deg,#ea580c,#dc2626);
-}
-
-.pdfjpg:hover{
-    background:linear-gradient(135deg,#db2777,#be185d);
-}
-
-/* ABOUT */
-.about{
-    max-width:900px;
-    margin:0 auto 30px;
-    padding:15px;
-}
-
-.about-box{
+.feature-box{
     background:white;
+
+    border:1px solid #e2e8f0;
+
     border-radius:18px;
-    padding:25px;
-    text-align:center;
-    box-shadow:0 7px 20px #00000012;
+
+    padding:18px 25px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
+
+    box-shadow:0 8px 25px rgba(15,23,42,.06);
 }
 
-.about-box h2{
-    margin:0 0 10px;
+.feature{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    justify-content:center;
+
+    color:#475569;
+
+    font-size:11px;
+
+    font-weight:600;
+}
+
+.feature-icon{
     font-size:20px;
 }
 
-.about-box p{
-    margin:0;
-    color:#64748b;
-    font-size:13px;
-    line-height:1.6;
-}
 
-/* YOUTUBE */
-.youtube{
+/* =========================
+   ABOUT
+========================= */
+
+.about{
+    max-width:850px;
+
+    margin:0 auto 45px;
+
+    padding:0 20px;
+
     text-align:center;
-    margin:10px 0 40px;
 }
 
-.youtube a{
-    display:inline-block;
-    padding:12px 22px;
-    border-radius:10px;
+.about h3{
+    font-size:23px;
 
-    background:#dc2626;
-    color:white;
+    margin-bottom:10px;
+}
+
+.about p{
+    color:#64748b;
+
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+    background:
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #f8fafc
+        );
+
+    text-align:center;
+
+    padding:45px 20px;
+}
+
+.contact h3{
+    font-size:22px;
+
+    margin-bottom:8px;
+}
+
+.contact p{
+    color:#64748b;
+
+    font-size:12px;
+
+    margin-bottom:18px;
+}
+
+
+/* BUTTONS */
+
+.contact-buttons{
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+
+.whatsapp,
+.youtube{
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    padding:12px 20px;
+
+    border-radius:11px;
 
     text-decoration:none;
-    font-weight:bold;
-    font-size:13px;
+
+    color:white;
+
+    font-size:11px;
+
+    font-weight:700;
 
     transition:.25s;
 }
 
-.youtube a:hover{
-    background:#111827;
-    transform:translateY(-3px);
+.whatsapp{
+    background:#16a34a;
+
+    box-shadow:
+        0 7px 18px rgba(22,163,74,.22);
 }
 
-/* FOOTER */
+.youtube{
+    background:#dc2626;
+
+    box-shadow:
+        0 7px 18px rgba(220,38,38,.20);
+}
+
+.whatsapp:hover,
+.youtube:hover{
+    transform:translateY(-4px);
+
+    filter:brightness(.92);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
 footer{
-    background:#111827;
+    background:#0b1120;
+
     color:white;
+
     text-align:center;
-    padding:25px 15px;
+
+    padding:28px 15px;
 }
 
 footer p{
-    margin:6px;
-    font-size:12px;
+    color:#94a3b8;
+
+    font-size:10px;
+
+    margin:5px;
 }
 
 .developer{
     color:#38bdf8;
-    font-weight:bold;
+
+    font-weight:700;
 }
 
 .footer-links{
-    margin-top:12px;
+    margin-top:14px;
 }
 
 .footer-links a{
-    color:#cbd5e1;
+    color:#64748b;
+
     text-decoration:none;
-    margin:0 7px;
-    font-size:12px;
+
+    font-size:10px;
+
+    margin:0 8px;
+
+    transition:.2s;
 }
 
 .footer-links a:hover{
     color:#38bdf8;
 }
 
-/* MOBILE */
-@media(max-width:700px){
 
-    header{
-        padding:15px;
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px){
+
+    .hero h2{
+        font-size:38px;
     }
 
-    .header{
+    .tools-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .header-inner{
+        height:auto;
+
+        padding:12px 15px;
+
         flex-direction:column;
-        gap:12px;
+
+        gap:10px;
+    }
+
+    nav{
+        gap:18px;
     }
 
     nav a{
-        margin:0 8px;
+        font-size:10px;
     }
 
     .hero{
-        padding-top:30px;
+        padding:55px 18px 70px;
     }
 
     .hero h2{
-        font-size:27px;
+        font-size:32px;
+
+        letter-spacing:-1px;
     }
 
-    .tools{
-        grid-template-columns:repeat(2,1fr);
-        gap:12px;
-        padding:12px;
+    .hero p{
+        font-size:12px;
+    }
+
+    .tools-section{
+        margin-top:-25px;
+
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .tools-grid{
+        grid-template-columns:1fr;
+
+        gap:13px;
     }
 
     .tool{
-        min-height:140px;
-        padding:18px 8px;
+        min-height:165px;
     }
-}
 
-@media(max-width:430px){
+    .feature-box{
+        grid-template-columns:1fr;
 
-    .tools{
-        grid-template-columns:1fr 1fr;
+        padding:20px;
     }
 
     .brand h1{
-        font-size:18px;
+        font-size:16px;
     }
 
-    .tool h3{
-        font-size:13px;
-    }
-
-    .tool p{
-        font-size:9px;
-    }
 }
+
+
+@media(max-width:380px){
+
+    .hero h2{
+        font-size:28px;
+    }
+
+    .tool{
+        padding:21px 17px;
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<!-- HEADER -->
+
+<!-- ================= HEADER ================= -->
+
 <header>
-<div class="header">
+
+<div class="header-inner">
 
     <div class="brand">
 
@@ -374,208 +832,379 @@ footer p{
         </div>
 
         <div>
-            <h1>RG Digital Image Tools</h1>
-            <p>Fast • Simple • Free Online Image Tools</p>
+
+            <h1>
+                RG Digital Image Tools
+            </h1>
+
+            <p>
+                Fast • Simple • Free Online Image Tools
+            </p>
+
         </div>
 
     </div>
 
+
     <nav>
-        <a href="index.html">Home</a>
-        <a href="#tools">Tools</a>
-        <a href="#about">About</a>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="#tools">
+            Tools
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
     </nav>
 
 </div>
+
 </header>
 
 
-<!-- HERO -->
+
+<!-- ================= HERO ================= -->
+
 <section class="hero">
 
-    <h2>Powerful Image Tools</h2>
+<div class="hero-content">
+
+    <div class="badge">
+        ⚡ FAST • SIMPLE • FREE
+    </div>
+
+
+    <h2>
+        Powerful Tools.<br>
+        <span>Simple Results.</span>
+    </h2>
+
 
     <p>
-        Compress • Resize • Convert • Edit
+        Resize, compress, convert and remove
+        image backgrounds easily — completely
+        online and free.
     </p>
+
+</div>
 
 </section>
 
 
-<!-- ONLY 5 IMPORTANT TOOLS -->
-<section class="tools" id="tools">
+
+<!-- ================= TOOLS ================= -->
+
+<section class="tools-section" id="tools">
 
 
-    <!-- 1 BACKGROUND REMOVER -->
+<div class="section-title">
 
-    <a href="background-remover.html"
-       class="tool background">
+    <h3>
+        Our Powerful Tools
+    </h3>
 
-        <div class="icon">
+    <p>
+        Choose a tool and get started instantly
+    </p>
+
+</div>
+
+
+
+<div class="tools-grid">
+
+
+    <!-- BACKGROUND -->
+
+    <a
+        href="background-remover.html"
+        class="tool"
+    >
+
+        <div class="tool-icon">
             ✂️
         </div>
 
-        <h3>
+        <span class="open-tool">
+            →
+        </span>
+
+        <h4>
             Background Remover
-        </h3>
+        </h4>
 
         <p>
-            Remove image background easily.
+            Remove image backgrounds quickly
+            and create clean transparent images.
         </p>
 
     </a>
 
 
-    <!-- 2 IMAGE COMPRESSOR -->
 
-    <a href="image-compressor.html"
-       class="tool compressor">
+    <!-- COMPRESSOR -->
 
-        <div class="icon">
+    <a
+        href="image-compressor.html"
+        class="tool"
+    >
+
+        <div class="tool-icon">
             🗜️
         </div>
 
-        <h3>
+        <span class="open-tool">
+            →
+        </span>
+
+        <h4>
             Image Compressor
-        </h3>
+        </h4>
 
         <p>
-            Compress images quickly and easily.
+            Reduce image file size while keeping
+            the image quality as much as possible.
         </p>
 
     </a>
 
 
-    <!-- 3 IMAGE RESIZER -->
 
-    <a href="image-resizer.html"
-       class="tool resizer">
+    <!-- RESIZER -->
 
-        <div class="icon">
-            📏
+    <a
+        href="image-resizer.html"
+        class="tool"
+    >
+
+        <div class="tool-icon">
+            📐
         </div>
 
-        <h3>
+        <span class="open-tool">
+            →
+        </span>
+
+        <h4>
             Image Resizer
-        </h3>
+        </h4>
 
         <p>
-            Resize image dimensions easily.
+            Change image width and height easily
+            for online forms and applications.
         </p>
 
     </a>
 
 
-    <!-- 4 JPG TO PDF -->
 
-    <a href="jpg-to-pdf.html"
-       class="tool jpgpdf">
+    <!-- JPG PDF -->
 
-        <div class="icon">
+    <a
+        href="jpg-to-pdf.html"
+        class="tool"
+    >
+
+        <div class="tool-icon">
             📄
         </div>
 
-        <h3>
+        <span class="open-tool">
+            →
+        </span>
+
+        <h4>
             JPG to PDF
-        </h3>
+        </h4>
 
         <p>
-            Convert JPG images into PDF.
+            Convert one or multiple JPG images
+            into a professional PDF document.
         </p>
 
     </a>
 
 
-    <!-- 5 PDF TO JPG -->
 
-    <a href="pdf-to-jpg.html"
-       class="tool pdfjpg">
+    <!-- PDF JPG -->
 
-        <div class="icon">
+    <a
+        href="pdf-to-jpg.html"
+        class="tool"
+    >
+
+        <div class="tool-icon">
             📑
         </div>
 
-        <h3>
+        <span class="open-tool">
+            →
+        </span>
+
+        <h4>
             PDF to JPG
-        </h3>
+        </h4>
 
         <p>
-            Convert PDF pages into JPG.
+            Convert PDF pages into high-quality
+            JPG images quickly.
         </p>
 
     </a>
 
 
+</div>
+
 </section>
 
 
-<!-- ABOUT -->
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features">
+
+<div class="feature-box">
+
+    <div class="feature">
+
+        <span class="feature-icon">
+            ⚡
+        </span>
+
+        Fast Processing
+
+    </div>
+
+
+    <div class="feature">
+
+        <span class="feature-icon">
+            🔒
+        </span>
+
+        Simple & Secure
+
+    </div>
+
+
+    <div class="feature">
+
+        <span class="feature-icon">
+            💻
+        </span>
+
+        Works on All Devices
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= ABOUT ================= -->
+
 <section class="about" id="about">
 
-<div class="about-box">
-
-    <h2>
-        ℹ️ About RG Digital Image Tools
-    </h2>
+    <h3>
+        About RG Digital Image Tools
+    </h3>
 
     <p>
-        RG Digital Image Tools provides simple,
-        fast and free online tools for image
-        compression, resizing, background removal
-        and PDF conversion.
+        RG Digital Image Tools is designed to make
+        everyday image and document work simple.
+        Use our free online tools to resize,
+        compress, convert and edit your images
+        without complicated software.
     </p>
-
-</div>
 
 </section>
 
 
-<!-- YOUTUBE -->
-<div class="youtube">
 
-<a
-href="https://youtube.com/@ramghungrad0071?si=ejnl0ZnU0WD7G1Mc"
-target="_blank"
-rel="noopener noreferrer">
+<!-- ================= CONTACT ================= -->
 
-▶️ Visit Our YouTube Channel
+<section class="contact">
 
-</a>
+    <h3>
+        Need Help?
+    </h3>
 
-</div>
+    <p>
+        Contact RG Digital for assistance.
+        We are happy to help.
+    </p>
 
 
-<!-- FOOTER -->
+    <div class="contact-buttons">
+
+
+        <a
+            href="https://wa.me/919853874777"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="whatsapp"
+        >
+            💬 WhatsApp : 9853874777
+        </a>
+
+
+        <a
+            href="https://youtube.com/@ramghungrad0071?si=ejnl0ZnU0WD7G1Mc"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="youtube"
+        >
+            ▶ YouTube Channel
+        </a>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
 <footer>
 
-<p>
-© 2026 RG Digital Image Tools
-</p>
+    <p>
+        © 2026 RG Digital Image Tools
+    </p>
 
-<p>
-Developed by
-<span class="developer">
-Rameshwar Namdev Ghungrad
-</span>
-</p>
+    <p>
+        Developed by
+        <span class="developer">
+            Rameshwar Namdev Ghungrad
+        </span>
+    </p>
 
-<div class="footer-links">
 
-<a href="index.html">
-Home
-</a>
+    <div class="footer-links">
 
-<a href="contact.html">
-Contact
-</a>
+        <a href="index.html">
+            Home
+        </a>
 
-<a href="privacy-policy.html">
-Privacy Policy
-</a>
+        <a href="contact.html">
+            Contact
+        </a>
 
-</div>
+        <a href="privacy-policy.html">
+            Privacy Policy
+        </a>
+
+    </div>
 
 </footer>
+
 
 </body>
 </html>
