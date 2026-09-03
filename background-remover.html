@@ -4,188 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI Background Remover - RG Digital</title>
-<meta name="description" content="Fast AI background remover with background color options.">
 
 <style>
 *{box-sizing:border-box}
-
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f4f7fb;
-color:#172033
-}
-
-header{
-background:#111827;
-color:white;
-text-align:center;
-padding:25px 15px
-}
-
-header h1{
-margin:0;
-font-size:30px
-}
-
-header p{
-margin:8px 0
-}
-
-.container{
-max-width:950px;
-margin:25px auto;
-padding:15px
-}
-
-.card{
-background:white;
-padding:25px;
-border-radius:16px;
-box-shadow:0 5px 20px #0001
-}
-
-.upload{
-border:2px dashed #888;
-padding:30px;
-border-radius:12px;
-text-align:center
-}
-
-input[type=file]{
-max-width:100%;
-margin-top:12px
-}
-
-.controls{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-margin-top:20px
-}
-
-.box{
-border:1px solid #ddd;
-padding:15px;
-border-radius:10px
-}
-
-select,input[type=color]{
-width:100%;
-padding:12px;
-border:1px solid #ccc;
-border-radius:8px;
-margin-top:8px
-}
-
-input[type=color]{
-height:48px;
-padding:3px
-}
-
-button{
-border:0;
-background:#111827;
-color:white;
-padding:14px 20px;
-border-radius:8px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-margin-top:15px
-}
-
-button:disabled{
-background:#aaa;
-cursor:not-allowed
-}
-
-.preview{
-margin-top:20px;
-min-height:300px;
-border-radius:12px;
-padding:20px;
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
-
-background-image:
-linear-gradient(45deg,#ddd 25%,transparent 25%),
-linear-gradient(-45deg,#ddd 25%,transparent 25%),
-linear-gradient(45deg,transparent 75%,#ddd 75%),
-linear-gradient(-45deg,transparent 75%,#ddd 75%);
-
-background-size:24px 24px;
-background-position:
-0 0,
-0 12px,
-12px -12px,
--12px 0
-}
-
-.preview img{
-max-width:100%;
-max-height:550px;
-display:block
-}
-
-.status{
-text-align:center;
-font-weight:bold;
-margin:18px
-}
-
-.success{
-color:#16803c
-}
-
-.error{
-color:#c62828
-}
-
-.actions{
-text-align:center
-}
-
-.info{
-background:#f3f4f6;
-padding:12px;
-border-radius:8px;
-margin-top:15px;
-text-align:center
-}
-
-@media(max-width:700px){
-
-.controls{
-grid-template-columns:1fr
-}
-
-.card{
-padding:16px
-}
-
-}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}
+header{background:#111827;color:#fff;text-align:center;padding:24px 15px}
+header h1{margin:0;font-size:30px}
+header p{margin:8px 0}
+.container{max-width:950px;margin:25px auto;padding:15px}
+.card{background:#fff;border-radius:16px;padding:22px;box-shadow:0 5px 20px #0001}
+.upload{border:2px dashed #888;border-radius:12px;padding:28px;text-align:center}
+input[type=file]{max-width:100%;margin:12px}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:18px}
+.box{border:1px solid #ddd;padding:15px;border-radius:10px}
+select,input[type=color]{width:100%;padding:11px;border:1px solid #ccc;border-radius:8px;margin-top:8px}
+input[type=color]{height:45px;padding:3px}
+input[type=range]{width:100%;margin-top:12px}
+button{border:0;background:#111827;color:#fff;padding:14px 20px;border-radius:9px;font-size:16px;font-weight:bold;cursor:pointer;margin:8px}
+button:disabled{background:#aaa}
+.preview{margin-top:20px;min-height:300px;border-radius:12px;padding:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;background-image:linear-gradient(45deg,#ddd 25%,transparent 25%),linear-gradient(-45deg,#ddd 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ddd 75%),linear-gradient(-45deg,transparent 75%,#ddd 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0}
+.preview img{max-width:100%;max-height:550px;display:block}
+.status{text-align:center;font-weight:bold;margin:18px}
+.success{color:#16803c}
+.error{color:#c62828}
+.actions{text-align:center}
+.info{background:#f3f4f6;padding:12px;border-radius:8px;margin-top:12px;text-align:center}
+@media(max-width:700px){.controls{grid-template-columns:1fr}.card{padding:15px}}
 </style>
 </head>
-
 
 <body>
 
 <header>
-
 <h1>✂️ AI Background Remover</h1>
-
-<p>Fast Background Removal + Background Color</p>
-
+<p>Clean Edges • Remove Halo • Change Background</p>
 </header>
-
 
 <div class="container">
 
 <div class="card">
-
 
 <div class="upload">
 
@@ -196,30 +53,20 @@ type="file"
 id="file"
 accept="image/jpeg,image/png,image/webp">
 
-<p>
-JPG • PNG • WEBP
-</p>
+<p>JPG • PNG • WEBP</p>
 
 </div>
 
 
 <div class="controls">
 
-
 <div class="box">
 
-<b>⚡ AI Speed</b>
+<b>⚡ AI Mode</b>
 
 <select id="model">
-
-<option value="isnet_quint8">
-Fast Mode
-</option>
-
-<option value="isnet">
-High Quality
-</option>
-
+<option value="isnet_quint8">Fast Mode</option>
+<option value="isnet">High Quality</option>
 </select>
 
 </div>
@@ -227,45 +74,19 @@ High Quality
 
 <div class="box">
 
-<b>🎨 Background Color</b>
+<b>🎨 Background</b>
 
 <select id="bg">
 
-<option value="transparent">
-Transparent
-</option>
-
-<option value="#ffffff">
-White
-</option>
-
-<option value="#000000">
-Black
-</option>
-
-<option value="#ff0000">
-Red
-</option>
-
-<option value="#0000ff">
-Blue
-</option>
-
-<option value="#008000">
-Green
-</option>
-
-<option value="#ffff00">
-Yellow
-</option>
-
-<option value="#808080">
-Gray
-</option>
-
-<option value="custom">
-Custom Color
-</option>
+<option value="transparent">Transparent</option>
+<option value="#ffffff">White</option>
+<option value="#000000">Black</option>
+<option value="#0000ff">Blue</option>
+<option value="#008000">Green</option>
+<option value="#ff0000">Red</option>
+<option value="#ffff00">Yellow</option>
+<option value="#808080">Gray</option>
+<option value="custom">Custom Color</option>
 
 </select>
 
@@ -277,15 +98,45 @@ value="#ffffff">
 </div>
 
 
+<div class="box">
+
+<b>✂️ Edge Cleanup</b>
+
+<input
+type="range"
+id="cleanup"
+min="0"
+max="100"
+value="65">
+
+<div>
+Cleanup: <span id="cleanupValue">65</span>%
+</div>
+
 </div>
 
 
-<div style="text-align:center">
+<div class="box">
+
+<b>🎯 Halo Removal</b>
+
+<select id="halo">
+
+<option value="strong">Strong - Best for blue/green background</option>
+<option value="medium" selected>Medium</option>
+<option value="light">Light - Preserve more hair</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div style="text-align:center;margin-top:10px">
 
 <button id="remove" disabled>
-
 ✨ Remove Background
-
 </button>
 
 </div>
@@ -298,12 +149,10 @@ value="#ffffff">
 
 <div class="preview">
 
-<img
-id="original"
-style="display:none">
+<img id="original" style="display:none">
 
 <span id="originalText">
-Your selected photo will appear here
+Selected image will appear here
 </span>
 
 </div>
@@ -311,13 +160,9 @@ Your selected photo will appear here
 
 <h3>Result</h3>
 
-<div
-id="resultBox"
-class="preview">
+<div class="preview" id="resultBox">
 
-<img
-id="result"
-style="display:none">
+<img id="result" style="display:none">
 
 <span id="resultText">
 Result will appear here
@@ -328,188 +173,118 @@ Result will appear here
 
 <div class="actions">
 
-<button
-id="downloadPNG"
-disabled>
-
+<button id="downloadPNG" disabled>
 ⬇️ Download PNG
-
 </button>
 
-
-<button
-id="downloadJPG"
-disabled>
-
+<button id="downloadJPG" disabled>
 ⬇️ Download JPG
-
 </button>
 
 </div>
 
 
-<div
-id="sizeInfo"
-class="info"
-style="display:none">
-</div>
-
+<div id="sizeInfo" class="info" style="display:none"></div>
 
 </div>
-
 </div>
 
 
 <script type="module">
 
-
-const fileInput =
-document.getElementById("file");
-
-const original =
-document.getElementById("original");
-
-const originalText =
-document.getElementById("originalText");
-
-const removeBtn =
-document.getElementById("remove");
-
-const status =
-document.getElementById("status");
-
-const result =
-document.getElementById("result");
-
-const resultText =
-document.getElementById("resultText");
-
-const resultBox =
-document.getElementById("resultBox");
-
-const downloadPNG =
-document.getElementById("downloadPNG");
-
-const downloadJPG =
-document.getElementById("downloadJPG");
-
-const bg =
-document.getElementById("bg");
-
-const customColor =
-document.getElementById("customColor");
-
-const modelSelect =
-document.getElementById("model");
-
-const sizeInfo =
-document.getElementById("sizeInfo");
-
+const fileInput=document.getElementById("file");
+const original=document.getElementById("original");
+const originalText=document.getElementById("originalText");
+const removeBtn=document.getElementById("remove");
+const status=document.getElementById("status");
+const result=document.getElementById("result");
+const resultText=document.getElementById("resultText");
+const downloadPNG=document.getElementById("downloadPNG");
+const downloadJPG=document.getElementById("downloadJPG");
+const bg=document.getElementById("bg");
+const customColor=document.getElementById("customColor");
+const modelSelect=document.getElementById("model");
+const cleanup=document.getElementById("cleanup");
+const cleanupValue=document.getElementById("cleanupValue");
+const sizeInfo=document.getElementById("sizeInfo");
 
 let selectedFile=null;
-
 let transparentBlob=null;
+let finalBlob=null;
+let originalImage=null;
 
-let currentResultBlob=null;
+
+/* CLEANUP SLIDER */
+
+cleanup.addEventListener("input",()=>{
+cleanupValue.textContent=cleanup.value;
+});
 
 
-/* -------------------------
-SELECT IMAGE
-------------------------- */
+/* SELECT IMAGE */
 
-fileInput.addEventListener(
-"change",
-function(){
+fileInput.addEventListener("change",function(){
 
 selectedFile=this.files[0];
 
 if(!selectedFile){
-
 removeBtn.disabled=true;
-
 return;
-
 }
 
-
-/* SHOW SELECTED IMAGE IMMEDIATELY */
-
-const url=
-URL.createObjectURL(selectedFile);
+const url=URL.createObjectURL(selectedFile);
 
 original.src=url;
-
 original.style.display="block";
-
 originalText.style.display="none";
 
 result.style.display="none";
-
 resultText.style.display="block";
 
 downloadPNG.disabled=true;
-
 downloadJPG.disabled=true;
-
 sizeInfo.style.display="none";
 
-status.innerHTML=
-'<span class="success">'+
-"✅ Image selected successfully"+
-"</span>";
-
 removeBtn.disabled=false;
+
+status.innerHTML=
+'<span class="success">✅ Image selected successfully</span>';
 
 });
 
 
-/* -------------------------
-REMOVE BACKGROUND
-------------------------- */
+/* AI PROCESS */
 
-removeBtn.addEventListener(
-"click",
-async function(){
+removeBtn.addEventListener("click",async()=>{
 
 if(!selectedFile)return;
 
 removeBtn.disabled=true;
-
 downloadPNG.disabled=true;
-
 downloadJPG.disabled=true;
 
-status.textContent=
-"⏳ Starting AI...";
-
+status.textContent="⏳ Starting AI...";
 
 try{
 
-
-/* LOAD LIBRARY */
-
-const {
-removeBackground
-}=await import(
+const library=await import(
 "https://esm.sh/@imgly/background-removal@1.7.0"
 );
 
+const removeBackground=library.removeBackground;
+
+if(typeof removeBackground!=="function"){
+throw new Error("AI library failed to load.");
+}
 
 status.textContent=
 "⏳ AI model loading...";
 
-
-/* PROCESS */
-
-transparentBlob=
-await removeBackground(
+transparentBlob=await removeBackground(
 selectedFile,
 {
-
 model:modelSelect.value,
-
 device:"cpu",
-
 proxyToWorker:true,
 
 output:{
@@ -517,22 +292,16 @@ format:"image/png",
 quality:1
 },
 
-progress:function(
-key,
-current,
-total
-){
+progress:(key,current,total)=>{
 
 if(total){
 
-const percent=
-Math.round(
-current/total*100
+const percent=Math.round(
+(current/total)*100
 );
 
 status.textContent=
-"⏳ AI Processing "+
-percent+"%";
+"⏳ AI Processing "+percent+"%";
 
 }
 
@@ -541,11 +310,15 @@ percent+"%";
 }
 );
 
+status.textContent=
+"⏳ Cleaning image edges...";
 
-/* SHOW TRANSPARENT RESULT */
+await makeCleanResult();
 
-showBackground();
-
+status.innerHTML=
+'<span class="success">'+
+"✅ Background Removed + Edge Cleaned!"+
+"</span>";
 
 }catch(error){
 
@@ -553,10 +326,8 @@ console.error(error);
 
 status.innerHTML=
 '<span class="error">'+
-"❌ Background removal failed"+
-"<br><small>"+
+"❌ Processing failed<br>"+
 error.message+
-"</small>"+
 "</span>";
 
 }
@@ -566,276 +337,454 @@ removeBtn.disabled=false;
 });
 
 
-/* -------------------------
-SHOW BACKGROUND
-------------------------- */
+/* MAIN CLEANING FUNCTION */
 
-function showBackground(){
+async function makeCleanResult(){
 
-if(!transparentBlob)return;
+const aiURL=URL.createObjectURL(transparentBlob);
+
+const aiImage=await loadImage(aiURL);
+
+const originalURL=URL.createObjectURL(selectedFile);
+
+originalImage=await loadImage(originalURL);
+
+const w=aiImage.naturalWidth;
+const h=aiImage.naturalHeight;
+
+const canvas=document.createElement("canvas");
+
+canvas.width=w;
+canvas.height=h;
+
+const ctx=canvas.getContext("2d",{
+willReadFrequently:true
+});
+
+ctx.drawImage(aiImage,0,0,w,h);
+
+const aiData=ctx.getImageData(
+0,0,w,h
+);
+
+const ow=originalImage.naturalWidth;
+const oh=originalImage.naturalHeight;
+
+const originalCanvas=document.createElement("canvas");
+
+originalCanvas.width=w;
+originalCanvas.height=h;
+
+const octx=originalCanvas.getContext(
+"2d",
+{willReadFrequently:true}
+);
+
+octx.drawImage(
+originalImage,
+0,0,w,h
+);
+
+const originalData=octx.getImageData(
+0,0,w,h
+);
 
 
-const img=
-new Image();
+/*
+Detect background colour from image borders.
+This is useful for blue/green/white halos.
+*/
+
+const bgColor=getBorderColor(
+originalData.data,
+w,
+h
+);
 
 
-img.onload=function(){
+const alpha=aiData.data;
+const pixels=originalData.data;
 
-const canvas=
-document.createElement("canvas");
+const cleanLevel=
+parseInt(cleanup.value)/100;
 
-canvas.width=
-img.naturalWidth;
-
-canvas.height=
-img.naturalHeight;
+let haloMode=
+document.getElementById("halo").value;
 
 
-const ctx=
-canvas.getContext("2d");
+/*
+Remove contaminated edge colours.
+*/
 
+for(let i=0;i<alpha.length;i+=4){
 
-/* BACKGROUND */
+let r=alpha[i];
+let g=alpha[i+1];
+let b=alpha[i+2];
+let a=alpha[i+3]/255;
 
-if(bg.value!=="transparent"){
+if(a<=0){
 
-let chosenColor=
-bg.value;
-
-if(chosenColor==="custom"){
-
-chosenColor=
-customColor.value;
+alpha[i+3]=0;
+continue;
 
 }
 
-ctx.fillStyle=
-chosenColor;
 
-ctx.fillRect(
+/* very weak AI pixels */
+
+if(a<0.10){
+
+alpha[i+3]=0;
+continue;
+
+}
+
+
+/*
+Halo correction.
+Only strongest on semi-transparent edge pixels.
+*/
+
+if(a<0.95){
+
+const br=bgColor.r;
+const bgc=bgColor.g;
+const bb=bgColor.b;
+
+const distance=Math.sqrt(
+Math.pow(r-br,2)+
+Math.pow(g-bgc,2)+
+Math.pow(b-bb,2)
+);
+
+
+/*
+If pixel is close to original background
+reduce its alpha.
+*/
+
+let threshold=65;
+
+if(haloMode==="strong")threshold=95;
+if(haloMode==="light")threshold=45;
+
+if(distance<threshold){
+
+let reduction=
+(1-a)*cleanLevel;
+
+if(haloMode==="strong"){
+reduction*=1.35;
+}
+
+a=Math.max(
 0,
-0,
-canvas.width,
-canvas.height
+a-reduction
 );
 
 }
 
 
-/* FOREGROUND */
+/*
+Decontaminate colour.
+Estimate foreground colour from
+observed pixel + background.
+*/
 
-ctx.drawImage(
-img,
+if(a>0.12 && a<0.90){
+
+r=(r-(1-a)*br)/a;
+g=(g-(1-a)*bgc)/a;
+b=(b-(1-a)*bb)/a;
+
+r=Math.max(0,Math.min(255,r));
+g=Math.max(0,Math.min(255,g));
+b=Math.max(0,Math.min(255,b));
+
+alpha[i]=r;
+alpha[i+1]=g;
+alpha[i+2]=b;
+
+}
+
+}
+
+alpha[i+3]=Math.round(a*255);
+
+}
+
+
+/*
+Extra edge cleanup.
+*/
+
+for(let y=1;y<h-1;y++){
+
+for(let x=1;x<w-1;x++){
+
+const i=(y*w+x)*4;
+
+let a=alpha[i+3]/255;
+
+if(a>0 && a<0.35){
+
+let neighbours=0;
+
+const positions=[
+i-4,i+4,
+i-w*4,i+w*4
+];
+
+for(const p of positions){
+
+if(alpha[p+3]/255>0.5){
+neighbours++;
+}
+
+}
+
+if(neighbours===0){
+
+alpha[i+3]=0;
+
+}
+
+}
+
+}
+
+}
+
+
+ctx.putImageData(
+aiData,
 0,
 0
 );
 
 
-/* PNG RESULT */
+/*
+Create final background.
+*/
 
-canvas.toBlob(
-function(blob){
+const finalCanvas=
+document.createElement("canvas");
 
-currentResultBlob=
-blob;
+finalCanvas.width=w;
+finalCanvas.height=h;
+
+const fctx=
+finalCanvas.getContext("2d");
+
+let selectedBG=bg.value;
+
+if(selectedBG!=="transparent"){
+
+if(selectedBG==="custom"){
+selectedBG=customColor.value;
+}
+
+fctx.fillStyle=selectedBG;
+
+fctx.fillRect(
+0,0,w,h
+);
+
+}
+
+fctx.drawImage(
+canvas,
+0,0
+);
+
+
+/*
+Create PNG.
+*/
+
+finalCanvas.toBlob(
+blob=>{
+
+finalBlob=blob;
 
 result.src=
 URL.createObjectURL(blob);
 
-result.style.display=
-"block";
+result.style.display="block";
+resultText.style.display="none";
 
-resultText.style.display=
-"none";
+downloadPNG.disabled=false;
+downloadJPG.disabled=false;
 
-downloadPNG.disabled=
-false;
+sizeInfo.style.display="block";
 
-downloadJPG.disabled=
-false;
-
-
-sizeInfo.style.display=
-"block";
-
-sizeInfo.innerHTML=
-"Final image size: "+
+sizeInfo.textContent=
+"Final size: "+
 (blob.size/1024).toFixed(2)+
-" KB";
-
-
-status.innerHTML=
-'<span class="success">'+
-"✅ Background removed successfully!"+
-"</span>";
+" KB • "+
+w+" × "+h+" px";
 
 },
 "image/png"
 );
 
+}
+
+
+/* BORDER COLOUR */
+
+function getBorderColor(data,w,h){
+
+let r=0,g=0,b=0,count=0;
+
+const points=[];
+
+
+/* top + bottom */
+
+for(let x=0;x<w;x+=10){
+
+points.push(x*4);
+points.push(((h-1)*w+x)*4);
+
+}
+
+
+/* left + right */
+
+for(let y=0;y<h;y+=10){
+
+points.push((y*w)*4);
+
+points.push((y*w+w-1)*4);
+
+}
+
+
+for(const i of points){
+
+r+=data[i];
+g+=data[i+1];
+b+=data[i+2];
+
+count++;
+
+}
+
+return{
+r:r/count,
+g:g/count,
+b:b/count
 };
 
-
-img.src=
-URL.createObjectURL(
-transparentBlob
-);
-
 }
 
 
-/* -------------------------
-CHANGE COLOR WITHOUT AI AGAIN
-------------------------- */
+/* IMAGE LOADER */
 
-bg.addEventListener(
-"change",
-function(){
+function loadImage(url){
 
-if(transparentBlob){
+return new Promise((resolve,reject)=>{
 
-showBackground();
+const img=new Image();
 
-}
+img.onload=()=>resolve(img);
+
+img.onerror=reject;
+
+img.src=url;
 
 });
 
+}
 
-customColor.addEventListener(
-"input",
-function(){
 
+/* BACKGROUND CHANGE */
+
+bg.addEventListener("change",()=>{
+if(transparentBlob){
+makeCleanResult();
+}
+});
+
+
+customColor.addEventListener("input",()=>{
 if(
 transparentBlob &&
 bg.value==="custom"
 ){
-
-showBackground();
-
+makeCleanResult();
 }
-
 });
 
 
-/* -------------------------
-DOWNLOAD PNG
-------------------------- */
+/* DOWNLOAD PNG */
 
-downloadPNG.addEventListener(
-"click",
-function(){
+downloadPNG.addEventListener("click",()=>{
 
-if(!currentResultBlob)return;
+if(!finalBlob)return;
 
 downloadFile(
-currentResultBlob,
-"RG-Digital-Background-Removed.png"
+finalBlob,
+"RG-Digital-Clean-Background.png"
 );
 
 });
 
 
-/* -------------------------
-DOWNLOAD JPG
-------------------------- */
+/* DOWNLOAD JPG */
 
-downloadJPG.addEventListener(
-"click",
-function(){
+downloadJPG.addEventListener("click",async()=>{
 
 if(!transparentBlob)return;
 
+const img=await loadImage(
+URL.createObjectURL(transparentBlob)
+);
 
-const img=
-new Image();
+const canvas=document.createElement("canvas");
 
+canvas.width=img.naturalWidth;
+canvas.height=img.naturalHeight;
 
-img.onload=function(){
+const ctx=canvas.getContext("2d");
 
-const canvas=
-document.createElement("canvas");
+let colorValue=bg.value;
 
-canvas.width=
-img.naturalWidth;
-
-canvas.height=
-img.naturalHeight;
-
-
-const ctx=
-canvas.getContext("2d");
-
-
-let chosenColor=
-bg.value;
-
-if(
-chosenColor==="transparent"
-){
-
-chosenColor="#ffffff";
-
+if(colorValue==="transparent"){
+colorValue="#ffffff";
 }
 
-if(
-chosenColor==="custom"
-){
-
-chosenColor=
-customColor.value;
-
+if(colorValue==="custom"){
+colorValue=customColor.value;
 }
 
-
-ctx.fillStyle=
-chosenColor;
+ctx.fillStyle=colorValue;
 
 ctx.fillRect(
-0,
-0,
+0,0,
 canvas.width,
 canvas.height
 );
 
-ctx.drawImage(
-img,
-0,
-0
-);
+ctx.drawImage(img,0,0);
 
-
-canvas.toBlob(
-function(blob){
+canvas.toBlob(blob=>{
 
 downloadFile(
 blob,
-"RG-Digital-Background-Removed.jpg"
+"RG-Digital-Clean-Background.jpg"
 );
 
-},
-"image/jpeg",
-0.95
-);
-
-};
-
-
-img.src=
-URL.createObjectURL(
-transparentBlob
-);
+},"image/jpeg",0.95);
 
 });
 
 
-/* -------------------------
-DOWNLOAD FUNCTION
-------------------------- */
+/* DOWNLOAD */
 
-function downloadFile(
-blob,
-filename
-){
+function downloadFile(blob,name){
 
 const url=
 URL.createObjectURL(blob);
@@ -844,8 +793,7 @@ const a=
 document.createElement("a");
 
 a.href=url;
-
-a.download=filename;
+a.download=name;
 
 document.body.appendChild(a);
 
@@ -853,17 +801,11 @@ a.click();
 
 a.remove();
 
-setTimeout(
-function(){
-
+setTimeout(()=>{
 URL.revokeObjectURL(url);
-
-},
-1000
-);
+},1000);
 
 }
-
 
 </script>
 
