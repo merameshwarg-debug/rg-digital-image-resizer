@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PDF Compressor - Compress PDF to 10KB to 1024KB | RG Digital</title>
+<meta name="description" content="Free online PDF compressor. Compress PDF files to a target size from 10KB to 1024KB. Fast, simple and browser based.">
+<meta name="robots" content="index, follow">
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7fb;
+    color:#172033;
+}
+
+.header{
+    background:#ffffff;
+    border-bottom:1px solid #e5e7eb;
+    padding:16px 20px;
+    text-align:center;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:800;
+    color:#1261d8;
+}
+
+.subtitle{
+    margin-top:5px;
+    color:#667085;
+    font-size:14px;
+}
+
+.container{
+    max-width:650px;
+    margin:35px auto;
+    padding:0 16px;
+}
+
+.card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 5px 25px rgba(0,0,0,.08);
+}
+
+h1{
+    text-align:center;
+    margin:0 0 10px;
+    font-size:28px;
+}
+
+.description{
+    text-align:center;
+    color:#667085;
+    line-height:1.5;
+    margin-bottom:25px;
+}
+
+.upload-box{
+    border:2px dashed #b7c8e6;
+    border-radius:15px;
+    padding:30px 15px;
+    text-align:center;
+    background:#f8fbff;
+    cursor:pointer;
+}
+
+.upload-box:hover{
+    background:#f1f7ff;
+}
+
+.upload-icon{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+#pdfFile{
+    display:none;
+}
+
+.file-name{
+    margin-top:12px;
+    font-weight:600;
+    word-break:break-word;
+}
+
+.settings{
+    margin-top:22px;
+}
+
+label{
+    display:block;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.size-row{
+    display:flex;
+    gap:10px;
+}
+
+#targetSize{
+    flex:1;
+    padding:13px;
+    border:1px solid #ccd5e2;
+    border-radius:10px;
+    font-size:16px;
+}
+
+#unit{
+    width:100px;
+    padding:13px;
+    border:1px solid #ccd5e2;
+    border-radius:10px;
+    font-size:16px;
+    background:white;
+}
+
+.quick-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:12px;
+}
+
+.quick-buttons button{
+    border:1px solid #ccd5e2;
+    background:#fff;
+    padding:8px 13px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.quick-buttons button:hover{
+    background:#eef5ff;
+}
+
+.compress-btn{
+    width:100%;
+    margin-top:25px;
+    padding:15px;
+    border:0;
+    border-radius:11px;
+    background:#1261d8;
+    color:white;
+    font-size:17px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.compress-btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+.progress{
+    display:none;
+    margin-top:22px;
+}
+
+.progress-text{
+    text-align:center;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.progress-bar{
+    width:100%;
+    height:10px;
+    background:#e6ebf2;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    width:0%;
+    height:100%;
+    background:#1261d8;
+    transition:.3s;
+}
+
+.result{
+    display:none;
+    margin-top:25px;
+    padding:18px;
+    border-radius:12px;
+    background:#f7fafc;
+    border:1px solid #e1e7ef;
+}
+
+.result p{
+    margin:8px 0;
+}
+
+.download-btn{
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    background:#16803c;
+    color:white;
+    padding:13px;
+    border-radius:10px;
+    margin-top:15px;
+    font-weight:700;
+}
+
+.note{
+    margin-top:20px;
+    color:#667085;
+    font-size:13px;
+    line-height:1.5;
+    text-align:center;
+}
+
+.error{
+    display:none;
+    margin-top:15px;
+    padding:12px;
+    border-radius:10px;
+    background:#fff0f0;
+    color:#b42318;
+    text-align:center;
+}
+
+.footer{
+    text-align:center;
+    padding:25px 15px;
+    color:#667085;
+    font-size:13px;
+}
+
+@media(max-width:500px){
+    .card{
+        padding:18px;
+    }
+
+    h1{
+        font-size:24px;
+    }
+
+    .size-row{
+        flex-direction:column;
+    }
+
+    #unit{
+        width:100%;
+    }
+}
+</style>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">RG Digital Image Tools</div>
+    <div class="subtitle">Fast • Simple • Free Online Tools</div>
+</header>
+
+<main class="container">
+
+<div class="card">
+
+<h1>📄 PDF Compressor</h1>
+
+<div class="description">
+Compress your PDF to your required size from
+<strong>10 KB to 1024 KB</strong>.
+</div>
+
+<label for="pdfFile" class="upload-box">
+    <div class="upload-icon">📄</div>
+    <strong>Choose PDF File</strong>
+    <div style="margin-top:6px;color:#667085;">
+        Tap here to upload your PDF
+    </div>
+    <div id="fileName" class="file-name"></div>
+</label>
+
+<input type="file" id="pdfFile" accept="application/pdf">
+
+<div class="settings">
+
+<label for="targetSize">Target PDF Size</label>
+
+<div class="size-row">
+
+<input
+    type="number"
+    id="targetSize"
+    min="10"
+    max="1024"
+    value="180"
+    placeholder="Enter size">
+
+<select id="unit">
+    <option value="KB">KB</option>
+    <option value="MB">MB</option>
+</select>
+
+</div>
+
+<div class="quick-buttons">
+    <button onclick="setSize(20)">20 KB</button>
+    <button onclick="setSize(50)">50 KB</button>
+    <button onclick="setSize(100)">100 KB</button>
+    <button onclick="setSize(180)">180 KB</button>
+    <button onclick="setSize(200)">200 KB</button>
+    <button onclick="setSize(500)">500 KB</button>
+    <button onclick="setSize(1024)">1024 KB</button>
+</div>
+
+</div>
+
+<button id="compressBtn" class="compress-btn" disabled>
+    Compress PDF
+</button>
+
+<div id="progress" class="progress">
+
+    <div id="progressText" class="progress-text">
+        Preparing...
+    </div>
+
+    <div class="progress-bar">
+        <div id="progressFill" class="progress-fill"></div>
+    </div>
+
+</div>
+
+<div id="error" class="error"></div>
+
+<div id="result" class="result">
+
+    <p>
+        <strong>Original Size:</strong>
+        <span id="originalSize"></span>
+    </p>
+
+    <p>
+        <strong>Compressed Size:</strong>
+        <span id="compressedSize"></span>
+    </p>
+
+    <p>
+        <strong>Target Size:</strong>
+        <span id="targetResult"></span>
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+        <span id="status"></span>
+    </p>
+
+    <a id="downloadBtn"
+       class="download-btn"
+       href="#"
+       download="compressed.pdf">
+       ⬇️ Download Compressed PDF
+    </a>
+
+</div>
+
+<div class="note">
+Your PDF is processed in your browser. It is not uploaded to our server.
+<br><br>
+Very complex or multi-page PDFs may not reach extremely small target sizes
+because readability and page content must be preserved.
+</div>
+
+</div>
+
+</main>
+
+<footer class="footer">
+© RG Digital Image Tools
+</footer>
+
+<script>
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+const { jsPDF } = window.jspdf;
+
+let selectedFile = null;
+let lastDownloadUrl = null;
+
+const fileInput = document.getElementById("pdfFile");
+const fileName = document.getElementById("fileName");
+const compressBtn = document.getElementById("compressBtn");
+
+fileInput.addEventListener("change", function(){
+
+    selectedFile = this.files[0];
+
+    if(!selectedFile){
+        compressBtn.disabled = true;
+        return;
+    }
+
+    if(selectedFile.type !== "application/pdf"){
+        showError("Please select a PDF file.");
+        compressBtn.disabled = true;
+        return;
+    }
+
+    fileName.textContent =
+        selectedFile.name +
+        " • " +
+        formatBytes(selectedFile.size);
+
+    compressBtn.disabled = false;
+
+    hideError();
+    document.getElementById("result").style.display = "none";
+
+});
+
+function setSize(size){
+
+    document.getElementById("targetSize").value = size;
+    document.getElementById("unit").value = "KB";
+
+}
+
+function formatBytes(bytes){
+
+    if(bytes < 1024){
+        return bytes + " B";
+    }
+
+    if(bytes < 1024 * 1024){
+        return (bytes / 1024).toFixed(1) + " KB";
+    }
+
+    return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+
+}
+
+function showError(message){
+
+    const error = document.getElementById("error");
+
+    error.textContent = message;
+    error.style.display = "block";
+
+}
+
+function hideError(){
+
+    document.getElementById("error").style.display = "none";
+
+}
+
+function setProgress(percent, text){
+
+    document.getElementById("progressFill").style.width =
+        percent + "%";
+
+    document.getElementById("progressText").textContent =
+        text;
+
+}
+
+function getTargetBytes(){
+
+    let value =
+        Number(document.getElementById("targetSize").value);
+
+    let unit =
+        document.getElementById("unit").value;
+
+    if(!value || value < 10){
+        value = 10;
+    }
+
+    if(unit === "MB"){
+        return value * 1024 * 1024;
+    }
+
+    return value * 1024;
+
+}
+
+compressBtn.addEventListener("click", async function(){
+
+    if(!selectedFile){
+        showError("Please select a PDF first.");
+        return;
+    }
+
+    hideError();
+
+    const targetBytes = getTargetBytes();
+
+    if(targetBytes < 10 * 1024){
+        showError("Minimum target size is 10 KB.");
+        return;
+    }
+
+    if(targetBytes > 1024 * 1024){
+        showError("Maximum target size is 1024 KB.");
+        return;
+    }
+
+    compressBtn.disabled = true;
+
+    document.getElementById("progress").style.display = "block";
+    document.getElementById("result").style.display = "none";
+
+    try{
+
+        const arrayBuffer =
+            await selectedFile.arrayBuffer();
+
+        setProgress(5, "Reading PDF...");
+
+        const pdf =
+            await pdfjsLib.getDocument({
+                data: new Uint8Array(arrayBuffer)
+            }).promise;
+
+        const totalPages = pdf.numPages;
+
+        let pageImages = [];
+
+        for(let pageNumber = 1; pageNumber <= totalPages; pageNumber++){
+
+            setProgress(
+                10 + ((pageNumber - 1) / totalPages) * 40,
+                "Processing page " +
+                pageNumber +
+                " of " +
+                totalPages
+            );
+
+            const page =
+                await pdf.getPage(pageNumber);
+
+            const viewport =
+                page.getViewport({scale:1});
+
+            pageImages.push({
+                page: page,
+                width: viewport.width,
+                height: viewport.height
+            });
+
+        }
+
+        setProgress(55, "Compressing PDF...");
+
+        let resultBlob = null;
+
+        /*
+         * Multiple attempts.
+         * We reduce JPEG quality and scale until
+         * the result gets close to target size.
+         */
+
+        const qualities = [
+            0.85,
+            0.75,
+            0.65,
+            0.55,
+            0.45,
+            0.35,
+            0.25,
+            0.18
+        ];
+
+        const scales = [
+            1.25,
+            1.10,
+            0.95,
+            0.80,
+            0.65,
+            0.50
+        ];
+
+        let bestBlob = null;
+
+        let bestDifference = Infinity;
+
+        for(let s = 0; s < scales.length; s++){
+
+            for(let q = 0; q < qualities.length; q++){
+
+                const scale = scales[s];
+                const quality = qualities[q];
+
+                setProgress(
+                    55 +
+                    ((s * qualities.length + q) /
+                    (scales.length * qualities.length)) * 40,
+                    "Optimizing PDF..."
+                );
+
+                const doc =
+                    new jsPDF({
+                        orientation:
+                            pageImages[0].width >
+                            pageImages[0].height
+                            ? "landscape"
+                            : "portrait",
+
+                        unit:"pt",
+
+                        format:[
+                            pageImages[0].width,
+                            pageImages[0].height
+                        ],
+
+                        compress:true
+                    });
+
+                for(let i = 0; i < pageImages.length; i++){
+
+                    const info =
+                        pageImages[i];
+
+                    const page =
+                        info.page;
+
+                    const canvas =
+                        document.createElement("canvas");
+
+                    const viewport =
+                        page.getViewport({
+                            scale:scale
+                        });
+
+                    canvas.width =
+                        Math.max(
+                            1,
+                            Math.floor(viewport.width)
+                        );
+
+                    canvas.height =
+                        Math.max(
+                            1,
+                            Math.floor(viewport.height)
+                        );
+
+                    const ctx =
+                        canvas.getContext("2d", {
+                            alpha:false
+                        });
+
+                    ctx.fillStyle = "#ffffff";
+
+                    ctx.fillRect(
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height
+                    );
+
+                    await page.render({
+                        canvasContext:ctx,
+                        viewport:viewport
+                    }).promise;
+
+                    const imageData =
+                        canvas.toDataURL(
+                            "image/jpeg",
+                            quality
+                        );
+
+                    if(i > 0){
+                        doc.addPage(
+                            [
+                                info.width,
+                                info.height
+                            ]
+                        );
+                    }
+
+                    doc.addImage(
+                        imageData,
+                        "JPEG",
+                        0,
+                        0,
+                        info.width,
+                        info.height,
+                        undefined,
+                        "FAST"
+                    );
+
+                }
+
+                const blob =
+                    doc.output("blob");
+
+                const difference =
+                    Math.abs(blob.size - targetBytes);
+
+                if(difference < bestDifference){
+
+                    bestDifference = difference;
+                    bestBlob = blob;
+
+                }
+
+                if(
+                    blob.size <= targetBytes &&
+                    blob.size >= targetBytes * 0.75
+                ){
+
+                    resultBlob = blob;
+                    break;
+
+                }
+
+            }
+
+            if(resultBlob){
+                break;
+            }
+
+        }
+
+        if(!resultBlob){
+            resultBlob = bestBlob;
+        }
+
+        if(!resultBlob){
+            throw new Error(
+                "PDF compression failed."
+            );
+        }
+
+        setProgress(100, "Compression complete!");
+
+        showResult(
+            selectedFile.size,
+            resultBlob.size,
+            targetBytes
+        );
+
+        if(lastDownloadUrl){
+            URL.revokeObjectURL(lastDownloadUrl);
+        }
+
+        lastDownloadUrl =
+            URL.createObjectURL(resultBlob);
+
+        const downloadBtn =
+            document.getElementById("downloadBtn");
+
+        downloadBtn.href =
+            lastDownloadUrl;
+
+        downloadBtn.download =
+            createFileName(
+                selectedFile.name
+            );
+
+    }catch(error){
+
+        console.error(error);
+
+        showError(
+            "Unable to compress this PDF. Please try another PDF."
+        );
+
+        document.getElementById("progress").style.display =
+            "none";
+
+    }finally{
+
+        compressBtn.disabled = false;
+
+    }
+
+});
+
+function createFileName(name){
+
+    const dot =
+        name.lastIndexOf(".");
+
+    if(dot === -1){
+        return name + "-compressed.pdf";
+    }
+
+    return (
+        name.substring(0,dot) +
+        "-compressed.pdf"
+    );
+
+}
+
+function showResult(
+    original,
+    compressed,
+    target
+){
+
+    document.getElementById("result").style.display =
+        "block";
+
+    document.getElementById("originalSize").textContent =
+        formatBytes(original);
+
+    document.getElementById("compressedSize").textContent =
+        formatBytes(compressed);
+
+    document.getElementById("targetResult").textContent =
+        formatBytes(target);
+
+    if(compressed <= target){
+
+        document.getElementById("status").textContent =
+            "Target size achieved ✓";
+
+    }else{
+
+        document.getElementById("status").textContent =
+            "Compressed as much as possible";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
