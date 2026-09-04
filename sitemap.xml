@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
     <loc>https://merameshwarg-debug.github.io/rg-digital-image-resizer/</loc>
   </url>
+
+  <url>
+    <loc>https://merameshwarg-debug.github.io/rg-digital-image-resizer/background-remover.html</loc>
+  </url>
+
+  <url>
+    <loc>https://merameshwarg-debug.github.io/rg-digital-image-resizer/image-compressor.html</loc>
+  </url>
+
+  <url>
+    <loc>https://merameshwarg-debug.github.io/rg-digital-image-resizer/image-resizer.html</loc>
+  </url>
+
+  <url>
+    <loc>https://merameshwarg-debug.github.io/rg-digital-image-resizer/image-to-pdf.html</loc>
+  </url>
+
+  <url>
+    <loc>https://merameshwarg-debug.github.io/rg-digital-image-resizer/pdf-to-jpg.html</loc>
+  </url>
+
+  <url>
+    <loc>https://merameshwarg-debug.github.io/rg-digital-image-resizer/about.html</loc>
+  </url>
+
+  <url>
+    <loc>https://merameshwarg-debug.github.io/rg-digital-image-resizer/contact.html</loc>
+  </url>
+
+  <url>
+    <loc>https://merameshwarg-debug.github.io/rg-digital-image-resizer/privacy-policy.html</loc>
+  </url>
+
 </urlset>
