@@ -6,11 +6,12 @@
 
 <title>PDF Compressor - Compress PDF to Exact Target Size | RG Digital</title>
 
-<meta name="description" content="Free online PDF compressor. Compress PDF to a target size from 10 KB to 1024 KB. Browser-based PDF compression with target size control.">
+<meta name="description" content="Free online PDF compressor. Compress PDF to a target size from 10 KB to 1024 KB. Browser-based PDF compression with password protected PDF support.">
 
 <meta name="robots" content="index, follow">
 
 <style>
+
 *{
     box-sizing:border-box;
 }
@@ -94,6 +95,48 @@ h1{
     margin-top:12px;
     font-weight:600;
     word-break:break-word;
+}
+
+.password-box{
+    margin-top:20px;
+    padding:16px;
+    border-radius:12px;
+    background:#f8fbff;
+    border:1px solid #dce6f3;
+}
+
+.password-box label{
+    margin-bottom:8px;
+}
+
+.password-row{
+    display:flex;
+    gap:8px;
+}
+
+#pdfPassword{
+    flex:1;
+    min-width:0;
+    padding:13px;
+    border:1px solid #ccd5e2;
+    border-radius:10px;
+    font-size:16px;
+}
+
+.show-password{
+    padding:0 14px;
+    border:1px solid #ccd5e2;
+    background:#fff;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.password-help{
+    margin-top:8px;
+    color:#667085;
+    font-size:12px;
+    line-height:1.5;
 }
 
 .settings{
@@ -271,7 +314,17 @@ label{
     #unit{
         width:100%;
     }
+
+    .password-row{
+        flex-direction:column;
+    }
+
+    .show-password{
+        padding:12px;
+    }
+
 }
+
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -312,6 +365,40 @@ Compress your PDF to your required target size from
 </label>
 
 <input type="file" id="pdfFile" accept="application/pdf">
+
+
+<!-- PASSWORD -->
+
+<div class="password-box">
+
+    <label for="pdfPassword">
+        🔐 PDF Password
+    </label>
+
+    <div class="password-row">
+
+        <input
+            type="password"
+            id="pdfPassword"
+            placeholder="Enter PDF password if required"
+            autocomplete="off">
+
+        <button
+            type="button"
+            class="show-password"
+            id="showPassword">
+            👁️ Show
+        </button>
+
+    </div>
+
+    <div class="password-help">
+        Password-protected PDF असल्यास त्याचा योग्य password येथे टाका.
+        Password माहित नसल्यास PDF compress करता येणार नाही.
+    </div>
+
+</div>
+
 
 <div class="settings">
 
@@ -357,6 +444,7 @@ Compress your PDF to your required target size from
     Compress PDF
 </button>
 
+
 <div id="progress" class="progress">
 
     <div id="progressText" class="progress-text">
@@ -369,9 +457,11 @@ Compress your PDF to your required target size from
 
 </div>
 
+
 <div id="error" class="error"></div>
 
 <div id="warning" class="warning"></div>
+
 
 <div id="result" class="result">
 
@@ -410,14 +500,21 @@ Compress your PDF to your required target size from
 
 </div>
 
+
 <div class="note">
+
 Your PDF is processed directly in your browser.
 Your PDF is not uploaded to our server.
 
 <br><br>
 
+🔐 Password-protected PDFs are supported when you know the correct password.
+
+<br><br>
+
 For very small targets such as 10 KB, some PDFs cannot technically
 be reduced to that size while keeping the pages readable.
+
 </div>
 
 </div>
@@ -427,6 +524,7 @@ be reduced to that size while keeping the pages readable.
 <footer class="footer">
 © RG Digital Image Tools
 </footer>
+
 
 <script>
 
@@ -438,6 +536,7 @@ const { jsPDF } = window.jspdf;
 let selectedFile = null;
 let lastDownloadUrl = null;
 
+
 const fileInput =
 document.getElementById("pdfFile");
 
@@ -447,77 +546,140 @@ document.getElementById("fileName");
 const compressBtn =
 document.getElementById("compressBtn");
 
-fileInput.addEventListener("change", function(){
+const passwordInput =
+document.getElementById("pdfPassword");
+
+const showPasswordBtn =
+document.getElementById("showPassword");
+
+
+/* SHOW / HIDE PASSWORD */
+
+showPasswordBtn.addEventListener(
+"click",
+function(){
+
+    if(passwordInput.type === "password"){
+
+        passwordInput.type = "text";
+
+        this.textContent = "🙈 Hide";
+
+    }else{
+
+        passwordInput.type = "password";
+
+        this.textContent = "👁️ Show";
+
+    }
+
+});
+
+
+/* FILE SELECT */
+
+fileInput.addEventListener(
+"change",
+function(){
 
     selectedFile = this.files[0];
 
     hideError();
     hideWarning();
 
-    document.getElementById("result").style.display =
-        "none";
+    document.getElementById(
+        "result"
+    ).style.display = "none";
 
     if(!selectedFile){
 
         compressBtn.disabled = true;
+
         fileName.textContent = "";
 
         return;
+
     }
 
-    if(selectedFile.type !== "application/pdf"){
+    if(
+        selectedFile.type !==
+        "application/pdf"
+    ){
 
-        showError("Please select a valid PDF file.");
+        showError(
+            "Please select a valid PDF file."
+        );
 
         compressBtn.disabled = true;
 
         return;
+
     }
 
     fileName.textContent =
         selectedFile.name +
         " • " +
-        formatBytes(selectedFile.size);
+        formatBytes(
+            selectedFile.size
+        );
 
     compressBtn.disabled = false;
 
 });
 
+
+/* QUICK SIZE */
+
 function setSize(size){
 
-    document.getElementById("targetSize").value =
-        size;
+    document.getElementById(
+        "targetSize"
+    ).value = size;
 
-    document.getElementById("unit").value =
-        "KB";
+    document.getElementById(
+        "unit"
+    ).value = "KB";
 
 }
+
+
+/* FORMAT BYTES */
 
 function formatBytes(bytes){
 
     if(bytes < 1024){
 
-        return bytes.toFixed(0) + " B";
+        return bytes.toFixed(0) +
+        " B";
 
     }
 
     if(bytes < 1024 * 1024){
 
-        return (bytes / 1024).toFixed(2) + " KB";
+        return (
+            bytes / 1024
+        ).toFixed(2) +
+        " KB";
 
     }
 
     return (
         bytes /
         (1024 * 1024)
-    ).toFixed(2) + " MB";
+    ).toFixed(2) +
+    " MB";
 
 }
+
+
+/* ERROR */
 
 function showError(message){
 
     const box =
-        document.getElementById("error");
+        document.getElementById(
+            "error"
+        );
 
     box.textContent =
         message;
@@ -527,17 +689,25 @@ function showError(message){
 
 }
 
+
 function hideError(){
 
-    document.getElementById("error").style.display =
+    document.getElementById(
+        "error"
+    ).style.display =
         "none";
 
 }
+
+
+/* WARNING */
 
 function showWarning(message){
 
     const box =
-        document.getElementById("warning");
+        document.getElementById(
+            "warning"
+        );
 
     box.textContent =
         message;
@@ -547,32 +717,52 @@ function showWarning(message){
 
 }
 
+
 function hideWarning(){
 
-    document.getElementById("warning").style.display =
+    document.getElementById(
+        "warning"
+    ).style.display =
         "none";
 
 }
 
-function setProgress(percent,text){
 
-    document.getElementById("progressFill").style.width =
+/* PROGRESS */
+
+function setProgress(
+    percent,
+    text
+){
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
         percent + "%";
 
-    document.getElementById("progressText").textContent =
+    document.getElementById(
+        "progressText"
+    ).textContent =
         text;
 
 }
+
+
+/* TARGET */
 
 function getTargetBytes(){
 
     let value =
         Number(
-            document.getElementById("targetSize").value
+            document.getElementById(
+                "targetSize"
+            ).value
         );
 
     const unit =
-        document.getElementById("unit").value;
+        document.getElementById(
+            "unit"
+        ).value;
 
     if(!Number.isFinite(value)){
 
@@ -583,7 +773,9 @@ function getTargetBytes(){
     if(unit === "MB"){
 
         return Math.round(
-            value * 1024 * 1024
+            value *
+            1024 *
+            1024
         );
 
     }
@@ -593,6 +785,9 @@ function getTargetBytes(){
     );
 
 }
+
+
+/* FILE NAME */
 
 function createFileName(name){
 
@@ -613,7 +808,13 @@ function createFileName(name){
 
 }
 
-async function renderPageToCanvas(page,scale){
+
+/* RENDER PAGE */
+
+async function renderPageToCanvas(
+    page,
+    scale
+){
 
     const viewport =
         page.getViewport({
@@ -621,18 +822,24 @@ async function renderPageToCanvas(page,scale){
         });
 
     const canvas =
-        document.createElement("canvas");
+        document.createElement(
+            "canvas"
+        );
 
     canvas.width =
         Math.max(
             1,
-            Math.floor(viewport.width)
+            Math.floor(
+                viewport.width
+            )
         );
 
     canvas.height =
         Math.max(
             1,
-            Math.floor(viewport.height)
+            Math.floor(
+                viewport.height
+            )
         );
 
     const ctx =
@@ -665,6 +872,9 @@ async function renderPageToCanvas(page,scale){
 
 }
 
+
+/* CREATE PDF */
+
 async function createPdfBlob(
     pages,
     scale,
@@ -673,7 +883,11 @@ async function createPdfBlob(
 
     let doc = null;
 
-    for(let i = 0; i < pages.length; i++){
+    for(
+        let i = 0;
+        i < pages.length;
+        i++
+    ){
 
         const info =
             pages[i];
@@ -696,7 +910,8 @@ async function createPdfBlob(
                 new jsPDF({
 
                     orientation:
-                        info.width >= info.height
+                        info.width >=
+                        info.height
                         ? "landscape"
                         : "portrait",
 
@@ -708,16 +923,15 @@ async function createPdfBlob(
                     ],
 
                     compress:true
+
                 });
 
         }else{
 
-            doc.addPage(
-                [
-                    info.width,
-                    info.height
-                ]
-            );
+            doc.addPage([
+                info.width,
+                info.height
+            ]);
 
         }
 
@@ -738,20 +952,13 @@ async function createPdfBlob(
 
 }
 
+
+/* FIND BEST PDF */
+
 async function findBestPdf(
     pages,
     targetBytes
 ){
-
-    /*
-     * The search always rejects files above target.
-     * We keep the largest file that is still <= target.
-     *
-     * This gives the best possible quality under
-     * the selected maximum size.
-     */
-
-    const attempts = [];
 
     const scales = [
 
@@ -799,9 +1006,18 @@ async function findBestPdf(
         scales.length *
         qualities.length;
 
-    for(let s = 0; s < scales.length; s++){
 
-        for(let q = 0; q < qualities.length; q++){
+    for(
+        let s = 0;
+        s < scales.length;
+        s++
+    ){
+
+        for(
+            let q = 0;
+            q < qualities.length;
+            q++
+        ){
 
             attemptNumber++;
 
@@ -823,6 +1039,7 @@ async function findBestPdf(
 
             );
 
+
             const blob =
                 await createPdfBlob(
                     pages,
@@ -830,12 +1047,24 @@ async function findBestPdf(
                     qualities[q]
                 );
 
+
             const size =
                 blob.size;
 
-            if(size <= targetBytes){
 
-                if(size > bestUnderSize){
+            /*
+             * IMPORTANT:
+             * File must NEVER be above target.
+             */
+
+            if(
+                size <= targetBytes
+            ){
+
+                if(
+                    size >
+                    bestUnderSize
+                ){
 
                     bestUnder =
                         blob;
@@ -845,9 +1074,10 @@ async function findBestPdf(
 
                 }
 
+
                 /*
-                 * If extremely close to target,
-                 * there is no need to continue.
+                 * If within 1 KB of target,
+                 * this is good enough.
                  */
 
                 const difference =
@@ -859,37 +1089,100 @@ async function findBestPdf(
                 ){
 
                     return {
-                        blob:bestUnder,
+
+                        blob:
+                            bestUnder,
+
                         exact:true
+
                     };
 
                 }
 
             }
 
-            attempts.push({
-
-                size:size,
-
-                scale:scales[s],
-
-                quality:qualities[q]
-
-            });
-
         }
 
     }
 
+
     return {
 
-        blob:bestUnder,
+        blob:
+            bestUnder,
 
         exact:false
 
     };
 
 }
+
+
+/* SHOW RESULT */
+
+function showResult(
+    original,
+    compressed,
+    target
+){
+
+    document.getElementById(
+        "result"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "originalSize"
+    ).textContent =
+        formatBytes(
+            original
+        );
+
+
+    document.getElementById(
+        "compressedSize"
+    ).textContent =
+        formatBytes(
+            compressed
+        );
+
+
+    document.getElementById(
+        "targetResult"
+    ).textContent =
+        formatBytes(
+            target
+        );
+
+
+    const saved =
+        Math.max(
+            0,
+            original -
+            compressed
+        );
+
+
+    document.getElementById(
+        "savedSize"
+    ).textContent =
+        formatBytes(
+            saved
+        );
+
+
+    document.getElementById(
+        "status"
+    ).textContent =
+        compressed <= target
+        ? "Under target ✓"
+        : "Above target";
+
+}
+
+
+/* COMPRESS */
 
 compressBtn.addEventListener(
 "click",
@@ -905,15 +1198,20 @@ async function(){
 
     }
 
+
     hideError();
     hideWarning();
 
+
     document.getElementById(
         "result"
-    ).style.display = "none";
+    ).style.display =
+        "none";
+
 
     const targetBytes =
         getTargetBytes();
+
 
     if(
         !targetBytes ||
@@ -929,6 +1227,7 @@ async function(){
 
     }
 
+
     if(
         targetBytes >
         1024 * 1024
@@ -942,24 +1241,28 @@ async function(){
 
     }
 
+
     /*
-     * If original is already below target,
-     * we do not unnecessarily enlarge it.
+     * If original PDF is already
+     * smaller than target.
      */
 
     if(
-        selectedFile.size <= targetBytes
+        selectedFile.size <=
+        targetBytes
     ){
 
         showWarning(
             "This PDF is already smaller than or equal to your target size. No compression was needed."
         );
 
+
         showResult(
             selectedFile.size,
             selectedFile.size,
             targetBytes
         );
+
 
         if(lastDownloadUrl){
 
@@ -969,32 +1272,43 @@ async function(){
 
         }
 
+
         lastDownloadUrl =
             URL.createObjectURL(
                 selectedFile
             );
 
-        document.getElementById(
-            "downloadBtn"
-        ).href =
+
+        const downloadBtn =
+            document.getElementById(
+                "downloadBtn"
+            );
+
+
+        downloadBtn.href =
             lastDownloadUrl;
 
-        document.getElementById(
-            "downloadBtn"
-        ).download =
+
+        downloadBtn.download =
             createFileName(
                 selectedFile.name
             );
+
 
         return;
 
     }
 
-    compressBtn.disabled = true;
+
+    compressBtn.disabled =
+        true;
+
 
     document.getElementById(
         "progress"
-    ).style.display = "block";
+    ).style.display =
+        "block";
+
 
     try{
 
@@ -1003,23 +1317,153 @@ async function(){
             "Reading PDF..."
         );
 
+
         const arrayBuffer =
             await selectedFile.arrayBuffer();
 
-        const pdf =
-            await pdfjsLib.getDocument({
+
+        /*
+         * PASSWORD SUPPORT
+         *
+         * PDF.js asks for password
+         * when required.
+         */
+
+        let enteredPassword =
+            passwordInput.value;
+
+
+        const loadingTask =
+            pdfjsLib.getDocument({
 
                 data:
                     new Uint8Array(
                         arrayBuffer
-                    )
+                    ),
 
-            }).promise;
+                password:
+                    enteredPassword || undefined
+
+            });
+
+
+        /*
+         * PDF.js password callback
+         */
+
+        loadingTask.onPassword =
+            function(
+                callback,
+                reason
+            ){
+
+                /*
+                 * Password required
+                 */
+
+                if(
+                    reason ===
+                    pdfjsLib.PasswordResponses
+                        .NEED_PASSWORD
+                ){
+
+                    if(
+                        enteredPassword
+                    ){
+
+                        callback(
+                            enteredPassword
+                        );
+
+                    }else{
+
+                        const password =
+                            window.prompt(
+                                "🔐 This PDF is password protected. Please enter the PDF password:"
+                            );
+
+
+                        if(
+                            password === null
+                        ){
+
+                            throw new Error(
+                                "Password required."
+                            );
+
+                        }
+
+
+                        enteredPassword =
+                            password;
+
+
+                        passwordInput.value =
+                            password;
+
+
+                        callback(
+                            password
+                        );
+
+                    }
+
+                }
+
+                /*
+                 * Wrong password
+                 */
+
+                else if(
+                    reason ===
+                    pdfjsLib.PasswordResponses
+                        .INCORRECT_PASSWORD
+                ){
+
+                    const password =
+                        window.prompt(
+                            "❌ Incorrect password. Please enter the correct PDF password:"
+                        );
+
+
+                    if(
+                        password === null
+                    ){
+
+                        throw new Error(
+                            "Incorrect password."
+                        );
+
+                    }
+
+
+                    enteredPassword =
+                        password;
+
+
+                    passwordInput.value =
+                        password;
+
+
+                    callback(
+                        password
+                    );
+
+                }
+
+            };
+
+
+        const pdf =
+            await loadingTask.promise;
+
 
         const totalPages =
             pdf.numPages;
 
+
         const pages = [];
+
 
         for(
             let i = 1;
@@ -1042,36 +1486,45 @@ async function(){
 
             );
 
+
             const page =
                 await pdf.getPage(i);
+
 
             const viewport =
                 page.getViewport({
                     scale:1
                 });
 
+
             pages.push({
 
-                page:page,
+                page:
+                    page,
 
-                width:viewport.width,
+                width:
+                    viewport.width,
 
-                height:viewport.height
+                height:
+                    viewport.height
 
             });
 
         }
+
 
         setProgress(
             20,
             "Starting compression..."
         );
 
+
         const result =
             await findBestPdf(
                 pages,
                 targetBytes
             );
+
 
         if(!result.blob){
 
@@ -1081,9 +1534,9 @@ async function(){
 
         }
 
+
         /*
-         * Absolute safety check:
-         * never allow a file larger than target.
+         * FINAL SAFETY CHECK
          */
 
         if(
@@ -1097,10 +1550,12 @@ async function(){
 
         }
 
+
         setProgress(
             100,
             "Compression complete!"
         );
+
 
         showResult(
 
@@ -1112,6 +1567,7 @@ async function(){
 
         );
 
+
         if(lastDownloadUrl){
 
             URL.revokeObjectURL(
@@ -1120,23 +1576,28 @@ async function(){
 
         }
 
+
         lastDownloadUrl =
             URL.createObjectURL(
                 result.blob
             );
+
 
         const downloadBtn =
             document.getElementById(
                 "downloadBtn"
             );
 
+
         downloadBtn.href =
             lastDownloadUrl;
+
 
         downloadBtn.download =
             createFileName(
                 selectedFile.name
             );
+
 
         if(result.exact){
 
@@ -1148,8 +1609,9 @@ async function(){
         }else{
 
             showWarning(
-                "The selected target could not be reached exactly. The downloaded PDF is still guaranteed not to exceed the target size."
+                "The exact target could not be reached. The downloaded PDF is guaranteed not to exceed your target size."
             );
+
 
             document.getElementById(
                 "status"
@@ -1158,18 +1620,50 @@ async function(){
 
         }
 
+
     }catch(error){
 
         console.error(error);
 
+
+        let message =
+            "Unable to process this PDF.";
+
+
+        if(
+            error &&
+            error.message
+        ){
+
+            if(
+                error.message
+                .toLowerCase()
+                .includes("password")
+            ){
+
+                message =
+                    "❌ Incorrect PDF password or password is required.";
+
+            }else{
+
+                message =
+                    error.message;
+
+            }
+
+        }
+
+
         showError(
-            "Unable to compress this PDF. The PDF may be too complex for the selected target size."
+            message
         );
+
 
         document.getElementById(
             "progress"
         ).style.display =
             "none";
+
 
     }finally{
 
@@ -1179,45 +1673,6 @@ async function(){
     }
 
 });
-
-function showResult(
-    original,
-    compressed,
-    target
-){
-
-    document.getElementById(
-        "result"
-    ).style.display =
-        "block";
-
-    document.getElementById(
-        "originalSize"
-    ).textContent =
-        formatBytes(original);
-
-    document.getElementById(
-        "compressedSize"
-    ).textContent =
-        formatBytes(compressed);
-
-    document.getElementById(
-        "targetResult"
-    ).textContent =
-        formatBytes(target);
-
-    const saved =
-        Math.max(
-            0,
-            original - compressed
-        );
-
-    document.getElementById(
-        "savedSize"
-    ).textContent =
-        formatBytes(saved);
-
-}
 
 </script>
 
